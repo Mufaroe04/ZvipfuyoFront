@@ -1,5 +1,5 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { Task, HealthRecord, CountingSession, Transfer, WeightEntry } from '../../../types/types';
+import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
+import { Task, HealthRecord, CountingSession, Transfer, WeightEntry, LactationPeriod, MilkYield, MilkQuality, MilkYieldPayload } from '../../../types/types';
 import { operationsService } from '../../../services/operationsService';
 
 interface OpsState {
@@ -8,6 +8,9 @@ interface OpsState {
   countingSessions: CountingSession[];
   transfers: Transfer[];
   weights: WeightEntry[];
+  lactations: LactationPeriod[];
+  milkQuality: MilkQuality[];
+  milkYields: MilkYield[];
   loading: boolean;
   error: string | null;
 }
@@ -17,6 +20,9 @@ const initialState: OpsState = {
   countingSessions: [],
   transfers: [],
   weights: [],
+  lactations: [],
+  milkQuality: [],
+  milkYields: [],
   loading: false,
   error: null,
 };
@@ -60,6 +66,38 @@ export const addHealthRecord = createAsyncThunk('ops/addHealth', async (data: Pa
   return response.data;
 });
 
+export const fetchMilkYields =createAsyncThunk('ops/fetchMilkYields',async ()=>{
+  const response =await operationsService.getMilkYield()
+  return response.data 
+})
+
+export const addMilkYields=createAsyncThunk<MilkYield,MilkYieldPayload, { rejectValue: string }>(
+  'ops/addMilkYields',
+  async (data, { rejectWithValue })=>{
+    try {
+        const response =await operationsService.addMilkYield(data)
+        return response.data
+    } catch (err:any) {
+      return rejectWithValue(err.response?.data?.message || 'failed to create milk yield');
+    }
+
+})
+
+export const updateMilkYield=createAsyncThunk<MilkYield,{id:number,data:Partial<MilkYieldPayload>},{ rejectValue: string }>(
+  'ops/upadateMilkYields',
+  async({ id, data }, { rejectWithValue })=>{
+    try {
+      const response = await  operationsService.updateMilkYield(id,data)
+      return response.data;
+
+    } catch (err:any) {
+      return rejectWithValue(err.response?.data?.message || 'Update failed');
+
+      
+    }
+  }
+
+)
 export const fetchCountingSessions = createAsyncThunk('ops/fetchCounting', async () => {
   const response = await operationsService.getCountingSessions();
   return response.data;
@@ -151,7 +189,51 @@ const operationsSlice = createSlice({
       .addCase(addHealthRecord.fulfilled, (state, action) => {
         state.healthRecords.unshift(action.payload); // Add new treatment to top
       })
-      
+      .addCase(fetchMilkYields.pending,(state)=>{
+        state.loading=true;
+        state.error=null;
+      })
+      //MilkYields
+      .addCase(fetchMilkYields.fulfilled,(state,action)=>{
+        state.loading=false;
+        state.milkYields=action.payload
+        state.error=null;
+      })
+      .addCase(fetchMilkYields.rejected,(state,action)=>{
+        state.loading=true;
+        state.error= action.payload as string;
+      })
+      .addCase(addMilkYields.pending,(state)=>{
+        state.loading=true;
+        state.error=null;
+      })
+      .addCase(addMilkYields.fulfilled,(state,action: PayloadAction<MilkYield>)=>{
+        // Now TypeScript knows action.payload is exactly a MilkYield object
+        state.milkYields.unshift(action.payload);
+        state.loading=false;
+        state.error=null;
+      })
+      .addCase(addMilkYields.rejected,(state)=>{
+        state.loading=false;
+        state.error=null;
+      })
+      .addCase(updateMilkYield.pending,(state)=>{
+        state.loading=true;
+        state.error=null;
+      })
+      .addCase(updateMilkYield.fulfilled,(state,action:PayloadAction<MilkYield>)=>{
+        const index = state.milkYields.findIndex(a => a.id === action.payload.id);
+        if (index !== -1) {
+          state.milkYields[index] = action.payload;
+        }
+        state.loading=false;
+        state.error=null;
+      })
+      .addCase(updateMilkYield.rejected,(state,action)=>{
+        state.loading=true;
+        state.error= action.payload as string;
+
+      })
       // Counting Sessions
       .addCase(fetchCountingSessions.fulfilled, (state, action) => {
         state.countingSessions = action.payload;

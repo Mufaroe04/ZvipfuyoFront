@@ -259,6 +259,12 @@ export interface DashboardData {
     quarantine: number;
   };
   low_stock_items: InventoryItem[];
+  dairy_stats:{
+        daily_total:number;
+        active_milkers:number;
+        avg_yield_per_cow:number;
+        // "milk_trend": list(milk_history) # Send this to your Recharts/Chart.js component
+  }
 }
 export interface WeatherData {
   temp: number;
@@ -266,4 +272,37 @@ export interface WeatherData {
   humidity: number;
   is_grazing_day: boolean; // Custom logic: e.g., false if heavy rain
   thi_index: number;       // Temperature-Humidity Index
+}
+
+export interface MilkYield {
+    id:number;
+    animal : Animal;
+    date :string;
+    session:string;
+    amount_liters :number;
+    is_colostrum : boolean;
+    notes? :string
+}
+
+export interface MilkQuality{
+    animal : Animal;
+    date :string;
+    fat_percentage:number;
+    protein_percentage :number;
+    somatic_cell_count :number;
+}
+
+export interface LactationPeriod{
+    animal : Animal;
+    start_date :string;
+    end_date :string;
+    lactation_number:string;
+    is_active :boolean;
+}
+
+export interface MilkYieldPayload {
+    // animal: number;
+    date: string;
+    amount_liters: number;
+    session: 'AM' | 'PM' | 'MID'; // Force one of your choices
 }

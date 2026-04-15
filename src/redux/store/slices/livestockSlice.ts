@@ -163,6 +163,7 @@ export const deleteAnimal = createAsyncThunk<number, number, { rejectValue: stri
     }
   }
 );
+
 const livestockSlice = createSlice({
   name: 'livestock',
   initialState,

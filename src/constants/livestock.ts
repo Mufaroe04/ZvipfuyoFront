@@ -37,7 +37,11 @@ export const REPRO_STATUS_OPTIONS = [
   { value: 'lactating', label: 'Lactating' },
   { value: 'dry', label: 'Dry' }
 ] as const;
-
+export const SESSION_CHOICES =[
+   {value:'AM',label : 'Morning'},
+   {value:'PM', label:'Evening'},
+    {value:'MID', label:'Midday'}
+]
 /**
  * Helper to get the Label from a Value (e.g., 'ANG' -> 'Angus')
  */
