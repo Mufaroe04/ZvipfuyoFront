@@ -3,14 +3,15 @@ import { Redirect, Route } from 'react-router-dom';
 import { 
   IonApp, IonRouterOutlet, setupIonicReact, IonIcon, IonLabel, IonHeader, 
   IonToolbar, IonContent, IonItem, IonList, IonMenu, IonMenuToggle, 
-  IonTitle, IonBadge, IonButtons, IonMenuButton
+  IonTitle, IonBadge, 
 } from '@ionic/react';
 import {
   homeOutline, scanOutline, listOutline, medkitOutline, gitNetworkOutline, 
   statsChartOutline, calculatorOutline, checkboxOutline, swapHorizontalOutline, 
   archiveOutline, notificationsOutline, chatbubblesOutline, personOutline, 
   logOutOutline, pawOutline, cartOutline, businessOutline,
-  scaleOutline
+  scaleOutline,
+  waterOutline
 } from "ionicons/icons";
 import { IonReactRouter } from '@ionic/react-router';
 
@@ -63,6 +64,7 @@ import '@ionic/react/css/flex-utils.css';
 import '@ionic/react/css/display.css';
 import AddWeight from './pages/AddWeight';
 import WeightListing from './pages/WeightListing';
+import DairyOperations from './pages/DairyOperations';
 /**
 
  * Ionic Dark Mode
@@ -109,6 +111,7 @@ const App: React.FC = () => {
                 { label: 'Scan Tag', icon: scanOutline, url: '/scan' },
                 { label: 'My Herds', icon: listOutline, url: '/herds' },
                 { label: 'My Animals', icon: pawOutline, url: '/animals' },
+                { label: 'Dairy Operations', icon: waterOutline, url: '/dairy' },
                 { label: 'Health & Treatments', icon: medkitOutline, url: '/health' },
                 { label: 'Reproduction', icon: gitNetworkOutline, url: '/reproduction' },
                 { label: 'Weight Tracking', icon: scaleOutline, url: '/weights' },
@@ -174,6 +177,7 @@ const App: React.FC = () => {
           <Route exact path="/herds/:herdId/add-animal" component={RegisterAnimalView} />
           <Route exact path="/animals/add" component={RegisterAnimalView} />
           <Route exact path="/animal/:id" component={AnimalDetailView} />
+          <Route exact path="/dairy" component={DairyOperations} />
           <Route exact path="/health" component={HealthAndTreatments} />
           <Route exact path="/health/add" component={AddHealthRecord} />
           <Route exact path="/reproduction" component={Reproduction} />

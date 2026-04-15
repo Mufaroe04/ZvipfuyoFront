@@ -192,7 +192,7 @@ export const updateLactationPeriod=createAsyncThunk<LactationPeriod,{id:number,d
     }
   })
 export const updateLactationPeriodDryOff=createAsyncThunk<LactationPeriod,{id:number},{ rejectValue: string }>(
-  'ops/updateLactationPeriod',
+  'ops/dryOffLactation',
   async({ id }, { rejectWithValue })=>{
     try {
       const response = await  operationsService.updateLactationPeriodDryOff(id)
