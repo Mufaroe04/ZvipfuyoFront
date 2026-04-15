@@ -285,6 +285,7 @@ export interface MilkYield {
 }
 
 export interface MilkQuality{
+    id :number;
     animal : Animal;
     date :string;
     fat_percentage:number;
@@ -293,6 +294,7 @@ export interface MilkQuality{
 }
 
 export interface LactationPeriod{
+    id :number;
     animal : Animal;
     start_date :string;
     end_date :string;
@@ -305,4 +307,20 @@ export interface MilkYieldPayload {
     date: string;
     amount_liters: number;
     session: 'AM' | 'PM' | 'MID'; // Force one of your choices
+    is_colostrum : boolean;
+    notes? :string
+}
+
+export interface MilkQualityPayload{
+    date :string;
+    fat_percentage:number;
+    protein_percentage :number;
+    somatic_cell_count :number;
+}
+
+export interface LactationPeriodPayload{
+    start_date :string;
+    end_date :string;
+    lactation_number:string;
+    is_active :boolean;
 }

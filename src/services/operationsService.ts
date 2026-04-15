@@ -49,6 +49,6 @@ deleteMilkQuality:(id: number) => api.delete(`milk-quality/${id}/`),
 getLactationPeriod:()=>api.get<LactationPeriod[]>('lactations/'),
 addLactationPeriod:(data:Partial<LactationPeriod>)=>api.post<LactationPeriod>('lactations/',data),
 updateLactationPeriod:(id: number,data:Partial<LactationPeriod>)=>api.patch<LactationPeriod>(`lactations/${id}`,data),
-updateLactationPeriodDry_off:(id: number)=>api.patch<LactationPeriod>(`lactations/${id}/dry_off/`),
+updateLactationPeriodDryOff:(id: number)=>api.post<LactationPeriod>(`lactations/${id}/dry_off/`),
 deleteLactationPeriod:(id: number) => api.delete(`lactations/${id}/`),
 };

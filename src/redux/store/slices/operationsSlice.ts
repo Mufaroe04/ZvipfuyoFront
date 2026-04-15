@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
-import { Task, HealthRecord, CountingSession, Transfer, WeightEntry, LactationPeriod, MilkYield, MilkQuality, MilkYieldPayload } from '../../../types/types';
+import { Task, HealthRecord, CountingSession, Transfer, WeightEntry, LactationPeriod, MilkYield, MilkQuality, MilkYieldPayload, MilkQualityPayload, LactationPeriodPayload } from '../../../types/types';
 import { operationsService } from '../../../services/operationsService';
 
 interface OpsState {
@@ -66,11 +66,24 @@ export const addHealthRecord = createAsyncThunk('ops/addHealth', async (data: Pa
   return response.data;
 });
 
-export const fetchMilkYields =createAsyncThunk('ops/fetchMilkYields',async ()=>{
-  const response =await operationsService.getMilkYield()
-  return response.data 
-})
-
+export const fetchMilkYields = createAsyncThunk<
+      MilkYield[],             // Success return type
+      void,                    // Input arguments (none, so void)
+      { rejectValue: string }  // Error type
+    >(
+      'ops/fetchMilkYields',
+      async (_, { rejectWithValue }) => {
+        try {
+          const response = await operationsService.getMilkYield();
+          return response.data;
+        } catch (err: any) {
+          // Passes the actual backend error message to your Redux state
+          return rejectWithValue(
+            err.response?.data?.detail || 'Failed to fetch milk records'
+          );
+        }
+      }
+    );
 export const addMilkYields=createAsyncThunk<MilkYield,MilkYieldPayload, { rejectValue: string }>(
   'ops/addMilkYields',
   async (data, { rejectWithValue })=>{
@@ -84,7 +97,7 @@ export const addMilkYields=createAsyncThunk<MilkYield,MilkYieldPayload, { reject
 })
 
 export const updateMilkYield=createAsyncThunk<MilkYield,{id:number,data:Partial<MilkYieldPayload>},{ rejectValue: string }>(
-  'ops/upadateMilkYields',
+  'ops/updateMilkYields',
   async({ id, data }, { rejectWithValue })=>{
     try {
       const response = await  operationsService.updateMilkYield(id,data)
@@ -95,9 +108,100 @@ export const updateMilkYield=createAsyncThunk<MilkYield,{id:number,data:Partial<
 
       
     }
-  }
+  });
 
-)
+export const fetchMilkQuality = createAsyncThunk<
+  MilkQuality[],             // Success return type
+  void,                    // Input arguments (none, so void)
+  { rejectValue: string }  // Error type
+>(
+  'ops/fetchMilkQuality',
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await operationsService.getMilkQuality();
+      return response.data;
+    } catch (err: any) {
+      // Passes the actual backend error message to your Redux state
+      return rejectWithValue(
+        err.response?.data?.detail || 'Failed to fetch milk records'
+      );
+    }
+  }
+);
+export const addMilkQuality=createAsyncThunk<MilkQuality,MilkQualityPayload, { rejectValue: string }>(
+  'ops/addMilkQuality',
+  async (data, { rejectWithValue })=>{
+    try {
+        const response =await operationsService.addMilkQuality(data)
+        return response.data
+    } catch (err:any) {
+      return rejectWithValue(err.response?.data?.message || 'failed to create milk yield');
+    }
+})
+
+export const updateMilkQuality=createAsyncThunk<MilkQuality,{id:number,data:Partial<MilkQualityPayload>},{ rejectValue: string }>(
+  'ops/updateMilkQuality',
+  async({ id, data }, { rejectWithValue })=>{
+    try {
+      const response = await  operationsService.updateMilkQuality(id,data)
+      return response.data;
+
+    } catch (err:any) {
+      return rejectWithValue(err.response?.data?.message || 'Update failed');
+    }
+  })
+
+  export const fetchLactationPeriods = createAsyncThunk<
+  LactationPeriod[],             // Success return type
+  void,                    // Input arguments (none, so void)
+  { rejectValue: string }  // Error type
+>(
+  'ops/fetchLactationPeriods',
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await operationsService.getLactationPeriod();
+      return response.data;
+    } catch (err: any) {
+      // Passes the actual backend error message to your Redux state
+      return rejectWithValue(
+        err.response?.data?.detail || 'Failed to fetch Lactation records'
+      );
+    }
+  }
+);
+export const addLactationPeriod=createAsyncThunk<LactationPeriod,LactationPeriodPayload, { rejectValue: string }>(
+  'ops/addLactationPeriod',
+  async (data, { rejectWithValue })=>{
+    try {
+        const response =await operationsService.addLactationPeriod(data)
+        return response.data
+    } catch (err:any) {
+      return rejectWithValue(err.response?.data?.message || 'failed to create lactation period ');
+    }
+})
+
+export const updateLactationPeriod=createAsyncThunk<LactationPeriod,{id:number,data:Partial<LactationPeriodPayload>},{ rejectValue: string }>(
+  'ops/updateLactationPeriod',
+  async({ id, data }, { rejectWithValue })=>{
+    try {
+      const response = await  operationsService.updateLactationPeriod(id,data)
+      return response.data;
+
+    } catch (err:any) {
+      return rejectWithValue(err.response?.data?.message || 'Update failed');
+    }
+  })
+export const updateLactationPeriodDryOff=createAsyncThunk<LactationPeriod,{id:number},{ rejectValue: string }>(
+  'ops/updateLactationPeriod',
+  async({ id }, { rejectWithValue })=>{
+    try {
+      const response = await  operationsService.updateLactationPeriodDryOff(id)
+      return response.data;
+
+    } catch (err:any) {
+      return rejectWithValue(err.response?.data?.message || 'Update failed');
+    }
+  })
 export const fetchCountingSessions = createAsyncThunk('ops/fetchCounting', async () => {
   const response = await operationsService.getCountingSessions();
   return response.data;
@@ -233,6 +337,103 @@ const operationsSlice = createSlice({
         state.loading=true;
         state.error= action.payload as string;
 
+      })
+      //MilkQuality
+      .addCase(fetchMilkQuality.fulfilled,(state,action)=>{
+        state.loading=false;
+        state.milkQuality=action.payload
+        state.error=null;
+      })
+      .addCase(fetchMilkQuality.rejected,(state,action)=>{
+        state.loading=true;
+        state.error= action.payload as string;
+      })
+      .addCase(addMilkQuality.pending,(state)=>{
+        state.loading=true;
+        state.error=null;
+      })
+      .addCase(addMilkQuality.fulfilled,(state,action: PayloadAction<MilkQuality>)=>{
+        // Now TypeScript knows action.payload is exactly a MilkYield object
+        state.milkQuality.unshift(action.payload);
+        state.loading=false;
+        state.error=null;
+      })
+      .addCase(addMilkQuality.rejected,(state)=>{
+        state.loading=false;
+        state.error=null;
+      })
+      .addCase(updateMilkQuality.pending,(state)=>{
+        state.loading=true;
+        state.error=null;
+      })
+      .addCase(updateMilkQuality.fulfilled,(state,action:PayloadAction<MilkQuality>)=>{
+        const index = state.milkQuality.findIndex(a => a.id === action.payload.id);
+        if (index !== -1) {
+          state.milkQuality[index] = action.payload;
+        }
+        state.loading=false;
+        state.error=null;
+      })
+      .addCase(updateMilkQuality.rejected,(state,action)=>{
+        state.loading=true;
+        state.error= action.payload as string;
+      })
+      //LactationPeriod
+      .addCase(fetchLactationPeriods.fulfilled,(state,action)=>{
+        state.loading=false;
+        state.lactations=action.payload
+        state.error=null;
+      })
+      .addCase(fetchLactationPeriods.rejected,(state,action)=>{
+        state.loading=true;
+        state.error= action.payload as string;
+      })
+      .addCase(addLactationPeriod.pending,(state)=>{
+        state.loading=true;
+        state.error=null;
+      })
+      .addCase(addLactationPeriod.fulfilled,(state,action: PayloadAction<LactationPeriod>)=>{
+        // Now TypeScript knows action.payload is exactly a LactationPeriod object
+        state.lactations.unshift(action.payload);
+        state.loading=false;
+        state.error=null;
+      })
+      .addCase(addLactationPeriod.rejected,(state)=>{
+        state.loading=false;
+        state.error=null;
+      })
+      .addCase(updateLactationPeriod.pending,(state)=>{
+        state.loading=true;
+        state.error=null;
+      })
+      .addCase(updateLactationPeriod.fulfilled,(state,action:PayloadAction<LactationPeriod>)=>{
+        const index = state.lactations.findIndex(a => a.id === action.payload.id);
+        if (index !== -1) {
+          state.lactations[index] = action.payload;
+        }
+        state.loading=false;
+        state.error=null;
+      })
+      .addCase(updateLactationPeriod.rejected,(state,action)=>{
+        state.loading=true;
+        state.error= action.payload as string;
+      })
+
+      .addCase(updateLactationPeriodDryOff.pending,(state)=>{
+        state.loading=true;
+        state.error=null;
+      })
+      .addCase(updateLactationPeriodDryOff.fulfilled,(state,action:PayloadAction<LactationPeriod>)=>{
+        const index = state.lactations.findIndex(a => a.id === action.payload.id);
+        if (index !== -1) {
+          state.lactations[index] = action.payload;
+        }
+        state.loading=false;
+        state.error=null;
+      })
+      .addCase(updateLactationPeriodDryOff.rejected,(state,action)=>{
+        state.loading=true;
+        state.error= action.payload as string;
       })
       // Counting Sessions
       .addCase(fetchCountingSessions.fulfilled, (state, action) => {

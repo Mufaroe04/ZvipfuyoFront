@@ -12,7 +12,8 @@ export const livestockService = {
   getAnimals: (search?: string) => api.get<Animal[]>('animals/', { params: { search } }),
   getAnimalDetail: (id: number) => api.get<Animal>(`animals/${id}/`),
   // Animal CRUD
-  createAnimal: async (data: AnimalPayload):Promise<Animal> => api.post('animals/', data),
+  // createAnimal: async (data: AnimalPayload):Promise<Animal> => api.post('animals/', data),
+  createAnimal: (data: AnimalPayload) => api.post<Animal>('animals/', data),
   updateAnimal: (id: number, data: any) => api.patch<Animal>(`animals/${id}/`, data),
   deleteAnimal: (id: number) => api.delete(`animals/${id}/`),
   getReproductiveReport: () => api.get('animals/reproductive_report/'),
