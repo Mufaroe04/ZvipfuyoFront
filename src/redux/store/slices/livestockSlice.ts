@@ -126,7 +126,7 @@ export const deleteHerd = createAsyncThunk<number, number, { rejectValue: string
     } catch (err: any) {
       return rejectWithValue(err.response?.data?.message || 'Delete failed');
     }
-  }
+  } 
 );
 
 export const createAnimal = createAsyncThunk< Animal,AnimalPayload, { rejectValue: string }>(

@@ -7,7 +7,7 @@ import {
   IonButton, IonNote
 } from '@ionic/react';
 import { 
-  warningOutline, calendarOutline, cubeOutline, sparklesOutline, 
+  warningOutline, calendarOutline, sparklesOutline, 
   arrowForwardOutline, pinOutline, statsChartOutline, repeatOutline,
   fitnessOutline, leafOutline, waterOutline,
   bandageOutline,
@@ -23,7 +23,9 @@ import WeatherCard from './WeatherCard';
 import { useHistory } from 'react-router-dom';
 import { fetchLiveInsights } from '../redux/store/slices/insightsSlice';
 import { Geolocation } from '@capacitor/geolocation';
-
+import Chart from 'react-apexcharts';
+import { ApexOptions } from 'apexcharts';
+import { Box, Typography } from '@mui/material';
 const DashboardComponent: React.FC = () => {
   const dispatch = useAppDispatch();
   const { data, loading, error } = useAppSelector((state) => state.dashboard);
@@ -95,8 +97,62 @@ useEffect(() => {
     </div>
   );
 
-  if (error) return <div className="ion-padding ion-text-center">Error: {error}</div>;
+  if (error) return <div className="ion-padding ion-text-center">Something Went Wrong</div>;
+const chartOptions: ApexOptions = {
+  chart: {
+    type: 'line',
+    toolbar: { show: false },
+    zoom: { enabled: false },
+    // Ensuring no animations or filters cause a fade effect
+    dropShadow: {
+      enabled: false 
+    }
+  },
+  colors: ['#3880ff'], // Your primary blue
+  stroke: {
+    curve: 'smooth',
+    width: 4,         // Increased width for better visibility
+    dashArray: 0      // Ensures a solid line
+  },
+  // Remove the gradient fill to prevent the "fading" look under the line
+  fill: {
+    type: 'solid',
+    opacity: 1
+  },
+  xaxis: {
+    categories: data?.dairy_stats.milk_trend.map(t => 
+      new Date(t.date).toLocaleDateString('en-GB', { day: 'numeric', month: 'short' })
+    ),
+    labels: { 
+      show: true, 
+      style: { fontSize: '10px', fontWeight: 600 } 
+    },
+    axisBorder: { show: false },
+    axisTicks: { show: false }
+  },
+  yaxis: {
+    show: false // Keeps it clean as a sparkline-style trend
+  },
+  grid: {
+    show: false,
+    padding: { left: 10, right: 10 }
+  },
+  markers: {
+    size: 4,          // Adds small dots at each data point for clarity
+    colors: ['#3880ff'],
+    strokeWidth: 2,
+    hover: { size: 6 }
+  },
+  tooltip: {
+    x: { format: 'dd MMM' },
+    y: { formatter: (val) => `${val.toFixed(2)} L` }
+  }
+};
 
+const chartSeries = [{
+  name: 'Daily Yield',
+  data: data?.dairy_stats.milk_trend.map(t => t.daily_total) || []
+}];
   return (
 
     <IonGrid>
@@ -212,8 +268,46 @@ useEffect(() => {
         </IonCardContent>
       </IonCard>
     </IonCol>
+<IonCol size="12" sizeMd="6"> {/* Increased size to 6 to allow the chart to breathe */}
+  <IonCard style={{ borderLeft: '4px solid var(--ion-color-primary)', height: '100%' }}>
+    <IonCardHeader>
+      <IonCardTitle>
+        <IonIcon icon={waterOutline} /> Dairy Production
+      </IonCardTitle>
+    </IonCardHeader>
+    <IonCardContent>
+      {/* Key Metrics Row */}
+      <div style={{ display: 'flex', justifyContent: 'space-around', textAlign: 'center', marginBottom: '15px' }}>
+        <div>
+          <h2 style={{ margin: 0, fontWeight: 'bold' }}>{data?.dairy_stats.active_milkers}</h2>
+          <p style={{ fontSize: '0.8rem', color: 'var(--ion-color-medium)' }}>Active Milkers</p>
+        </div>
+        <div>
+          <h2 style={{ margin: 0, fontWeight: 'bold' }}>{data?.dairy_stats.daily_total} L</h2>
+          <p style={{ fontSize: '0.8rem', color: 'var(--ion-color-medium)' }}>Total Today</p>
+        </div>
+        <div>
+          <h2 style={{ margin: 0, fontWeight: 'bold' }}>{data?.dairy_stats.avg_yield_per_cow} L</h2>
+          <p style={{ fontSize: '0.8rem', color: 'var(--ion-color-medium)' }}>Avg/Cow</p>
+        </div>
+      </div>
 
-    <IonCol size="12" sizeMd="6">
+      {/* Yield Trend Chart */}
+      <Box sx={{ mt: 2, height: '150px' }}>
+        <Typography variant="caption" sx={{ fontWeight: 'bold', ml: 1, color: 'text.secondary' }}>
+          7-DAY YIELD TREND (Liters)
+        </Typography>
+        <Chart 
+          options={chartOptions} 
+          series={chartSeries} 
+          type="line" 
+          height="100%" 
+        />
+      </Box>
+    </IonCardContent>
+  </IonCard>
+</IonCol>
+    <IonCol size="6" sizeMd="3">
       <IonCard style={{ borderLeft: '4px solid var(--ion-color-warning)' }}>
         <IonCardHeader><IonCardTitle><IonIcon icon={statsChartOutline} /> Counting Session</IonCardTitle></IonCardHeader>
         <IonCardContent>
@@ -225,6 +319,7 @@ useEffect(() => {
         </IonCardContent>
       </IonCard>
     </IonCol>
+
   </IonRow>
 
   {/* 4. TASK MANAGEMENT (With Titles) & TRANSFERS */}

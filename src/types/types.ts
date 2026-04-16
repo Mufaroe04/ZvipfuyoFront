@@ -199,6 +199,10 @@ export interface Notification {
   created_at: string;
 }
 
+export interface MilkTrendPoint {
+  date: string;
+  daily_total: number;
+}
 
 export interface DashboardData {
   inventory_key_indicators: {
@@ -263,7 +267,7 @@ export interface DashboardData {
         daily_total:number;
         active_milkers:number;
         avg_yield_per_cow:number;
-        // "milk_trend": list(milk_history) # Send this to your Recharts/Chart.js component
+        milk_trend: MilkTrendPoint[];
   }
 }
 export interface WeatherData {
