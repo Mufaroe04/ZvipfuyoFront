@@ -7,7 +7,8 @@ import {
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import { 
   IonPage, IonHeader, IonToolbar, IonTitle, IonContent, 
-  IonButtons, IonMenuButton, IonIcon 
+  IonButtons, IonMenuButton, IonIcon, 
+  IonSpinner
 } from '@ionic/react';
 import { addOutline, searchOutline, closeCircleOutline } from 'ionicons/icons';
 import { fetchAllAnimals } from '../redux/store/slices/livestockSlice';
@@ -75,7 +76,7 @@ const MyAnimals: React.FC = () => {
       sortable: false,
       renderCell: (params) => (
         <Button 
-          variant="outlined" 
+          variant="contained" 
           size="small" 
           onClick={() => history.push(`/animal/${params.id}`)}
           sx={{ textTransform: 'none', borderRadius: '6px' }}
@@ -95,7 +96,13 @@ const MyAnimals: React.FC = () => {
       </IonPage>
     );
   }
-
+  if ( animals.length === 0) {
+    return (
+      <Box display="flex" justifyContent="center" alignItems="center" height="100vh">
+        <IonSpinner name="crescent" />
+      </Box>
+    );
+  }
   return (
     <IonPage>
       <IonHeader className="ion-no-border">
