@@ -65,6 +65,9 @@ import '@ionic/react/css/display.css';
 import AddWeight from './pages/AddWeight';
 import WeightListing from './pages/WeightListing';
 import DairyOperations from './pages/DairyOperations';
+import AddMilkYields from './pages/AddMilkYields';
+import AddMilkQuality from './pages/AddMilkQuality';
+import AddLactation from './pages/AddLactation';
 /**
 
  * Ionic Dark Mode
@@ -108,6 +111,7 @@ const App: React.FC = () => {
               {/* Common Menu Items */}
               {[
                 { label: 'Dashboard', icon: homeOutline, url: '/dashboard' },
+                { label: 'Insights', icon: statsChartOutline, url: '/insights' },
                 { label: 'Scan Tag', icon: scanOutline, url: '/scan' },
                 { label: 'My Herds', icon: listOutline, url: '/herds' },
                 { label: 'My Animals', icon: pawOutline, url: '/animals' },
@@ -115,7 +119,6 @@ const App: React.FC = () => {
                 { label: 'Health & Treatments', icon: medkitOutline, url: '/health' },
                 { label: 'Reproduction', icon: gitNetworkOutline, url: '/reproduction' },
                 { label: 'Weight Tracking', icon: scaleOutline, url: '/weights' },
-                { label: 'Insights', icon: statsChartOutline, url: '/insights' },
                 { label: 'Counting Session', icon: calculatorOutline, url: '/counting' },
                 { label: 'Tasks', icon: checkboxOutline, url: '/tasks' },
                 { label: 'Transfer', icon: swapHorizontalOutline, url: '/transfer' },
@@ -178,6 +181,9 @@ const App: React.FC = () => {
           <Route exact path="/animals/add" component={RegisterAnimalView} />
           <Route exact path="/animal/:id" component={AnimalDetailView} />
           <Route exact path="/dairy" component={DairyOperations} />
+          <Route exact path="/dairy/milk-yield/add" component={AddMilkYields} />
+          <Route exact path="/dairy/milk-quality/add" component={AddMilkQuality} />
+          <Route exact path="/dairy/milk-lactation/add" component={AddLactation} />
           <Route exact path="/health" component={HealthAndTreatments} />
           <Route exact path="/health/add" component={AddHealthRecord} />
           <Route exact path="/reproduction" component={Reproduction} />

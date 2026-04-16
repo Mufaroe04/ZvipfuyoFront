@@ -8,6 +8,7 @@ import {
   addOutline, waterOutline, statsChartOutline, calendarOutline 
 } from 'ionicons/icons';
 import Chart from 'react-apexcharts';
+import { useHistory } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
 import { 
   fetchMilkYields, 
@@ -26,6 +27,7 @@ const CustomTabPanel = ({ children, value, index }: TabPanelProps) => (
 
 const DairyDashboard: React.FC = () => {
   const dispatch = useAppDispatch();
+  const history = useHistory();
   const [tabValue, setTabValue] = useState(0);
   const { milkYields, milkQuality, lactations, loading } = useAppSelector((state) => state.operations);
 
@@ -60,11 +62,20 @@ const DairyDashboard: React.FC = () => {
     data: milkYields.map(y => ({ x: new Date(y.date).getTime(), y: y.amount_liters })) 
   }];
 
-  const qualitySeries = [{ 
+//   const qualitySeries = [{ 
+//     name: 'Fat %', 
+//     data: milkQuality.map(q => ({ x: new Date(q.date).getTime(), y: q.fat_percentage })) 
+//   }];
+const qualitySeries = [
+  { 
     name: 'Fat %', 
     data: milkQuality.map(q => ({ x: new Date(q.date).getTime(), y: q.fat_percentage })) 
-  }];
-
+  },
+  { 
+    name: 'Protein %', 
+    data: milkQuality.map(q => ({ x: new Date(q.date).getTime(), y: q.protein_percentage })) 
+  }
+];
   const lactationSeries = [{
     name: 'Days in Milk',
     data: lactations.map(l => {
@@ -176,6 +187,7 @@ const DairyDashboard: React.FC = () => {
         <Button 
           variant="contained" 
           startIcon={<IonIcon icon={addOutline} />}
+          onClick={() => history.push("/dairy/milk-yield/add")}
           sx={{ borderRadius: '10px', px: 4, textTransform: 'none', fontWeight: 'bold' }}
         >
           New Milk Yield
@@ -191,7 +203,7 @@ const DairyDashboard: React.FC = () => {
       </CustomTabPanel>
 
       <CustomTabPanel value={tabValue} index={1}>
-              <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ mb: 4 }}>
+        <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ mb: 4 }}>
         <Box>
           {/* <Typography variant="h4" fontWeight="bold">Dairy Operations</Typography> */}
           <Typography variant="body2" color="text.secondary" fontWeight="bold">Manage Milk Quality Audits</Typography>
@@ -199,22 +211,27 @@ const DairyDashboard: React.FC = () => {
         <Button 
           variant="contained" 
           startIcon={<IonIcon icon={addOutline} />}
+          onClick={() => history.push("/dairy/milk-quality/add")}
           sx={{ borderRadius: '10px', px: 4, textTransform: 'none', fontWeight: 'bold' }}
         >
           New Quality Audits
         </Button>
       </Stack>
         <DairyTabContent 
-          title="Quality Analysis" 
-          series={qualitySeries} 
-          options={getChartOptions('Percentage', '#2dd36f')} 
-          rows={milkQuality} 
-          columns={qualityColumns} 
+            title="Quality Analysis (Fat vs Protein)" 
+            series={qualitySeries} 
+            options={{
+            ...getChartOptions('Percentage', '#2dd36f'), // Fat color (Green)
+            colors: ['#2dd36f', '#3880ff'],              // Fat (Green) and Protein (Blue)
+            stroke: { curve: 'smooth', width: [3, 3] },  // Ensure both lines are smooth
+            }} 
+            rows={milkQuality} 
+            columns={qualityColumns} 
         />
       </CustomTabPanel>
 
       <CustomTabPanel value={tabValue} index={2}>
-              <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ mb: 4 }}>
+        <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ mb: 4 }}>
         <Box>
           {/* <Typography variant="h4" fontWeight="bold">Dairy Operations</Typography> */}
           <Typography variant="body2" color="text.secondary" fontWeight="bold">Manage Milk Lactation Cycles</Typography>
@@ -222,6 +239,7 @@ const DairyDashboard: React.FC = () => {
         <Button 
           variant="contained" 
           startIcon={<IonIcon icon={addOutline} />}
+          onClick={() => history.push("/dairy/milk-lactation/add")}
           sx={{ borderRadius: '10px', px: 4, textTransform: 'none', fontWeight: 'bold' }}
         >
           New Lactation Cycles

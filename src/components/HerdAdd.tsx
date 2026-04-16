@@ -11,15 +11,12 @@ import {
   Paper,
   Typography,
   Stack,
-  IconButton
 } from "@mui/material";
 import { createHerd, selectCreateHerdError, resetCreateHerdStatus } from "../redux/store/slices/livestockSlice";
 import { AppDispatch } from "../redux/store";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { BREED_CHOICES } from '../constants/livestock';
-import { IonIcon } from "@ionic/react";
-import { arrowBackOutline } from "ionicons/icons";
 
 const HerdAdd: React.FC = () => {
   const [herd, setHerd] = useState({ name: '', location: '', herd_type: '', primary_breed: '' });
