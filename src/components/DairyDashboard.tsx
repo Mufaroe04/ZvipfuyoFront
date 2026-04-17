@@ -100,7 +100,7 @@ const qualitySeries = [
       field: 'session', 
       headerName: 'Session', 
       width: 120, 
-      renderCell: (p) => <Chip label={p.value} size="small" color="primary" variant="outlined" /> 
+      // renderCell: (p) => <Chip label={p.value} size="small" color="primary" variant="outlined" /> 
     },
     { field: 'amount_liters', headerName: 'Liters (L)', type: 'number', width: 110 },
   ];
@@ -141,7 +141,8 @@ const qualitySeries = [
             variant="outlined" 
             // color="secondary" 
             size="small"
-            sx={{ textTransform: 'none', fontSize: '0.7rem', borderRadius: '6px' }}
+            // sx={{ textTransform: 'none', fontSize: '0.7rem', borderRadius: '6px' }}
+            sx={{ textTransform: 'none', borderRadius: '6px' }}
             onClick={() => handleDryOff(params.row.id)}
           >
             Mark Dry

@@ -92,6 +92,7 @@ export interface HealthRecord {
 export interface BreedingEvent {
   id: number;
   dam: number;
+  dam_tag:string;
   sire_tag: string;
   breeding_date: string;
   method: 'natural' | 'ai';
