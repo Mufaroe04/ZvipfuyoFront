@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
 import { useHistory } from "react-router-dom";
 import { 
-  Button, Box, Typography, Chip, Stack, TextField, InputAdornment 
+  Button, Box, Typography,  Stack, TextField, InputAdornment 
 } from '@mui/material';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import { fetchAllHerds } from '../redux/store/slices/livestockSlice';
@@ -32,7 +32,7 @@ const HerdList: React.FC = () => {
       headerName: 'Herd Name', 
       flex: 1, 
       minWidth: 150,
-      renderCell: (params) => <strong style={{ color: '#3880ff' }}>{params.value}</strong> 
+      renderCell: (params) => <p >{params.value}</p> 
     },
     { field: 'location', headerName: 'Location', width: 130 },
     
@@ -47,11 +47,6 @@ const HerdList: React.FC = () => {
       type: 'number', 
       width: 70, 
       align: 'center',
-      renderCell: (params) => (
-        <Typography variant="body2" sx={{ color: params.value > 0 ? '#7044ff' : 'inherit', fontWeight: 'bold' }}>
-          {params.value}
-        </Typography>
-      )
     },
     { 
       field: 'sick_count', 
@@ -59,31 +54,44 @@ const HerdList: React.FC = () => {
       type: 'number', 
       width: 80, 
       align: 'center',
-      renderCell: (params) => (
-        <Chip 
-          label={params.value} 
-          size="small" 
-          sx={{ 
-            bgcolor: params.value > 0 ? '#eb445a' : '#f4f5f8', 
-            color: params.value > 0 ? 'white' : 'black',
-            fontWeight: 'bold'
-          }} 
-        />
-      )
+
     },
     {
       field: 'actions',
       headerName: 'Action',
       width: 90,
       renderCell: (params) => (
+        // <Button 
+        //   variant="outlined" 
+        //   size="small" 
+        //   color="#18774c"
+        //   sx={{ textTransform: 'none', borderRadius: '6px' ,color:"#18774c" ,fontFamily:"Plus Jakarta Sans"}}
+        //   onClick={() => history.push(`/herds/${params.id}`)}
+        // >
+        //   View
+        // </Button>
         <Button 
-          variant="outlined" 
-          size="small" 
-          sx={{ textTransform: 'none', borderRadius: '6px' }}
-          onClick={() => history.push(`/herds/${params.id}`)}
-        >
-          View
-        </Button>
+        variant="outlined" 
+        size="small" 
+        onClick={() => history.push(`/herds/${params.id}`)}
+        sx={{ 
+          textTransform: 'none', 
+          borderRadius: '6px', 
+          // This sets the text and the icon color
+          color: "#18774c", 
+          // This sets the border color specifically
+          borderColor: "#18774c", 
+          fontFamily: '"Plus Jakarta Sans", sans-serif',
+          fontWeight: 600,
+          '&:hover': {
+            // Maintains the color and adds a light background on hover
+            borderColor: "#18774c",
+            backgroundColor: 'rgba(24, 119, 76, 0.04)', 
+          }
+        }}
+      >
+        View
+      </Button>
       ),
     },
   ];
@@ -99,14 +107,13 @@ const HerdList: React.FC = () => {
       {/* Top Header Section */}
       <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ mb: 3 }}>
         <Box>
-          <Typography variant="h5" fontWeight="bold">My Herds</Typography>
           <Typography variant="body2" color="text.secondary">Select a herd to manage its digital kraal</Typography>
         </Box>
         <Button 
           variant="contained" 
           startIcon={<IonIcon icon={addOutline} />}
           onClick={() => history.push("/herdsadd")}
-          sx={{ borderRadius: '8px', textTransform: 'none', fontWeight: 'bold', px: 3 }}
+          sx={{ borderRadius: '8px', textTransform: 'none', fontWeight: 'bold', px: 3 ,backgroundColor:"#18774c",}}
         >
           New Herd
         </Button>

@@ -153,7 +153,7 @@ const hasWeightWarning = birthWeight > 0 && currentWeight < birthWeight;
           <Box sx={{ mb: 4, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <Box>
               <Stack direction="row" spacing={2} alignItems="center">
-                <Typography variant="h4" fontWeight="bold">Tag: {selectedAnimal.tag_number}</Typography>
+                <Typography variant="h5" fontWeight="bold">Tag: {selectedAnimal.tag_number}</Typography>
                 {/* Updated Chip to reflect Pregnancy status alongside Health */}
                 <Chip 
                   label={selectedAnimal.reproductive_status === 'pregnant' ? 'Pregnant' : selectedAnimal.status_display} 
@@ -274,9 +274,9 @@ const hasWeightWarning = birthWeight > 0 && currentWeight < birthWeight;
 
           {/* Quick Actions */}
           <Stack direction="row" spacing={2} sx={{ mt: 4, mb: 4 }} justifyContent="center">
-            <Button variant="outlined" startIcon={<IonIcon icon={scaleOutline} />} onClick={() => history.push(`/animal/${id}/log-weight`)}>Log Weight</Button>
-            <Button variant="outlined" startIcon={<IonIcon icon={fitnessOutline} />} onClick={() => history.push(`/animal/${id}/add-health`)}>Log Health</Button>
-            <Button variant="outlined" startIcon={<IonIcon icon={heartOutline} />} onClick={() => history.push(`/animal/${id}/add-breeding`)}>Log Breeding</Button>
+            <Button variant="outlined" startIcon={<IonIcon icon={scaleOutline} />} onClick={() => history.push('/weights/add')}>Log Weight</Button>
+            <Button variant="outlined" startIcon={<IonIcon icon={fitnessOutline} />} onClick={() => history.push('/health/add')}>Log Health</Button>
+            <Button variant="outlined" startIcon={<IonIcon icon={heartOutline} />} onClick={() => history.push("/reproduction/add")}>Log Breeding</Button>
           </Stack>
         </Container>
       </IonContent>

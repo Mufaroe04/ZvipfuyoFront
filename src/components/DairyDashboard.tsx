@@ -138,7 +138,7 @@ const qualitySeries = [
       renderCell: (params) => (
         !params.row.end_date && (
           <Button 
-            variant="contained" 
+            variant="outlined" 
             // color="secondary" 
             size="small"
             sx={{ textTransform: 'none', fontSize: '0.7rem', borderRadius: '6px' }}

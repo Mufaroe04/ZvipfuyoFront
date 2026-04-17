@@ -1,2 +1,28 @@
-/* For information on how to create your own theme, please refer to:
-http://ionicframework.com/docs/theming/ */
+/* variables.css */
+
+:root {
+  /* Set Font Family */
+  --ion-font-family: 'Plus Jakarta Sans', sans-serif;
+
+  /* Set Brand Green as Primary */
+  --ion-color-primary: #18774c;
+  --ion-color-primary-rgb: 24, 119, 76;
+  --ion-color-primary-contrast: #ffffff;
+  --ion-color-primary-shade: #156943;
+  --ion-color-primary-tint: #2f855e;
+}
+
+body {
+  font-family: 'Plus Jakarta Sans', sans-serif !important;
+}
+
+/* Ensure icons in the menu use the brand color */
+ion-item ion-icon {
+  color: #18774c;
+}
+
+/* Style for the Labels in the list */
+ion-label {
+  font-family: 'Plus Jakarta Sans', sans-serif !important;
+  --font-weight: 600; /* Makes labels look cleaner with this font */
+}

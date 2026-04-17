@@ -3,7 +3,8 @@ import { Redirect, Route } from 'react-router-dom';
 import { 
   IonApp, IonRouterOutlet, setupIonicReact, IonIcon, IonLabel, IonHeader, 
   IonToolbar, IonContent, IonItem, IonList, IonMenu, IonMenuToggle, 
-  IonTitle, IonBadge, 
+  IonTitle, IonBadge,
+  IonText, 
 } from '@ionic/react';
 import {
   homeOutline, scanOutline, listOutline, medkitOutline, gitNetworkOutline, 
@@ -19,7 +20,7 @@ import { IonReactRouter } from '@ionic/react-router';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState, AppDispatch } from './redux/store'; 
 import { fetchNotifications } from './redux/store/slices/notificationSlice';
-
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 // Page Imports
 import Dashboard from './pages/Dashboard';
 import Scan from './pages/Scan';
@@ -62,6 +63,7 @@ import '@ionic/react/css/text-alignment.css';
 import '@ionic/react/css/text-transformation.css';
 import '@ionic/react/css/flex-utils.css';
 import '@ionic/react/css/display.css';
+import './theme/variables.css';
 import AddWeight from './pages/AddWeight';
 import WeightListing from './pages/WeightListing';
 import DairyOperations from './pages/DairyOperations';
@@ -91,14 +93,30 @@ const App: React.FC = () => {
   
   // Pull unread count from Redux
   const unreadCount = useSelector((state: RootState) => state.notifications.unreadCount);
-
+const zvipfuyoTheme = createTheme({
+  typography: {
+    // Setting the global font family
+    fontFamily: '"Plus Jakarta Sans", sans-serif',
+    button: {
+      textTransform: 'none', // Keeps buttons from being all caps
+      fontWeight: 600,
+    },
+  },
+  palette: {
+    primary: {
+      main: '#18774c', // Your specific green
+    },
+  },
+});
   // Fetch notifications on app load to sync the badge
   useEffect(() => {
     dispatch(fetchNotifications());
   }, [dispatch]);
 
   return (
+
     <IonApp>
+      <ThemeProvider theme={zvipfuyoTheme}>
       <IonReactRouter>
         <IonMenu contentId="main-content" type="overlay">
           <IonHeader>
@@ -112,7 +130,7 @@ const App: React.FC = () => {
               {[
                 { label: 'Dashboard', icon: homeOutline, url: '/dashboard' },
                 { label: 'Insights', icon: statsChartOutline, url: '/insights' },
-                { label: 'Scan Tag', icon: scanOutline, url: '/scan' },
+                // { label: 'Scan Tag', icon: scanOutline, url: '/scan' },
                 { label: 'My Herds', icon: listOutline, url: '/herds' },
                 { label: 'My Animals', icon: pawOutline, url: '/animals' },
                 { label: 'Dairy Operations', icon: waterOutline, url: '/dairy' },
@@ -139,9 +157,11 @@ const App: React.FC = () => {
                 <IonItem button routerLink="/notifications" lines="none">
                   <IonIcon icon={notificationsOutline} slot="start" />
                   <IonLabel><strong>Notifications</strong></IonLabel>
-                  {unreadCount > 0 && (
-                    <IonBadge slot="end" color="danger">{unreadCount}</IonBadge>
-                  )}
+                {unreadCount > 0 && (
+                  <IonText slot="end" style={{ color: "#18774c", fontWeight: "bold" }}>
+                    {unreadCount}
+                  </IonText>
+                )}
                 </IonItem>
               </IonMenuToggle>
 
@@ -161,8 +181,8 @@ const App: React.FC = () => {
 
               <IonMenuToggle autoHide={false}>
                 <IonItem button lines="none" detail={false}>
-                  <IonIcon icon={logOutOutline} slot="start" color="danger" />
-                  <IonLabel color="danger"><strong>Logout</strong></IonLabel>
+                  <IonIcon icon={logOutOutline} slot="start"  />
+                  <IonLabel ><strong>Logout</strong></IonLabel>
                 </IonItem>
               </IonMenuToggle>
             </IonList>
@@ -206,6 +226,7 @@ const App: React.FC = () => {
           <Route exact path="/profile" component={Profile} />
         </IonRouterOutlet>
       </IonReactRouter>
+      </ThemeProvider>
     </IonApp>
   );
 };

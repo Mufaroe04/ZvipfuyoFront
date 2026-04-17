@@ -9,13 +9,14 @@ import {
 import { 
   warningOutline, calendarOutline, sparklesOutline, 
   arrowForwardOutline, pinOutline, statsChartOutline, repeatOutline,
-  fitnessOutline, leafOutline, waterOutline,
+   leafOutline, waterOutline,
   bandageOutline,
   alertCircleOutline,
   heartOutline,
   medkitOutline,
   cartOutline,
-  businessOutline
+  businessOutline,
+  cashOutline
 } from 'ionicons/icons';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
 import { fetchDashboardData } from '../redux/store/slices/dashboardSlice';
@@ -26,6 +27,8 @@ import { Geolocation } from '@capacitor/geolocation';
 import Chart from 'react-apexcharts';
 import { ApexOptions } from 'apexcharts';
 import { Box, Typography } from '@mui/material';
+import ReactMarkdown from 'react-markdown';
+
 const DashboardComponent: React.FC = () => {
   const dispatch = useAppDispatch();
   const { data, loading, error } = useAppSelector((state) => state.dashboard);
@@ -37,29 +40,7 @@ const DashboardComponent: React.FC = () => {
     dispatch(fetchDashboardData());
   }, [dispatch]);
 
-  // useEffect(() => {
-  //   const CACHE_TIME = 30 * 60 * 1000; // 30 Minutes
-  //   const now = Date.now();
 
-  //   // Only fetch if we have no data OR the data is older than 30 mins
-  //   if (!insights_data || !lastFetched || (now - lastFetched > CACHE_TIME)) {
-  //     const initIntelligence = async () => {
-  //       try {
-  //               const position = await Geolocation.getCurrentPosition({
-  //               enableHighAccuracy: true,
-  //               timeout: 10000 });
-  //         dispatch(fetchLiveInsights({ 
-  //           lat: position.coords.latitude, 
-  //           lon: position.coords.longitude 
-  //         }));
-  //       } catch (e) {
-  //         // Fallback to Harare if GPS fails
-  //         dispatch(fetchLiveInsights({ lat: -17.82, lon: 31.05 }));
-  //       }
-  //     };
-  //     initIntelligence();
-  //   }
-  // }, [dispatch, insights_data, lastFetched]);
 useEffect(() => {
   const CACHE_TIME = 30 * 60 * 1000;
   const now = Date.now();
@@ -164,7 +145,7 @@ const chartSeries = [{
           <IonIcon icon={sparklesOutline} slot="start" color="secondary" />
           <IonLabel className="ion-text-wrap">
             <h2 style={{ fontWeight: 'bold' }}>Zvipfuyo Intelligence</h2>
-            <p>{insights_data?.narrative}</p>
+            <ReactMarkdown>{insights_data?.narrative}</ReactMarkdown>
           </IonLabel>
           <IonButton fill="clear" slot="end" routerLink="/insights">
             View All <IonIcon icon={arrowForwardOutline} slot="end" />
@@ -185,7 +166,7 @@ const chartSeries = [{
         <IonCol size="6" sizeMd="3">
           <IonCard color="primary" className="ion-no-margin">
             <IonCardHeader>
-              <IonCardSubtitle>Total Cattle</IonCardSubtitle>
+              <IonCardSubtitle>Total Active Cattle</IonCardSubtitle>
               <IonCardTitle>{data?.inventory_key_indicators.total_cattle || 0}</IonCardTitle>
             </IonCardHeader>
           </IonCard>
@@ -212,6 +193,9 @@ const chartSeries = [{
         <IonCol size="12" sizeMd="4">
           <IonCard color="success" className="ion-no-margin" style={{ height: '100%' }}>
             <IonCardHeader>
+              {/* <Box sx={{ p: 1, bgcolor: 'white', borderRadius: '8px', display: 'flex', boxShadow: '0 2px 4px rgba(0,0,0,0.05)' }}> */}
+                
+              {/* </Box> */}
               <IonCardSubtitle style={{ color: 'white' }}>Inventory Value</IonCardSubtitle>
               <IonCardTitle style={{ color: 'white' }}>${data?.inventory_cost.toLocaleString()}</IonCardTitle>
             </IonCardHeader>

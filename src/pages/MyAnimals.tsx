@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
 import { useHistory, useLocation } from "react-router-dom";
 import { 
-  Button, Box, Typography, Chip, Stack, TextField, InputAdornment, Paper, Divider
+  Button, Box, Typography,  Stack, TextField, InputAdornment, Paper, Divider
 } from '@mui/material';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import { 
@@ -45,7 +45,7 @@ const MyAnimals: React.FC = () => {
       field: 'tag_number', 
       headerName: 'Tag Number', 
       width: 140, 
-      renderCell: (p) => <strong style={{ color: '#3880ff' }}>{p.value}</strong> 
+      // renderCell: (p) => <strong style={{ color: '#3880ff' }}>{p.value}</strong> 
     },
     { field: 'breed', headerName: 'Breed', flex: 1, minWidth: 120 },
     { field: 'gender', headerName: 'Gender', width: 100 },
@@ -53,22 +53,22 @@ const MyAnimals: React.FC = () => {
       field: 'status', 
       headerName: 'Status', 
       width: 120,
-      renderCell: (params) => {
-        const val = params.value;
-        let color = '#2dd36f'; 
-        if (val === 'Sick' || val === 'deceased') color = '#eb445a';
-        if (val === 'Quarantine') color = '#f2a104';
+      // renderCell: (params) => {
+      //   const val = params.value;
+      //   let color = '#2dd36f'; 
+      //   if (val === 'Sick' || val === 'deceased') color = '#eb445a';
+      //   if (val === 'Quarantine') color = '#f2a104';
         
-        return (
-          <Chip 
-            label={val?.toUpperCase() || 'ACTIVE'} 
-            size="small" 
-            sx={{ bgcolor: color, color: 'white', fontWeight: 'bold', fontSize: '0.7rem' }} 
-          />
-        );
-      }
+      //   return (
+      //     <Chip 
+      //       label={val?.toUpperCase() || 'ACTIVE'} 
+      //       size="small" 
+      //       sx={{ bgcolor: color, color: 'white', fontWeight: 'bold', fontSize: '0.7rem' }} 
+      //     />
+      //   );
+      // }
     },
-    { field: 'herd', headerName: 'Herd', width: 150 },
+    { field: 'herd_name', headerName: 'Herd Name', width: 150 },
     {
       field: 'actions',
       headerName: 'Action',
@@ -76,7 +76,7 @@ const MyAnimals: React.FC = () => {
       sortable: false,
       renderCell: (params) => (
         <Button 
-          variant="contained" 
+          variant="outlined" 
           size="small" 
           onClick={() => history.push(`/animal/${params.id}`)}
           sx={{ textTransform: 'none', borderRadius: '6px' }}
@@ -96,13 +96,18 @@ const MyAnimals: React.FC = () => {
       </IonPage>
     );
   }
-  if ( animals.length === 0) {
-    return (
-      <Box display="flex" justifyContent="center" alignItems="center" height="100vh">
-        <IonSpinner name="crescent" />
+  // if ( animals.length === 0) {
+  //   return (
+  //     <Box display="flex" justifyContent="center" alignItems="center" height="100vh">
+  //       <IonSpinner name="crescent" />
+  //     </Box>
+  //   );
+  // }
+    if (loading) return (
+      <Box display="flex" justifyContent="center" alignItems="center" height="400px">
+        <IonSpinner name="crescent" color="primary" />
       </Box>
     );
-  }
   return (
     <IonPage>
       <IonHeader className="ion-no-border">
@@ -140,7 +145,7 @@ const MyAnimals: React.FC = () => {
             variant="contained" 
             startIcon={<IonIcon icon={addOutline} />}
             onClick={() => history.push("/animals/add")}
-            sx={{ borderRadius: '8px', textTransform: 'none', fontWeight: 'bold', bgcolor: '#3880ff' }}
+            sx={{ borderRadius: '8px', textTransform: 'none', fontWeight: 'bold', }}
           >
             New Animal
           </Button>
