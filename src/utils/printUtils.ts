@@ -66,3 +66,99 @@ export const generatePurchasePDF = (po: any) => {
   printWindow.document.write(html);
   printWindow.document.close();
 };
+/**
+ * Utility to generate a professional Movement Permit / Manifest
+ */
+export const generateMovementPermit = (transfer: any) => {
+  const printWindow = window.open('', '_blank');
+  if (!printWindow) return;
+
+  const html = `
+    <html>
+      <head>
+        <title>Livestock Movement Permit - ${transfer.id}</title>
+        <style>
+          body { font-family: 'Helvetica', sans-serif; padding: 40px; color: #333; line-height: 1.6; }
+          .header { text-align: center; border-bottom: 3px solid #18774c; padding-bottom: 10px; margin-bottom: 30px; }
+          .section { margin-top: 20px; }
+          .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+          .label { font-weight: bold; text-transform: uppercase; font-size: 11px; color: #18774c; margin-bottom: 4px; }
+          .value { font-size: 15px; margin-bottom: 15px; border-bottom: 1px solid #eee; padding-bottom: 5px; }
+          .animals { margin-top: 30px; width: 100%; border-collapse: collapse; }
+          .animals th { background-color: #f4fcf8; border: 1px solid #ddd; padding: 12px; text-align: left; color: #18774c; }
+          .animals td { border: 1px solid #ddd; padding: 10px; text-align: left; }
+          .footer { margin-top: 50px; font-size: 10px; text-align: center; font-style: italic; color: #888; border-top: 1px solid #eee; pt: 10px; }
+          @media print { .no-print { display: none; } }
+        </style>
+      </head>
+      <body>
+        <div class="header">
+          <h1 style="margin:0; color: #18774c;">ZVIPFUYO DIGITAL KRAAL</h1>
+          <h3 style="margin:5px 0;">Livestock Movement Manifest</h3>
+          <p>Reference: TRF-${transfer.id}</p>
+        </div>
+
+        <div class="section grid">
+          <div>
+            <div class="label">From (Origin)</div>
+            <div class="value">${transfer.from_herd_name || 'Main Kraal'}</div>
+            
+            <div class="label">Destination</div>
+            <div class="value">${transfer.external_destination || transfer.to_herd_name}</div>
+          </div>
+          <div>
+            <div class="label">Vet Permit Number</div>
+            <div class="value">${transfer.vet_permit_number || 'PENDING'}</div>
+            
+            <div class="label">Police Clearance Ref</div>
+            <div class="value">${transfer.police_clearance_ref || 'PENDING'}</div>
+          </div>
+        </div>
+
+        <div class="section grid">
+          <div>
+            <div class="label">Driver Name</div>
+            <div class="value">${transfer.driver_name || 'N/A'}</div>
+          </div>
+          <div>
+            <div class="label">Vehicle Registration</div>
+            <div class="value">${transfer.truck_reg_number || 'N/A'}</div>
+          </div>
+        </div>
+
+        <div class="section">
+          <div class="label" style="margin-bottom: 10px;">Animals Authorized for Movement</div>
+          <table class="animals">
+            <thead>
+              <tr>
+                <th width="50">#</th>
+                <th>Tag Number</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${(transfer.animal_tags || []).map((tag: string, index: number) => `
+                <tr>
+                  <td>${index + 1}</td>
+                  <td><strong>${tag}</strong></td>
+                  <td>Bovine - Active Movement</td>
+                </tr>
+              `).join('')}
+            </tbody>
+          </table>
+        </div>
+
+        <div class="footer">
+          <p>Generated on ${new Date().toLocaleString()}</p>
+          <p>This document serves as a digital manifest. Official Ministry stamps may be required for highway transit.</p>
+        </div>
+
+        <script>
+          window.onload = function() { window.print(); setTimeout(() => window.close(), 500); };
+        </script>
+      </body>
+    </html>
+  `;
+  printWindow.document.write(html);
+  printWindow.document.close();
+};
