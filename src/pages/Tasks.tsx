@@ -1,18 +1,15 @@
 import React, { useEffect } from 'react';
 import { 
   IonButtons, IonContent, IonHeader, IonMenuButton, IonPage, 
-  IonTitle, IonToolbar, IonList, IonItem, IonLabel, IonCheckbox,
-  IonBadge, IonNote, IonIcon, IonSegment, IonSegmentButton,
-  IonRefresher, IonRefresherContent, useIonToast,
-  IonText, IonButton, IonItemSliding, IonItemOptions, IonItemOption
+  IonTitle, IonToolbar, IonList, IonLabel, IonIcon, IonSegment, 
+  IonSegmentButton, IonRefresher, IonRefresherContent, useIonToast
 } from '@ionic/react';
-import { 
-  checkmarkCircleOutline, ellipseOutline, calendarOutline, 
-  syncOutline, addOutline, createOutline, trashOutline 
-} from 'ionicons/icons';
+import { syncOutline, addOutline, checkmarkCircleOutline, ellipseOutline } from 'ionicons/icons';
+import { Box, Typography, Stack, Button, Container } from '@mui/material';
 import { useHistory } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
 import { fetchActiveTasks, toggleTaskOptimistic } from '../redux/store/slices/operationsSlice';
+import TaskItem from '../components/TaskItem';
 
 const Tasks: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -30,7 +27,7 @@ const Tasks: React.FC = () => {
       await dispatch(toggleTaskOptimistic({ id: taskId, currentStatus })).unwrap();
     } catch (error) {
       present({
-        message: 'Failed to sync task. Try again.',
+        message: 'Sync failed. Check your connection.',
         duration: 2000,
         color: 'danger'
       });
@@ -39,24 +36,24 @@ const Tasks: React.FC = () => {
 
   const todoTasks = tasks.filter(t => !t.is_completed);
   const doneTasks = tasks.filter(t => t.is_completed);
+  const currentTasks = segment === 'todo' ? todoTasks : doneTasks;
 
   return (
     <IonPage>
       <IonHeader className="ion-no-border">
         <IonToolbar>
           <IonButtons slot="start"><IonMenuButton /></IonButtons>
-          <IonTitle>Operations</IonTitle>
-          <IonButtons slot="end">
-            <IonButton onClick={() => history.push('/tasks/add')}>
-              <IonIcon slot="icon-only" icon={addOutline} />
-            </IonButton>
-          </IonButtons>
+          <IonTitle style={{ fontWeight: 700 }}>Operations</IonTitle>
         </IonToolbar>
         
         <IonToolbar>
-          <IonSegment value={segment} onIonChange={(e: any) => setSegment(e.detail.value)}>
+          <IonSegment 
+            value={segment} 
+            onIonChange={(e: any) => setSegment(e.detail.value)}
+            style={{ padding: '0 8px' }}
+          >
             <IonSegmentButton value="todo">
-              <IonLabel>To Do ({todoTasks.length})</IonLabel>
+              <IonLabel>Pending ({todoTasks.length})</IonLabel>
             </IonSegmentButton>
             <IonSegmentButton value="done">
               <IonLabel>Completed</IonLabel>
@@ -72,97 +69,53 @@ const Tasks: React.FC = () => {
           <IonRefresherContent pullingIcon={syncOutline} refreshingSpinner="circles" />
         </IonRefresher>
 
-        <div className="ion-padding-bottom" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <div>
-            <IonText color="dark">
-              <h1 style={{ fontWeight: 'bold', margin: '0' }}>Daily Routine</h1>
-            </IonText>
-            <IonNote>Kraal maintenance & stock care</IonNote>
-          </div>
-          {/* Alternative 'Add' button in the content area */}
-          <IonButton fill="clear" onClick={() => history.push('/tasks/add')}>
-             <IonIcon icon={addOutline} slot="start" />
-             New Task
-          </IonButton>
-        </div>
+        <Container maxWidth="lg">
+          {/* Standardized Header Stack */}
+          <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ mb: 3, mt: 1 }}>
+            <Box>
+              <Typography variant="h5" fontWeight="bold">Daily Routine</Typography>
+              <Typography variant="body2" color="text.secondary">
+                Kraal maintenance & stock care
+              </Typography>
+            </Box>
+            <Button 
+              variant="contained" 
+              startIcon={<IonIcon icon={addOutline} />}
+              onClick={() => history.push('/tasks/add')}
+              sx={{ 
+                borderRadius: '8px', 
+                textTransform: 'none', 
+                fontWeight: 'bold', 
+                bgcolor: '#18774c',
+                '&:hover': { bgcolor: '#14633f' }
+              }}
+            >
+              New Task
+            </Button>
+          </Stack>
 
-        <IonList lines="none">
-          {(segment === 'todo' ? todoTasks : doneTasks).map((task) => (
-            <IonItemSliding key={task.id}>
-              <IonItem 
-                className="ion-margin-vertical" 
-                style={{ 
-                  '--border-radius': '12px', 
-                  '--padding-start': '10px',
-                  'boxShadow': '0 2px 8px rgba(0,0,0,0.05)',
-                  'border': '1px solid #f0f0f0'
-                }}
-              >
-                <IonCheckbox 
-                  slot="start" 
-                  checked={task.is_completed} 
-                  onIonChange={() => handleToggle(task.id, task.is_completed)}
+          <IonList lines="none" style={{ background: 'transparent' }}>
+            {currentTasks.map((task) => (
+              <TaskItem key={task.id} task={task} onToggle={handleToggle} />
+            ))}
+
+            {/* Empty State */}
+            {currentTasks.length === 0 && !loading && (
+              <Box sx={{ textAlign: 'center', py: 8, opacity: 0.5 }}>
+                <IonIcon 
+                  icon={segment === 'todo' ? checkmarkCircleOutline : ellipseOutline} 
+                  style={{ fontSize: '64px' }} 
                 />
-                
-                <IonLabel className="ion-text-wrap" onClick={() => history.push(`/tasks/edit/${task.id}`)}>
-                  <h2 style={{ 
-                    fontWeight: task.is_completed ? 'normal' : 'bold', 
-                    textDecoration: task.is_completed ? 'line-through' : 'none',
-                    color: task.is_completed ? '#888' : '#000'
-                  }}>
-                    {task.title}
-                  </h2>
-                  <p>{task.description}</p>
-                  
-                  <div style={{ display: 'flex', alignItems: 'center', marginTop: '8px', gap: '10px' }}>
-                    <IonBadge color={getPriorityColor(task.priority)} mode="ios">
-                      {task.priority.toUpperCase()}
-                    </IonBadge>
-                    {task.due_date && (
-                      <IonNote style={{ fontSize: '0.75rem', display: 'flex', alignItems: 'center' }}>
-                        <IonIcon icon={calendarOutline} style={{ marginRight: '4px' }} />
-                        {new Date(task.due_date).toLocaleDateString()}
-                      </IonNote>
-                    )}
-                  </div>
-                </IonLabel>
-
-                {task.is_completed && <IonIcon icon={checkmarkCircleOutline} color="success" slot="end" />}
-              </IonItem>
-
-              <IonItemOptions side="end">
-                <IonItemOption color="primary" onClick={() => history.push(`/tasks/edit/${task.id}`)}>
-                  <IonIcon slot="icon-only" icon={createOutline} />
-                </IonItemOption>
-                <IonItemOption color="danger" onClick={() => {/* Handle delete logic */}}>
-                  <IonIcon slot="icon-only" icon={trashOutline} />
-                </IonItemOption>
-              </IonItemOptions>
-            </IonItemSliding>
-          ))}
-
-          {/* Empty State */}
-          {(segment === 'todo' ? todoTasks : doneTasks).length === 0 && !loading && (
-            <div className="ion-text-center ion-padding" style={{ marginTop: '40px' }}>
-              <IonIcon icon={segment === 'todo' ? checkmarkCircleOutline : ellipseOutline} style={{ fontSize: '64px', color: '#ccc' }} />
-              <p style={{ color: '#888' }}>
-                {segment === 'todo' ? 'All caught up! No pending tasks.' : 'No completed tasks yet.'}
-              </p>
-            </div>
-          )}
-        </IonList>
+                <Typography variant="body1" sx={{ mt: 2 }}>
+                  {segment === 'todo' ? 'All caught up!' : 'No completed tasks yet.'}
+                </Typography>
+              </Box>
+            )}
+          </IonList>
+        </Container>
       </IonContent>
     </IonPage>
   );
-};
-
-const getPriorityColor = (priority: string) => {
-  switch (priority.toLowerCase()) {
-    case 'high': return 'danger';
-    case 'medium': return 'warning';
-    case 'low': return 'primary';
-    default: return 'medium';
-  }
 };
 
 export default Tasks;

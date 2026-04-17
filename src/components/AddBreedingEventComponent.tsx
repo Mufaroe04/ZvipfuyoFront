@@ -4,8 +4,8 @@ import {
   Box, Stack, Autocomplete, Button 
 } from '@mui/material';
 import { useHistory } from 'react-router-dom';
-import { IonIcon } from '@ionic/react';
-import { saveOutline } from 'ionicons/icons';
+// import { IonIcon } from '@ionic/react';
+// import { saveOutline } from 'ionicons/icons';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
 import { fetchAllAnimals } from '../redux/store/slices/livestockSlice';
 import { logBreedingEvent } from '../redux/store/slices/reproductionSlice';

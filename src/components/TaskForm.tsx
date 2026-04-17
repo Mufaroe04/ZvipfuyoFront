@@ -70,9 +70,9 @@ const TaskForm: React.FC<TaskFormProps> = ({ initialData, onSubmit, buttonText }
             value={formData.priority}
             onChange={(e) => setFormData({ ...formData, priority: e.target.value })}
           >
-            <MenuItem value="high">🔴 High (Urgent)</MenuItem>
-            <MenuItem value="medium">🟡 Medium</MenuItem>
-            <MenuItem value="low">🟢 Low</MenuItem>
+            <MenuItem value="high"> High (Urgent)</MenuItem>
+            <MenuItem value="medium"> Medium</MenuItem>
+            <MenuItem value="low"> Low</MenuItem>
           </TextField>
 
           {/* Instructions */}
@@ -133,11 +133,11 @@ const TaskForm: React.FC<TaskFormProps> = ({ initialData, onSubmit, buttonText }
               py: 1.8, 
               borderRadius: '12px', 
               textTransform: 'none', 
-              fontSize: '1rem',
-              fontWeight: 'bold',
-              bgcolor: '#3880ff',
-              '&:hover': { bgcolor: '#3171e0' },
-              boxShadow: '0 4px 12px rgba(56, 128, 255, 0.2)'
+              // fontSize: '1rem',
+              // fontWeight: 'bold',
+              // bgcolor: '#3880ff',
+              // '&:hover': { bgcolor: '#3171e0' },
+              // boxShadow: '0 4px 12px rgba(56, 128, 255, 0.2)'
             }}
           >
             {buttonText}
