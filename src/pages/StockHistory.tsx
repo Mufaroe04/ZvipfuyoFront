@@ -3,7 +3,7 @@ import {
   IonPage, IonHeader, IonToolbar, IonTitle, IonContent, 
   IonButtons, IonBackButton, IonIcon 
 } from '@ionic/react';
-import { Container, Box, Typography, Paper, Chip, Avatar } from '@mui/material';
+import { Container, Box, Typography, Paper, Chip,  } from '@mui/material';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import { arrowUpOutline, arrowDownOutline, settingsOutline } from 'ionicons/icons';
 import api from '../services/api';
@@ -49,10 +49,11 @@ const StockHistory: React.FC = () => {
           <Chip 
             size="small"
             icon={<IonIcon icon={isAddition ? arrowUpOutline : (isUsage ? arrowDownOutline : settingsOutline)} />}
-            label={params.value?.toUpperCase()}
+            // label={params.value?.toUpperCase()}
+            label={params.value}
             color={isAddition ? "success" : (isUsage ? "warning" : "default")}
             variant="outlined"
-            sx={{ fontWeight: 'bold' }}
+            // sx={{ fontWeight: 'bold' }}
           />
         );
       }
@@ -62,11 +63,12 @@ const StockHistory: React.FC = () => {
       field: 'quantity', 
       headerName: 'Qty', 
       width: 100,
-      renderCell: (params) => (
-        <Typography variant="body2" fontWeight="700">
-          {params.row.log_type === 'usage' ? '-' : '+'}{params.value}
-        </Typography>
-      )
+      // renderCell: (params) => (
+      //   <Typography variant="body2" >
+      //     {params.row.log_type === 'usage' ? '-' : '+'}{params.value}
+      //     {""}
+      //   </Typography>
+      // )
     },
     { field: 'notes', headerName: 'Activity Note', flex: 1.5 },
     { field: 'date_display', headerName: 'Timestamp', width: 180 },
@@ -77,16 +79,14 @@ const StockHistory: React.FC = () => {
       <IonHeader className="ion-no-border">
         <IonToolbar>
           <IonButtons slot="start"><IonBackButton defaultHref="/inventory" /></IonButtons>
-          <IonTitle>Stock Audit Trail</IonTitle>
+          <IonTitle>Stock History </IonTitle>
         </IonToolbar>
       </IonHeader>
 
       <IonContent className="ion-padding">
         <Container maxWidth="lg">
           <Box sx={{ mb: 4, mt: 2, display: 'flex', alignItems: 'center', gap: 2 }}>
-            <Avatar sx={{ bgcolor: 'primary.main', width: 56, height: 56 }}>
-              <IonIcon icon={settingsOutline} />
-            </Avatar>
+
             <Box>
               <Typography variant="h5" fontWeight="800">
                 {itemId ? `History for Item #${itemId}` : "Inventory Logs"}

@@ -191,6 +191,14 @@ export interface Task {
   assigned_to_name: string;
 }
 
+export interface Supplier {
+  id: number;
+  name: string;
+  contact_person?: string;
+  phone: string;
+  email?: string;
+  location: string;
+} 
 export interface Notification {
   id: number;
   title: string;

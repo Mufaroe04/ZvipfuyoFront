@@ -1,99 +1,129 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import { 
   IonPage, IonHeader, IonToolbar, IonTitle, IonContent, 
-  IonButtons, IonMenuButton, IonIcon, IonFab, IonFabButton, IonModal, useIonToast
+  IonButtons, IonMenuButton, IonIcon, useIonToast, useIonLoading 
 } from '@ionic/react';
-import { add, businessOutline, callOutline, locationOutline, mailOutline, closeOutline } from 'ionicons/icons';
-import { Container, Typography, Card, CardContent, Grid, Stack, Button, Box, TextField } from '@mui/material';
-import api from '../services/api';
+import { 
+  Container, Box, Typography, Paper, Button, Stack, 
+  Dialog, DialogTitle, DialogContent, TextField, IconButton 
+} from '@mui/material';
+import { DataGrid, GridColDef } from '@mui/x-data-grid';
+import { addOutline, businessOutline, closeOutline, callOutline } from 'ionicons/icons';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch, RootState } from '../redux/store';
+import { fetchSuppliers, addSupplier } from '../redux/store/slices/supplierSlice';
 
 const Suppliers: React.FC = () => {
-  const [suppliers, setSuppliers] = useState<any[]>([]);
-  const [showModal, setShowModal] = useState(false);
-  const [present] = useIonToast();
-  const [newSupplier, setNewSupplier] = useState({ name: '', phone: '', location: '', email: '' });
+  const dispatch = useDispatch<AppDispatch>();
+  const [showToast] = useIonToast();
+  const [presentLoading, dismissLoading] = useIonLoading();
+  const { suppliers, loading } = useSelector((state: RootState) => state.suppliers);
 
-  const fetchSuppliers = () => {
-    api.get('suppliers/').then(res => setSuppliers(res.data));
-  };
+  const [openModal, setOpenModal] = useState(false);
+  const [formData, setFormData] = useState({ name: '', phone: '', location: '', email: '', contact_person: '' });
 
-  useEffect(() => { fetchSuppliers(); }, []);
+  useEffect(() => {
+    dispatch(fetchSuppliers());
+  }, [dispatch]);
 
-  const handleAddSupplier = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    await presentLoading('Registering partner...');
     try {
-      await api.post('suppliers/', newSupplier);
-      present({ message: 'Supplier added successfully', duration: 2000, color: 'success' });
-      setShowModal(false);
-      setNewSupplier({ name: '', phone: '', location: '', email: '' });
-      fetchSuppliers();
+      await dispatch(addSupplier(formData)).unwrap();
+      showToast({ message: 'Supplier registered successfully', color: 'success', duration: 2000 });
+      setOpenModal(false);
+      setFormData({ name: '', phone: '', location: '', email: '', contact_person: '' });
     } catch (err) {
-      present({ message: 'Error saving supplier', duration: 2000, color: 'danger' });
+      showToast({ message: 'Error saving supplier', color: 'danger', duration: 2000 });
+    } finally {
+      dismissLoading();
     }
   };
+
+  const columns: GridColDef[] = [
+    { 
+      field: 'name', 
+      headerName: 'Supplier Name', 
+      flex: 1.5,
+      renderCell: (params) => (
+        <Stack direction="row" spacing={1} alignItems="center" sx={{ pt: 1.5 }}>
+          <IonIcon icon={businessOutline} style={{ color: '#18774c' }} />
+          <Typography variant="body2" fontWeight="bold">{params.value}</Typography>
+        </Stack>
+      )
+    },
+    { field: 'location', headerName: 'Location', flex: 1 },
+    { field: 'phone', headerName: 'Contact Number', flex: 1 },
+    {
+      field: 'actions',
+      headerName: 'View',
+      width: 120,
+      renderCell: () => (
+        <Button size="small" variant="text" sx={{ textTransform: 'none', fontWeight: 'bold', color: '#18774c' }}>
+          History
+        </Button>
+      )
+    }
+  ];
 
   return (
     <IonPage>
       <IonHeader className="ion-no-border">
         <IonToolbar>
           <IonButtons slot="start"><IonMenuButton /></IonButtons>
-          <IonTitle>Supplier Directory</IonTitle>
+          <IonTitle style={{ fontWeight: 700 }}>Suppliers</IonTitle>
         </IonToolbar>
       </IonHeader>
 
       <IonContent className="ion-padding">
         <Container maxWidth="lg">
-          <Box sx={{ mb: 4, mt: 2 }}>
-            <Typography variant="h4" fontWeight="800" color="primary">Partners & Suppliers</Typography>
-            <Typography variant="body1" color="text.secondary">Manage your feed, medicine, and equipment providers.</Typography>
-          </Box>
+          <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ mb: 4, mt: 2 }}>
+            <Box>
+              <Typography variant="h5" fontWeight="bold">Partners & Suppliers</Typography>
+              <Typography variant="body2" color="text.secondary">Maintain your supply chain network.</Typography>
+            </Box>
+            <Button 
+              variant="contained" 
+              startIcon={<IonIcon icon={addOutline} />}
+              onClick={() => setOpenModal(true)}
+              sx={{ borderRadius: '8px', bgcolor: '#18774c', textTransform: 'none', fontWeight: 'bold' }}
+            >
+              Add Supplier
+            </Button>
+          </Stack>
 
-          <Grid container spacing={3}>
-            {suppliers.map((supplier) => (
-              <Grid item xs={12} md={6} key={supplier.id}>
-                <Card sx={{ borderRadius: '16px', height: '100%', border: '1px solid #e0e0e0' }}>
-                  <CardContent>
-                    <Stack direction="row" spacing={2} alignItems="center" sx={{ mb: 2 }}>
-                      <Box sx={{ p: 1, bgcolor: 'primary.light', borderRadius: '12px', color: 'primary.main' }}>
-                        <IonIcon icon={businessOutline} style={{ fontSize: '24px' }} />
-                      </Box>
-                      <Typography variant="h6" fontWeight="bold">{supplier.name}</Typography>
-                    </Stack>
-                    <Stack spacing={1}>
-                      <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}><IonIcon icon={callOutline} color="medium" /><Typography variant="body2">{supplier.phone}</Typography></Box>
-                      <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}><IonIcon icon={locationOutline} color="medium" /><Typography variant="body2">{supplier.location}</Typography></Box>
-                    </Stack>
-                    <Button variant="outlined" fullWidth sx={{ mt: 3, borderRadius: '10px' }}>View Purchase History</Button>
-                  </CardContent>
-                </Card>
-              </Grid>
-            ))}
-          </Grid>
+          <Paper sx={{ height: '65vh', borderRadius: '16px', overflow: 'hidden', border: '1px solid #ececec' }} elevation={0}>
+            <DataGrid 
+              rows={suppliers} 
+              columns={columns} 
+              loading={loading}
+              sx={{ border: 'none', '& .MuiDataGrid-columnHeaders': { bgcolor: '#fbfbfb' } }}
+            />
+          </Paper>
         </Container>
 
-        <IonModal isOpen={showModal} onDidDismiss={() => setShowModal(false)} initialBreakpoint={0.75} breakpoints={[0, 0.75, 1.0]}>
-          <Box sx={{ p: 4 }}>
-            <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ mb: 3 }}>
-              <Typography variant="h5" fontWeight="bold">Add New Partner</Typography>
-              <Button onClick={() => setShowModal(false)}><IonIcon icon={closeOutline} style={{ fontSize: '24px' }} /></Button>
-            </Stack>
-            <form onSubmit={handleAddSupplier}>
-              <Stack spacing={3}>
-                <TextField label="Company Name" fullWidth required value={newSupplier.name} onChange={e => setNewSupplier({...newSupplier, name: e.target.value})} />
-                <TextField label="Phone Number" fullWidth required value={newSupplier.phone} onChange={e => setNewSupplier({...newSupplier, phone: e.target.value})} />
-                <TextField label="Location (e.g. Harare)" fullWidth value={newSupplier.location} onChange={e => setNewSupplier({...newSupplier, location: e.target.value})} />
-                <TextField label="Email Address" type="email" fullWidth value={newSupplier.email} onChange={e => setNewSupplier({...newSupplier, email: e.target.value})} />
-                <Button type="submit" variant="contained" size="large" fullWidth sx={{ borderRadius: '12px', py: 2 }}>Register Supplier</Button>
+        {/* Add Supplier Modal */}
+        <Dialog open={openModal} onClose={() => setOpenModal(false)} fullWidth maxWidth="xs">
+          <DialogTitle sx={{ fontWeight: 'bold', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            New Partner
+            <IconButton onClick={() => setOpenModal(false)} size="small"><IonIcon icon={closeOutline} /></IconButton>
+          </DialogTitle>
+          <DialogContent>
+            <form onSubmit={handleSubmit}>
+              <Stack spacing={2} sx={{ mt: 1 }}>
+                <TextField label="Company Name" fullWidth required value={formData.name} onChange={e => setFormData({...formData, name: e.target.value})} />
+                <TextField label="Contact Person" fullWidth value={formData.contact_person} onChange={e => setFormData({...formData, contact_person: e.target.value})} />
+                <TextField label="Phone Number" fullWidth required value={formData.phone} onChange={e => setFormData({...formData, phone: e.target.value})} />
+                <TextField label="Location" fullWidth value={formData.location} onChange={e => setFormData({...formData, location: e.target.value})} />
+                <TextField label="Email Address" type="email" fullWidth value={formData.email} onChange={e => setFormData({...formData, email: e.target.value})} />
+                <Button type="submit" variant="contained" fullWidth sx={{ mt: 2, bgcolor: '#18774c', py: 1.5, borderRadius: '8px' }}>
+                  Register Supplier
+                </Button>
               </Stack>
             </form>
-          </Box>
-        </IonModal>
-
-        <IonFab vertical="bottom" horizontal="end" slot="fixed">
-          <IonFabButton color="primary" onClick={() => setShowModal(true)}>
-            <IonIcon icon={add} />
-          </IonFabButton>
-        </IonFab>
+          </DialogContent>
+        </Dialog>
       </IonContent>
     </IonPage>
   );

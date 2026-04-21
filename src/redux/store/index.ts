@@ -8,6 +8,8 @@ import reproductionReducer from './slices/reproductionSlice';
 import inventoryReducer from './slices/inventorySlice';
 import insightsReducer from './slices/insightsSlice';
 import chatReducer from './slices/chatSlice';
+import supplierReducer from './slices/supplierSlice';
+
 
 
 
@@ -25,7 +27,9 @@ export const store = configureStore({
     reproduction:reproductionReducer,
     inventory:inventoryReducer,
     insights:insightsReducer,
-    chat:chatReducer
+    chat:chatReducer,
+    suppliers:supplierReducer,
+
 
   },
   // This middleware ensures you don't get "serializable" errors 
