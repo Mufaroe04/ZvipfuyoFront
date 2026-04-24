@@ -30,7 +30,7 @@ const Dashboard: React.FC = () => {
         </IonToolbar>
       </IonHeader>
 
-      <IonContent fullscreen className="ion-padding">
+      <IonContent fullscreen className="ion-padding" color="light">
         <IonHeader collapse="condense">
           <IonToolbar>
             <IonTitle size="large">Zvipfuyo zvako</IonTitle>

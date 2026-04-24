@@ -9,12 +9,8 @@ import inventoryReducer from './slices/inventorySlice';
 import insightsReducer from './slices/insightsSlice';
 import chatReducer from './slices/chatSlice';
 import supplierReducer from './slices/supplierSlice';
-
-
-
-
-
-
+import authReducer from './slices/authSlice';
+import staffReducer from './slices/staffSlice';
 
 
 export const store = configureStore({
@@ -29,6 +25,8 @@ export const store = configureStore({
     insights:insightsReducer,
     chat:chatReducer,
     suppliers:supplierReducer,
+    auth:authReducer,
+    staff:staffReducer,
 
 
   },

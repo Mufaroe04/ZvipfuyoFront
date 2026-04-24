@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Redirect, Route } from 'react-router-dom';
+import { Redirect, Route,useHistory } from 'react-router-dom';
 import { 
   IonApp, IonRouterOutlet, setupIonicReact, IonIcon, IonLabel, IonHeader, 
   IonToolbar, IonContent, IonItem, IonList, IonMenu, IonMenuToggle, 
@@ -12,7 +12,7 @@ import {
   archiveOutline, notificationsOutline, chatbubblesOutline, personOutline, 
   logOutOutline, pawOutline, cartOutline, businessOutline,
   scaleOutline,
-  waterOutline
+  waterOutline,peopleOutline
 } from "ionicons/icons";
 import { IonReactRouter } from '@ionic/react-router';
 
@@ -70,6 +70,11 @@ import DairyOperations from './pages/DairyOperations';
 import AddMilkYields from './pages/AddMilkYields';
 import AddMilkQuality from './pages/AddMilkQuality';
 import AddLactation from './pages/AddLactation';
+import Login from './pages/Login';
+import ProtectedRoute from './components/ProtectedRoute';
+import { logout } from './redux/store/slices/authSlice';
+import StaffPage from './pages/StaffPage';
+
 /**
 
  * Ionic Dark Mode
@@ -90,29 +95,35 @@ setupIonicReact();
 
 const App: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
-  
+  const history = useHistory();
+  const { user } = useSelector((state: RootState) => state.auth);
   // Pull unread count from Redux
   const unreadCount = useSelector((state: RootState) => state.notifications.unreadCount);
-const zvipfuyoTheme = createTheme({
-  typography: {
-    // Setting the global font family
-    fontFamily: '"Plus Jakarta Sans", sans-serif',
-    button: {
-      textTransform: 'none', // Keeps buttons from being all caps
-      fontWeight: 600,
+  const canManageStaff = user?.profile?.role === 'owner' || user?.profile?.role === 'manager';
+  const zvipfuyoTheme = createTheme({
+    typography: {
+      // Setting the global font family
+      fontFamily: '"Plus Jakarta Sans", sans-serif',
+      button: {
+        textTransform: 'none', // Keeps buttons from being all caps
+        fontWeight: 600,
+      },
     },
-  },
-  palette: {
-    primary: {
-      main: '#18774c', // Your specific green
+    palette: {
+      primary: {
+        main: '#18774c', // Your specific green
+      },
     },
-  },
-});
+  });
   // Fetch notifications on app load to sync the badge
   useEffect(() => {
     dispatch(fetchNotifications());
   }, [dispatch]);
-
+  const handleLogout = () => {
+    dispatch(logout()); // Dispatch the logout async thunk action
+    history.replace("/login"); // Redirect to the login page after logout
+  };
+  console.log('canManageStaff',canManageStaff)
   return (
 
     <IonApp>
@@ -171,7 +182,14 @@ const zvipfuyoTheme = createTheme({
                   <IonLabel><strong>Chat</strong></IonLabel>
                 </IonItem>
               </IonMenuToggle>
-
+              {canManageStaff && (
+                <IonMenuToggle autoHide={false}>
+                  <IonItem button routerLink="/staff" lines="none">
+                    <IonIcon icon={peopleOutline} slot="start" />
+                    <IonLabel><strong>Staff Management</strong></IonLabel>
+                  </IonItem>
+                </IonMenuToggle>
+              )}
               <IonMenuToggle autoHide={false}>
                 <IonItem button routerLink="/profile" lines="none">
                   <IonIcon icon={personOutline} slot="start" />
@@ -180,7 +198,7 @@ const zvipfuyoTheme = createTheme({
               </IonMenuToggle>
 
               <IonMenuToggle autoHide={false}>
-                <IonItem button lines="none" detail={false}>
+                <IonItem button lines="none" detail={false} onClick={handleLogout}>
                   <IonIcon icon={logOutOutline} slot="start"  />
                   <IonLabel ><strong>Logout</strong></IonLabel>
                 </IonItem>
@@ -190,40 +208,50 @@ const zvipfuyoTheme = createTheme({
         </IonMenu>
 
         <IonRouterOutlet id="main-content">
-          <Route exact path="/"><Redirect to="/dashboard" /></Route>
-          <Route exact path="/dashboard" component={Dashboard} />
-          <Route exact path="/scan" component={Scan} />
-          <Route exact path="/herds" component={MyHerds} />
-          <Route exact path="/herdsadd" component={HerdCreatePage} />
-          <Route exact path="/herds/:id" component={HerdDetailView} />
-          <Route exact path="/animals" component={MyAnimals} />
-          <Route exact path="/herds/:herdId/add-animal" component={RegisterAnimalView} />
-          <Route exact path="/animals/add" component={RegisterAnimalView} />
-          <Route exact path="/animal/:id" component={AnimalDetailView} />
-          <Route exact path="/dairy" component={DairyOperations} />
-          <Route exact path="/dairy/milk-yield/add" component={AddMilkYields} />
-          <Route exact path="/dairy/milk-quality/add" component={AddMilkQuality} />
-          <Route exact path="/dairy/milk-lactation/add" component={AddLactation} />
-          <Route exact path="/health" component={HealthAndTreatments} />
-          <Route exact path="/health/add" component={AddHealthRecord} />
-          <Route exact path="/reproduction" component={Reproduction} />
-          <Route exact path="/reproduction/add" component={AddBreedingEvent} />
-          <Route exact path="/weights" component={WeightListing} />
-          <Route exact path="/weights/add" component={AddWeight} />
-          <Route exact path="/insights" component={Insights} />
-          <Route exact path="/counting" component={CountingSession} />
-          <Route exact path="/tasks" component={Tasks} />
-          <Route exact path="/tasks/add" component={AddTask} />
-          <Route exact path="/transfer" component={Transfer} />
-          <Route exact path="/operations/add-transfer" component={AddTransfer} />
-          <Route exact path="/inventory" component={Inventory} />
-          <Route exact path="/inventory/add" component={AddInventoryItem} />
-          <Route path="/inventory/history" exact component={StockHistory} />
-          <Route exact path="/procurement" component={Procurement} />
-          <Route exact path="/suppliers" component={Suppliers} />
-          <Route exact path="/notifications" component={Notifications} />
-          <Route exact path="/chat" component={Chat} />
-          <Route exact path="/profile" component={Profile} />
+          {/* <ProtectedRoute exact path="/"><Redirect to="/dashboard" /></ProtectedRoute> */}
+          <ProtectedRoute exact path="/dashboard" component={Dashboard} />
+          <ProtectedRoute exact path="/scan" component={Scan} />
+          <ProtectedRoute exact path="/herds" component={MyHerds} />
+          <ProtectedRoute exact path="/herdsadd" component={HerdCreatePage} />
+          <ProtectedRoute exact path="/herds/:id" component={HerdDetailView} />
+          <ProtectedRoute exact path="/animals" component={MyAnimals} />
+          <ProtectedRoute exact path="/herds/:herdId/add-animal" component={RegisterAnimalView} />
+          <ProtectedRoute exact path="/animals/add" component={RegisterAnimalView} />
+          <ProtectedRoute exact path="/animal/:id" component={AnimalDetailView} />
+          <ProtectedRoute exact path="/dairy" component={DairyOperations} />
+          <ProtectedRoute exact path="/dairy/milk-yield/add" component={AddMilkYields} />
+          <ProtectedRoute exact path="/dairy/milk-quality/add" component={AddMilkQuality} />
+          <ProtectedRoute exact path="/dairy/milk-lactation/add" component={AddLactation} />
+          <ProtectedRoute exact path="/health" component={HealthAndTreatments} />
+          <ProtectedRoute exact path="/health/add" component={AddHealthRecord} />
+          <ProtectedRoute exact path="/reproduction" component={Reproduction} />
+          <ProtectedRoute exact path="/reproduction/add" component={AddBreedingEvent} />
+          <ProtectedRoute exact path="/weights" component={WeightListing} />
+          <ProtectedRoute exact path="/weights/add" component={AddWeight} />
+          <ProtectedRoute exact path="/insights" component={Insights} />
+          <ProtectedRoute exact path="/counting" component={CountingSession} />
+          <ProtectedRoute exact path="/tasks" component={Tasks} />
+          <ProtectedRoute exact path="/tasks/add" component={AddTask} />
+          <ProtectedRoute exact path="/transfer" component={Transfer} />
+          <ProtectedRoute exact path="/operations/add-transfer" component={AddTransfer} />
+          <ProtectedRoute exact path="/inventory" component={Inventory} />
+          <ProtectedRoute exact path="/inventory/add" component={AddInventoryItem} />
+          <ProtectedRoute path="/inventory/history" exact component={StockHistory} />
+          <ProtectedRoute exact path="/procurement" component={Procurement} />
+          <ProtectedRoute exact path="/suppliers" component={Suppliers} />
+          <ProtectedRoute exact path="/notifications" component={Notifications} />
+          <ProtectedRoute exact path="/chat" component={Chat} />
+          <ProtectedRoute exact path="/profile" component={Profile} />
+          <ProtectedRoute exact path="/staff" component={StaffPage} />
+
+          <Route exact path="/login" component={Login} />
+          {/* <ProtectedRoute exact path="/dashboard" component={Dashboard} />
+          <ProtectedRoute exact path="/suppliers" component={Suppliers} /> */}
+          
+          <Route exact path="/">
+            <Redirect to="/login" />
+          </Route>
+
         </IonRouterOutlet>
       </IonReactRouter>
       </ThemeProvider>

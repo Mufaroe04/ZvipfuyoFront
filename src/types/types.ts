@@ -6,15 +6,40 @@ export type TransferStatus = 'pending' | 'approved' | 'incoming' | 'outgoing' | 
 export type Priority = 'low' | 'medium' | 'high';
 export type NotificationLevel = 'info' | 'success' | 'warning' | 'danger';
 export type Condition='Dry'|'Good'|'Muddy/Wet'| 'Overgrazed'
+export type UserRole = 'owner' | 'manager' | 'hand' | 'vet';
 
 // --- MODELS ---
+
+// export interface User {
+//   id: number;
+//   username: string;
+//   email: string;
+// }
 
 export interface User {
   id: number;
   username: string;
   email: string;
+  first_name: string;
+  last_name: string;
+  profile: {
+    role: UserRole;
+    phone_number: string;
+    profile_image: string | null;
+  };
+}
+// The data sent from the Login Form
+export interface LoginCredentials {
+  username: string;
+  password?: string; // Optional if using OTP, but standard for password auth
 }
 
+
+export interface AuthResponse {
+  access: string;
+  refresh: string;
+  user: User; // Reusing the User interface we defined earlier
+}
 export interface Herd {
   id: number;
   name: string;
@@ -338,3 +363,4 @@ export interface LactationPeriodPayload{
     lactation_number:string;
     is_active :boolean;
 }
+

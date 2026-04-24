@@ -372,6 +372,7 @@ import { useHistory } from 'react-router-dom';
 import { fetchLiveInsights } from '../redux/store/slices/insightsSlice';
 import { Geolocation } from '@capacitor/geolocation';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
+import ReactMarkdown from 'react-markdown';
 
 const Insights: React.FC = () => {
   const history = useHistory();
@@ -432,7 +433,7 @@ const Insights: React.FC = () => {
         </IonToolbar>
       </IonHeader>
 
-      <IonContent fullscreen className="ion-padding">
+      <IonContent fullscreen className="ion-padding" color="light">
         <IonGrid>
           
           {/* 1. DYNAMIC AI ACTION PLAN */}
@@ -462,7 +463,7 @@ const Insights: React.FC = () => {
                   </IonCardTitle>
                 </IonCardHeader>
                 <IonCardContent style={{ color: 'white', fontSize: '1.1rem', lineHeight: '1.5' }}>
-                  {loading_insights ? "Analyzing farm metrics..." : <p>{insights_data?.narrative}</p>}
+                  {loading_insights ? "Analyzing farm metrics..." : <ReactMarkdown>{insights_data?.narrative}</ReactMarkdown>}
                 </IonCardContent>
               </IonCard>
             </IonCol>
