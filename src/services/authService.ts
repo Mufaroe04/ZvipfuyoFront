@@ -21,4 +21,7 @@ export const staffService = {
     api.post('register-staff/', staffData),
     
   getStaffList: () => api.get<User[]>('staff/'),
+  
+  updateStaff: (id: number, staffData: any) => 
+    api.patch(`staff/${id}/`, staffData),
 };

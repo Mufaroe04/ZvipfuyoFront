@@ -33,7 +33,17 @@ export const addStaffMember = createAsyncThunk('staff/add', async (data: any, { 
     return rejectWithValue(err.response?.data?.error || 'Failed to create staff');
   }
 });
-
+export const updateStaffMember = createAsyncThunk(
+  'staff/update',
+  async ({ id, data }: { id: number; data: any }, { rejectWithValue }) => {
+    try {
+      const response = await staffService.updateStaff(id, data);
+      return response.data;
+    } catch (err: any) {
+      return rejectWithValue(err.response?.data?.message || 'Failed to update staff');
+    }
+  }
+);
 const staffSlice = createSlice({
   name: 'staff',
   initialState,
@@ -55,7 +65,15 @@ const staffSlice = createSlice({
       .addCase(addStaffMember.rejected, (state, action) => {
         state.createStatus = 'failed';
         state.error = action.payload as string;
-      });
+      })
+      .addCase(updateStaffMember.fulfilled, (state, action) => {
+            const index = state.members.findIndex(m => m.id === action.payload.id);
+            if (index !== -1) {
+            state.members[index] = action.payload; // Update the member in the list
+            }
+            state.loading = false;
+        })
+       .addCase(updateStaffMember.pending, (state) => { state.loading = true; });
   }
 });
 
