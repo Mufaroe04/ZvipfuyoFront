@@ -12,7 +12,8 @@ import {
   archiveOutline, notificationsOutline, chatbubblesOutline, personOutline, 
   logOutOutline, pawOutline, cartOutline, businessOutline,
   scaleOutline,
-  waterOutline,peopleOutline
+  waterOutline,peopleOutline,
+  trendingUpOutline
 } from "ionicons/icons";
 import { IonReactRouter } from '@ionic/react-router';
 
@@ -169,7 +170,7 @@ const App: React.FC = () => {
                 { label: 'My Herds', icon: listOutline, url: '/herds' },
                 { label: 'My Animals', icon: pawOutline, url: '/animals' },
                 { label: 'Dairy Operations', icon: waterOutline, url: '/dairy' },
-                { label: 'Beef Cattle Operations', icon: cartOutline, url: '/beef' },
+                { label: 'Beef Cattle Operations', icon: trendingUpOutline, url: '/beef' },
                 { label: 'Health & Treatments', icon: medkitOutline, url: '/health' },
                 { label: 'Reproduction', icon: gitNetworkOutline, url: '/reproduction' },
                 { label: 'Weight Tracking', icon: scaleOutline, url: '/weights' },
