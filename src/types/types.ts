@@ -329,6 +329,7 @@ export interface WeatherData {
 export interface MilkYield {
     id:number;
     animal : Animal;
+    breed: string; 
     date :string;
     session:string;
     amount_liters :number;
@@ -339,6 +340,7 @@ export interface MilkYield {
 export interface MilkQuality{
     id :number;
     animal : Animal;
+    breed: string; 
     date :string;
     fat_percentage:number;
     protein_percentage :number;
@@ -348,6 +350,7 @@ export interface MilkQuality{
 export interface LactationPeriod{
     id :number;
     animal : Animal;
+    breed: string; 
     start_date :string;
     end_date :string;
     lactation_number:string;
