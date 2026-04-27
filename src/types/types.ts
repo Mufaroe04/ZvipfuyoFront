@@ -71,7 +71,20 @@ export interface WeightEntry {
   weight_kg: number;
   change_kg: number;
 }
+export interface MarketPrice {
+  id: number;
+  breed: string; 
+  breed_display?: string; 
+  price_per_kg: number;
+  last_updated: string; 
+}
 
+/** * Payload interface for updating prices 
+ * (Used in your operationsService.updateMarketPrice)
+ */
+export interface MarketPricePayload {
+  price_per_kg: number;
+}
 export interface CountingSession {
   id: number;
   herd: number;          // ID of the herd being counted

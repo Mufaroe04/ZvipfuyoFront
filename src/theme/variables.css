@@ -20,7 +20,9 @@ body {
 ion-item ion-icon {
   color: #18774c;
 }
-
+ /* ion-icon {
+  color: #18774c;
+} */
 /* Style for the Labels in the list */
 ion-label {
   font-family: 'Plus Jakarta Sans', sans-serif !important;

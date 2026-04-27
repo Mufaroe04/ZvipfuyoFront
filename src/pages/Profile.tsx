@@ -30,12 +30,12 @@ const Profile: React.FC = () => {
              
           </IonToolbar>
            <IonText>
-               <p> Digital Kraal  </p>
+               <p> My Profile account  </p>
               </IonText>
         </IonHeader>
         
         <IonText>
-          <h2>Profile My Cow</h2>
+          <h2>Profile</h2>
         </IonText>
       </IonContent>
     </IonPage>

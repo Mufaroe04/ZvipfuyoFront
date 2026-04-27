@@ -38,18 +38,20 @@ const LoginComponent: React.FC<LoginComponentProps> = ({ onLogin, loading, error
         {/* Branding */}
         <Box sx={{ mb: 4, textAlign: 'center' }}>
           <Box sx={{ 
-            bgcolor: '#18774c', width: 64, height: 64, borderRadius: 3, 
-            display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
-            mb: 2, boxShadow: '0 8px 16px rgba(24, 119, 76, 0.15)' 
+            // bgcolor: '#18774c', width: 64, height: 64, borderRadius: 3, 
+            // display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+            // mb: 2, boxShadow: '0 8px 16px rgba(24, 119, 76, 0.15)' 
+            bgcolor: '#ffffff',
           }}>
-            <Grass sx={{ color: '#fff', fontSize: 32 }} />
-          </Box>
-          <Typography variant="h4" component="h1" sx={{ fontWeight: 800, color: '#1a1a1a', letterSpacing: -0.5 }}>
+            <Grass sx={{ color: '#18774c', fontSize: 32 }} />
+          <Typography variant="h4" component="h1" sx={{ fontWeight: 800, color: '#18774c', letterSpacing: -0.5 }}>
             Zvipfuyo
           </Typography>
-          <Typography variant="body1" color="textSecondary">
+          <Typography variant="caption" color="textSecondary">
             Smart Livestock Platform
           </Typography>
+          </Box>
+
         </Box>
 
         <Paper 

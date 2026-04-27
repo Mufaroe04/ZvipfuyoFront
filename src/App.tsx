@@ -72,8 +72,11 @@ import AddMilkQuality from './pages/AddMilkQuality';
 import AddLactation from './pages/AddLactation';
 import Login from './pages/Login';
 import ProtectedRoute from './components/ProtectedRoute';
-import { logout } from './redux/store/slices/authSlice';
+import { initializeAuth, logout } from './redux/store/slices/authSlice';
 import StaffPage from './pages/StaffPage';
+import { Grass } from '@mui/icons-material';
+import { Box, Typography } from '@mui/material';
+import BeefDashboard from './pages/BeefDashboard';
 
 /**
 
@@ -119,6 +122,9 @@ const App: React.FC = () => {
   useEffect(() => {
     dispatch(fetchNotifications());
   }, [dispatch]);
+    useEffect(() => {
+    dispatch(initializeAuth());
+  }, [dispatch,canManageStaff]);
   const handleLogout = () => {
     dispatch(logout()); // Dispatch the logout async thunk action
     history.replace("/login"); // Redirect to the login page after logout
@@ -129,10 +135,28 @@ const App: React.FC = () => {
     <IonApp>
       <ThemeProvider theme={zvipfuyoTheme}>
       <IonReactRouter>
-        <IonMenu contentId="main-content" type="overlay">
-          <IonHeader>
+        <IonMenu contentId="main-content" type="overlay" >
+          <IonHeader className="ion-no-border">
             <IonToolbar color="primary">
-              <IonTitle>Zvipfuyo Menu</IonTitle>
+              {/* <IonTitle>Zvipfuyo Menu</IonTitle> */}
+                      <Box sx={{ textAlign: 'center' }}>
+                        <Box sx={{ 
+                          // bgcolor: '#18774c', width: 64, height: 64, borderRadius: 3, 
+                          // display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+                          // mb: 2, boxShadow: '0 8px 16px rgba(24, 119, 76, 0.15)' 
+                          bgcolor: '#ffffff',
+                        }}>
+                          <Grass sx={{ color: '#18774c', fontSize: 32 }} />
+                        <Typography variant="h4" component="h1" sx={{ fontWeight: 800, color: '#18774c', letterSpacing: -0.5 }}>
+                          Zvipfuyo
+                        </Typography>
+                        <Typography variant="caption" color="textSecondary">
+                          Smart Livestock Platform
+                        </Typography>
+                        </Box>
+              
+                      </Box>
+              
             </IonToolbar>
           </IonHeader>
           <IonContent>
@@ -145,6 +169,7 @@ const App: React.FC = () => {
                 { label: 'My Herds', icon: listOutline, url: '/herds' },
                 { label: 'My Animals', icon: pawOutline, url: '/animals' },
                 { label: 'Dairy Operations', icon: waterOutline, url: '/dairy' },
+                { label: 'Beef Cattle Operations', icon: cartOutline, url: '/beef' },
                 { label: 'Health & Treatments', icon: medkitOutline, url: '/health' },
                 { label: 'Reproduction', icon: gitNetworkOutline, url: '/reproduction' },
                 { label: 'Weight Tracking', icon: scaleOutline, url: '/weights' },
@@ -222,6 +247,7 @@ const App: React.FC = () => {
           <ProtectedRoute exact path="/dairy/milk-yield/add" component={AddMilkYields} />
           <ProtectedRoute exact path="/dairy/milk-quality/add" component={AddMilkQuality} />
           <ProtectedRoute exact path="/dairy/milk-lactation/add" component={AddLactation} />
+          <ProtectedRoute exact path="/beef" component={BeefDashboard} />
           <ProtectedRoute exact path="/health" component={HealthAndTreatments} />
           <ProtectedRoute exact path="/health/add" component={AddHealthRecord} />
           <ProtectedRoute exact path="/reproduction" component={Reproduction} />

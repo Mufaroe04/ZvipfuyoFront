@@ -29,7 +29,7 @@ const handleEditStaff = (data: any) => {
 
   return (
     <IonPage>
-            <IonHeader>
+            <IonHeader className="ion-no-border">
               <IonToolbar>
                 <IonButtons slot="start">
                   {/* The missing piece of the puzzle! */}

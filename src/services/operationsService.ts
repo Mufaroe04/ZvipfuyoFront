@@ -29,8 +29,8 @@ dispatchTransfer: (id: number) => api.post<{ status: string }>(`transfers/${id}/
 getWeightEntries: (animalId?: number) => 
   api.get<WeightEntry[]>('weights/', { params: { animal_id: animalId } }),
 
-addWeightEntry: (data: { animal: number; weight_kg: number; date: string }) => 
-  api.post<WeightEntry>('weights/', data),
+addWeightEntry: (data: { animal: number; weight_kg: number; date: string; condition_score?: number }) => 
+    api.post<WeightEntry>('weights/', data),
 
 // --- MilkYield Tracking ---
 getMilkYield:()=>api.get<MilkYield[]>('milk-yields/'),
@@ -51,4 +51,8 @@ addLactationPeriod:(data:Partial<LactationPeriod>)=>api.post<LactationPeriod>('l
 updateLactationPeriod:(id: number,data:Partial<LactationPeriod>)=>api.patch<LactationPeriod>(`lactations/${id}`,data),
 updateLactationPeriodDryOff:(id: number)=>api.post<LactationPeriod>(`lactations/${id}/dry_off/`),
 deleteLactationPeriod:(id: number) => api.delete(`lactations/${id}/`),
+
+getMarketPrices: () => api.get<MarketPrice[]>('market-prices/'),
+  updateMarketPrice: (id: number, price: number) => 
+    api.patch<MarketPrice>(`market-prices/${id}/`, { price_per_kg: price }),
 };

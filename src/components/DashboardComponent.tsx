@@ -138,16 +138,52 @@ const chartSeries = [{
 
     <IonGrid>
   {/* 1. AI INSIGHTS BANNER */}
-  <IonRow>
+<IonRow>
     <IonCol size="12">
-      <IonCard color="light" style={{ borderLeft: '4px solid var(--ion-color-secondary)' }}>
-        <IonItem lines="none" color="light">
-          <IonIcon icon={sparklesOutline} slot="start" color="secondary" />
-          <IonLabel className="ion-text-wrap">
-            <h2 style={{ fontWeight: 'bold' }}>Zvipfuyo Intelligence</h2>
-            <ReactMarkdown>{insights_data?.narrative}</ReactMarkdown>
+      <IonCard color="light" style={{ borderLeft: '4px solid var(--ion-color-secondary)', borderRadius: '16px' }}>
+        <IonItem lines="none" color="light" sx={{ alignItems: 'flex-start', py: 1 }}>
+          <IonIcon icon={sparklesOutline} slot="start" color="secondary" style={{ marginTop: '12px' }} />
+          
+          <IonLabel className="ion-text-wrap" style={{ width: '100%', margin: '12px 0' }}>
+            <h2 style={{ 
+              fontWeight: 800, 
+              color: '#18774c', 
+              marginBottom: '8px',
+              fontSize: '1.1rem',
+              letterSpacing: '-0.5px'
+            }}>
+              Zvipfuyo Intelligence
+            </h2>
+            
+            {/* Truncation Container */}
+            <div style={{ 
+              color: '#444', 
+              lineHeight: '1.5',
+              fontSize: '0.9rem',
+              display: '-webkit-box',
+              WebkitLineClamp: 3, // Change this number to show more/fewer lines
+              WebkitBoxOrient: 'vertical',
+              overflow: 'hidden',
+              textOverflow: 'ellipsis'
+            }}>
+              <ReactMarkdown 
+                components={{
+                  p: ({node, ...props}) => <span {...props} />, // Use span to avoid paragraph block breaks during truncation
+                  ul: ({node, ...props}) => <span {...props} />, 
+                  li: ({node, ...props}) => <span {...props} />
+                }}
+              >
+                {insights_data?.narrative || "Analyzing farm data..."}
+              </ReactMarkdown>
+            </div>
           </IonLabel>
-          <IonButton fill="clear" slot="end" routerLink="/insights">
+
+          <IonButton 
+            fill="clear" 
+            slot="end" 
+            routerLink="/insights" 
+            style={{ alignSelf: 'center', '--color': '#18774c', fontWeight: 600 }}
+          >
             View All <IonIcon icon={arrowForwardOutline} slot="end" />
           </IonButton>
         </IonItem>

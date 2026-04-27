@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
-import { Task, HealthRecord, CountingSession, Transfer, WeightEntry, LactationPeriod, MilkYield, MilkQuality, MilkYieldPayload, MilkQualityPayload, LactationPeriodPayload } from '../../../types/types';
+import { Task, HealthRecord, CountingSession, Transfer, WeightEntry, LactationPeriod, MilkYield, MilkQuality, MilkYieldPayload, MilkQualityPayload, LactationPeriodPayload, MarketPrice } from '../../../types/types';
 import { operationsService } from '../../../services/operationsService';
 
 interface OpsState {
@@ -11,6 +11,7 @@ interface OpsState {
   lactations: LactationPeriod[];
   milkQuality: MilkQuality[];
   milkYields: MilkYield[];
+  marketPrices: MarketPrice[];
   loading: boolean;
   error: string | null;
 }
@@ -23,6 +24,7 @@ const initialState: OpsState = {
   lactations: [],
   milkQuality: [],
   milkYields: [],
+  marketPrices: [],
   loading: false,
   error: null,
 };
@@ -56,6 +58,21 @@ export const addWeight = createAsyncThunk('ops/addWeight', async (data: { animal
   const response = await operationsService.addWeightEntry(data);
   return response.data;
 });
+
+// 3. Create the Thunks
+export const fetchMarketPrices = createAsyncThunk('ops/fetchMarketPrices', async () => {
+  const response = await operationsService.getMarketPrices();
+  return response.data;
+});
+
+export const updateMarketPrice = createAsyncThunk(
+  'ops/updateMarketPrice', 
+  async ({ id, price }: { id: number; price: number }) => {
+    const response = await operationsService.updateMarketPrice(id, price);
+    return response.data;
+  }
+);
+
 export const fetchHealthRecords = createAsyncThunk('ops/fetchHealth', async () => {
   const response = await operationsService.getHealthRecords();
   return response.data;
@@ -435,6 +452,15 @@ const operationsSlice = createSlice({
         state.loading=true;
         state.error= action.payload as string;
       })
+      .addCase(fetchMarketPrices.fulfilled, (state, action) => {
+        state.marketPrices = action.payload;
+      })
+    .addCase(updateMarketPrice.fulfilled, (state, action) => {
+      const index = state.marketPrices.findIndex(p => p.id === action.payload.id);
+      if (index !== -1) {
+        state.marketPrices[index] = action.payload;
+      }
+    })
       // Counting Sessions
       .addCase(fetchCountingSessions.fulfilled, (state, action) => {
         state.countingSessions = action.payload;
