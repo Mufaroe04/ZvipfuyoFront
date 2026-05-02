@@ -8,6 +8,7 @@ export type NotificationLevel = 'info' | 'success' | 'warning' | 'danger';
 export type Condition='Dry'|'Good'|'Muddy/Wet'| 'Overgrazed'
 export type UserRole = 'owner' | 'manager' | 'hand' | 'vet';
 
+
 // --- MODELS ---
 
 // export interface User {
@@ -440,3 +441,24 @@ export interface MilkSalePayload {
   buyer: string;
 }
 
+
+export interface MenuItem {
+  label: string;
+  icon: string;
+  url: string;
+  roles: UserRole[];
+}
+
+export interface RoleRouteProps {
+  exact?: boolean;
+  path: string;
+  component: React.ComponentType<any>;
+  allowedRoles: UserRole[];
+  userRole: UserRole;
+  isAuthenticated: boolean;
+}
+export interface Props {
+  component: React.ComponentType<any>;
+  path: string;
+  exact?: boolean;
+}
