@@ -48,7 +48,7 @@ const LoginComponent: React.FC<LoginComponentProps> = ({ onLogin, loading, error
             Zvipfuyo
           </Typography>
           <Typography variant="caption" color="textSecondary">
-            Smart Livestock Platform
+            Smart Livestock Platform and Enterprise Resource Planning
           </Typography>
           </Box>
 
@@ -135,7 +135,7 @@ const LoginComponent: React.FC<LoginComponentProps> = ({ onLogin, loading, error
                 boxShadow: '0 4px 12px rgba(24, 119, 76, 0.2)'
               }}
             >
-              {loading ? <CircularProgress size={26} color="inherit" /> : 'Enter Platform'}
+              {loading ? <CircularProgress size={26} color="inherit" /> : 'Sign In '}
             </Button>
           </form>
         </Paper>

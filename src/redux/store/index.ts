@@ -11,6 +11,8 @@ import chatReducer from './slices/chatSlice';
 import supplierReducer from './slices/supplierSlice';
 import authReducer from './slices/authSlice';
 import staffReducer from './slices/staffSlice';
+import financeReducer from './slices/financeSlice';
+
 
 
 export const store = configureStore({
@@ -27,6 +29,7 @@ export const store = configureStore({
     suppliers:supplierReducer,
     auth:authReducer,
     staff:staffReducer,
+    finance:financeReducer,
 
 
   },

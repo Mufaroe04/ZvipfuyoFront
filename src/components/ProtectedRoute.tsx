@@ -11,7 +11,7 @@ interface Props {
 
 const ProtectedRoute: React.FC<Props> = ({ component: Component, ...rest }) => {
   const { isAuthenticated } = useSelector((state: RootState) => state.auth);
-
+   console.log('isAuthenticated',isAuthenticated)
   return (
     <Route
       {...rest}

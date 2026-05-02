@@ -13,7 +13,8 @@ import {
   logOutOutline, pawOutline, cartOutline, businessOutline,
   scaleOutline,
   waterOutline,peopleOutline,
-  trendingUpOutline
+  trendingUpOutline,
+  cashOutline
 } from "ionicons/icons";
 import { IonReactRouter } from '@ionic/react-router';
 
@@ -78,6 +79,9 @@ import StaffPage from './pages/StaffPage';
 import { Grass } from '@mui/icons-material';
 import { Box, Typography } from '@mui/material';
 import BeefDashboard from './pages/BeefDashboard';
+import FinancePage from './pages/FinancePage';
+import NewEntryPage from './pages/NewEntryPage';
+
 
 /**
 
@@ -104,6 +108,8 @@ const App: React.FC = () => {
   // Pull unread count from Redux
   const unreadCount = useSelector((state: RootState) => state.notifications.unreadCount);
   const canManageStaff = user?.profile?.role === 'owner' || user?.profile?.role === 'manager';
+  const { isAuthenticated } = useSelector((state: RootState) => state.auth);
+     console.log('isAuthenticated',isAuthenticated)
   const zvipfuyoTheme = createTheme({
     typography: {
       // Setting the global font family
@@ -177,6 +183,7 @@ const App: React.FC = () => {
                 { label: 'Counting Session', icon: calculatorOutline, url: '/counting' },
                 { label: 'Tasks', icon: checkboxOutline, url: '/tasks' },
                 { label: 'Transfer', icon: swapHorizontalOutline, url: '/transfer' },
+                { label: 'Sales & Expenses ', icon: cashOutline, url: '/sales-expenses' },
                 { label: 'Inventory', icon: archiveOutline, url: '/inventory' },
                 { label: 'Procurement', icon: cartOutline, url: '/procurement' },
                 { label: 'Supplier Directory', icon: businessOutline, url: '/suppliers' },
@@ -234,7 +241,14 @@ const App: React.FC = () => {
         </IonMenu>
 
         <IonRouterOutlet id="main-content">
-          {/* <ProtectedRoute exact path="/"><Redirect to="/dashboard" /></ProtectedRoute> */}
+        {/* 1. Handle Root */}
+          <Route exact path="/">
+            <Redirect to="/dashboard" />
+          </Route>
+
+          {/* 2. Public Routes */}
+          <Route exact path="/login" component={Login} />
+          {/* 3. Protected Routes  */}
           <ProtectedRoute exact path="/dashboard" component={Dashboard} />
           <ProtectedRoute exact path="/scan" component={Scan} />
           <ProtectedRoute exact path="/herds" component={MyHerds} />
@@ -262,6 +276,8 @@ const App: React.FC = () => {
           <ProtectedRoute exact path="/transfer" component={Transfer} />
           <ProtectedRoute exact path="/operations/add-transfer" component={AddTransfer} />
           <ProtectedRoute exact path="/inventory" component={Inventory} />
+          <ProtectedRoute exact path="/sales-expenses" component={FinancePage} />
+          <ProtectedRoute exact path="/sales-new-entry" component={NewEntryPage} />
           <ProtectedRoute exact path="/inventory/add" component={AddInventoryItem} />
           <ProtectedRoute path="/inventory/history" exact component={StockHistory} />
           <ProtectedRoute exact path="/procurement" component={Procurement} />
@@ -271,13 +287,9 @@ const App: React.FC = () => {
           <ProtectedRoute exact path="/profile" component={Profile} />
           <ProtectedRoute exact path="/staff" component={StaffPage} />
 
-          <Route exact path="/login" component={Login} />
-          {/* <ProtectedRoute exact path="/dashboard" component={Dashboard} />
-          <ProtectedRoute exact path="/suppliers" component={Suppliers} /> */}
-          
-          <Route exact path="/">
-            <Redirect to="/login" />
-          </Route>
+      {/* 4. Catch-all: Only redirect to login if NOT authenticated, 
+              otherwise perhaps a 404 or Dashboard */}
+        <Route render={() => <Redirect to="/login" />} />
 
         </IonRouterOutlet>
       </IonReactRouter>

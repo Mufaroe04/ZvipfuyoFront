@@ -380,3 +380,63 @@ export interface LactationPeriodPayload{
     is_active :boolean;
 }
 
+export interface FinanceSummary {
+  total_income_usd: number;
+  total_expense_usd: number;
+  net_profit_usd: number;
+  current_zig_rate: string;
+}
+
+export interface Transaction {
+  id: number;
+  category_name:string;
+  is_income:boolean;
+  date: string;
+  amount: string;
+  currency:string;
+  payment_method: string;
+  reference_number?: string;
+  description?: string;
+  amount_in_usd: number;
+}
+
+export interface CattleSale {
+  id: number;
+  transaction_details: Transaction;
+  animals: number[];
+  buyer_name: string;
+  total_weight_kg: string;
+  price_per_kg: string;
+}
+
+export interface MilkSale {
+  id: number;
+  transaction_details: Transaction;
+  liters_sold: string;
+  price_per_liter: string;
+  buyer: string;
+}
+
+// PAYLOADS for POST requests
+export interface CattleSalePayload {
+  date: string;
+  amount: number;
+  currency: 'USD' | 'ZiG';
+  payment_method: string;
+  buyer_name: string;
+  animals: number[]; // IDs of the animals
+  total_weight_kg?: number;
+  price_per_kg?: number;
+  reference_number?: string;
+}
+
+export interface MilkSalePayload {
+  date: string;
+  amount: number;
+  currency: 'USD' | 'ZiG';
+  payment_method: string;
+  liters_sold: number;
+  price_per_liter: number;
+  buyer: string;
+}
+
