@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 // --- ENUMS & CONSTANTS ---
 export type Gender = 'male' | 'female';
 export type AnimalStatus = 'active' | 'sold' | 'deceased' | 'quarantine';
@@ -117,6 +118,54 @@ export interface InsightData {
             weight_alerts: number;
             transfer_count: number
         }
+}
+
+export interface ConsoleDataProps {
+  date: string;
+  beef: {
+    totalActiveCattle: number;
+    avgDailyGain: number;
+    estHerdValue: number;
+    currentAvgWeight: number;
+    targetWeight: number;
+    pricePerKg: number;
+    projectedAnimals: number;
+    avg_weight?: number;
+    weight_alerts?: number;
+  };
+  dairy: {
+    activeMilkingCows: number;
+    avgDailyYield: number;
+    somaticCellCount: number;
+    butterfat: number;
+    protein: number;
+    avgDaysInMilk: number;
+    totalProduction30d: number;
+    activeTreatments: number;
+    today_yield?: number;
+    quality_alerts?: number;
+    yield_change?: number;
+  };
+  bioclimatic: {
+    temperature: number;
+    humidity: number;
+    thi: number;
+  };
+  inventory: Array<{
+    resource: string;
+    level: string;
+    status: string;
+    isLowStock: boolean;
+  }>;
+  narrative: {
+    executiveActionPlan: string;
+    strategicDirective: string;
+    marginOptimizationAlert: string;
+    dryOffActionItem: string;
+    bioclimaticAssessment: string;
+    procurementInstruction: string;
+    currencyStrategy: string;
+  };
 }
 export interface HealthRecord {
   id: number;
@@ -458,6 +507,7 @@ export interface RoleRouteProps {
   isAuthenticated: boolean;
 }
 export interface Props {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   component: React.ComponentType<any>;
   path: string;
   exact?: boolean;

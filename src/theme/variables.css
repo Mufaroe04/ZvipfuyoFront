@@ -10,19 +10,58 @@
   --ion-color-primary-contrast: #ffffff;
   --ion-color-primary-shade: #156943;
   --ion-color-primary-tint: #2f855e;
+
+  /* --- Global Background Overrides --- */
+  /* This matches the official Ionic 'light' hex for the general background */
+  /* --ion-background-color: #f4f5f8; */
+  --ion-background-color-rgb: 244, 245, 248;
 }
 
 body {
   font-family: 'Plus Jakarta Sans', sans-serif !important;
+  background-color: #f4f5f8 !important;
 }
 
-/* Ensure icons in the menu use the brand color */
+/* Base application content background */
+ion-content {
+  --background: #f4f5f8 !important;
+}
+
+/* --- Crisp White Components (#ffffff) --- */
+
+/* 1. All Cards: Flat design with white background */
+ion-card {
+  box-shadow: none !important;
+  --box-shadow: none !important;
+  --background: #ffffff !important;
+  /* background: #ffffff !important; */
+}
+
+/* 2. Side Menu: White background for clarity */
+ion-menu ion-content {
+  --background: #ffffff !important;
+}
+
+ion-menu ion-list, 
+ion-menu ion-item {
+  --background: #ffffff !important;
+  background: #ffffff !important;
+}
+
+/* 3. Headers and Toolbars: Set to solid white */
+ion-header, 
+ion-toolbar {
+  --background: #ffffff !important;
+  background: #ffffff !important;
+  --border-style: none !important; /* Optional: cleans up visual borders */
+}
+
+/* --- Menu and Icon Overrides --- */
+/* Ensure icons in the menu use the brand green color */
 ion-item ion-icon {
   color: #18774c;
 }
- /* ion-icon {
-  color: #18774c;
-} */
+
 /* Style for the Labels in the list */
 ion-label {
   font-family: 'Plus Jakarta Sans', sans-serif !important;

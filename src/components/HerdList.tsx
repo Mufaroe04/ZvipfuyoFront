@@ -7,8 +7,9 @@ import {
 } from '@mui/material';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import { fetchAllHerds } from '../redux/store/slices/livestockSlice';
-import { IonSpinner, IonIcon } from '@ionic/react';
+import {  IonIcon } from '@ionic/react';
 import { addOutline, searchOutline } from 'ionicons/icons';
+import { LoadingSpinner } from './feedback/LoadingSpinner';
 
 const HerdList: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -97,9 +98,7 @@ const HerdList: React.FC = () => {
   ];
 
   if (loading) return (
-    <Box display="flex" justifyContent="center" alignItems="center" height="400px">
-      <IonSpinner name="crescent" color="primary" />
-    </Box>
+      <LoadingSpinner/>
   );
 
   return (

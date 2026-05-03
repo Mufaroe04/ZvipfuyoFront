@@ -1,9 +1,10 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { insightsService } from '../../../services/insightsService';
-import { InsightData } from '../../../types/types';
+import { ConsoleDataProps, InsightData } from '../../../types/types';
 
 interface InsightsState {
-  insights_data: InsightData | null;
+  // insights_data: InsightData | null;
+  insights_data: ConsoleDataProps | null;
   loading_insights: boolean;
   error: string | null;
   lastFetched: number | null; // Timestamp for caching logic
