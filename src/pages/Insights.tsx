@@ -615,383 +615,383 @@
 
 // export default Insights;
 
-// import React from 'react';
-// import { 
-//   IonContent, 
-//   IonPage, 
-//   IonGrid, 
-//   IonRow, 
-//   IonCol 
-// } from '@ionic/react';
-// import { 
-//   Box, 
-//   Typography, 
-//   Paper, 
-//   Table, 
-//   TableBody, 
-//   TableCell, 
-//   TableContainer, 
-//   TableHead, 
-//   TableRow, 
-//   Divider 
-// } from '@mui/material';
+import React from 'react';
+import { 
+  IonContent, 
+  IonPage, 
+  IonGrid, 
+  IonRow, 
+  IonCol 
+} from '@ionic/react';
+import { 
+  Box, 
+  Typography, 
+  Paper, 
+  Table, 
+  TableBody, 
+  TableCell, 
+  TableContainer, 
+  TableHead, 
+  TableRow, 
+  Divider 
+} from '@mui/material';
 
-// // Expanded definitions to capture AI-generated dynamic insights
-// interface ConsoleDataProps {
-//   date: string;
-//   beef: {
-//     totalActiveCattle: number;
-//     avgDailyGain: number;
-//     estHerdValue: number;
-//     currentAvgWeight: number;
-//     targetWeight: number;
-//     pricePerKg: number;
-//     projectedAnimals: number;
-//   };
-//   dairy: {
-//     activeMilkingCows: number;
-//     avgDailyYield: number;
-//     somaticCellCount: number;
-//     butterfat: number;
-//     protein: number;
-//     avgDaysInMilk: number;
-//     totalProduction30d: number;
-//     activeTreatments: number;
-//   };
-//   bioclimatic: {
-//     temperature: number;
-//     humidity: number;
-//     thi: number;
-//   };
-//   inventory: Array<{
-//     resource: string;
-//     level: string;
-//     status: string;
-//     isLowStock: boolean;
-//   }>;
-//   // DYNAMIC NARRATIVES INJECTED VIA BACKEND AI
-//   narrative: {
-//     executiveActionPlan: string;
-//     strategicDirective: string;
-//     marginOptimizationAlert: string;
-//     dryOffActionItem: string;
-//     bioclimaticAssessment: string;
-//     procurementInstruction: string;
-//     currencyStrategy: string;
-//   };
-// }
+// Expanded definitions to capture AI-generated dynamic insights
+interface ConsoleDataProps {
+  date: string;
+  beef: {
+    totalActiveCattle: number;
+    avgDailyGain: number;
+    estHerdValue: number;
+    currentAvgWeight: number;
+    targetWeight: number;
+    pricePerKg: number;
+    projectedAnimals: number;
+  };
+  dairy: {
+    activeMilkingCows: number;
+    avgDailyYield: number;
+    somaticCellCount: number;
+    butterfat: number;
+    protein: number;
+    avgDaysInMilk: number;
+    totalProduction30d: number;
+    activeTreatments: number;
+  };
+  bioclimatic: {
+    temperature: number;
+    humidity: number;
+    thi: number;
+  };
+  inventory: Array<{
+    resource: string;
+    level: string;
+    status: string;
+    isLowStock: boolean;
+  }>;
+  // DYNAMIC NARRATIVES INJECTED VIA BACKEND AI
+  narrative: {
+    executiveActionPlan: string;
+    strategicDirective: string;
+    marginOptimizationAlert: string;
+    dryOffActionItem: string;
+    bioclimaticAssessment: string;
+    procurementInstruction: string;
+    currencyStrategy: string;
+  };
+}
 
-// export const Insights: React.FC<{ data: ConsoleDataProps }> = ({ data }) => {
-//   return (
-//     <IonPage style={{ background: '#F9FAFB' }}>
-//       <IonContent className="ion-padding">
-//         <IonGrid style={{ maxWidth: '1440px', margin: '0 auto' }}>
+export const Insights: React.FC<{ data: ConsoleDataProps }> = ({ data }) => {
+  return (
+    <IonPage style={{ background: '#F9FAFB' }}>
+      <IonContent className="ion-padding">
+        <IonGrid style={{ maxWidth: '1440px', margin: '0 auto' }}>
           
-//           {/* HEADER SECTION */}
-//           {/* 1. DYNAMIC AI ACTION PLAN */}
-// <IonRow>
-//   <IonCol size="12">
-//     <Paper 
-//       variant="outlined" 
-//       sx={{ 
-//         p: 3, 
-//         backgroundColor: '#1E1B4B', // Deep indigo background for an executive AI feel
-//         color: '#FFFFFF', 
-//         borderRadius: '8px', 
-//         mb: 4, 
-//         border: '1px solid #4338CA' 
-//       }}
-//     >
-//       <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 1 }}>
-//         <Typography variant="subtitle2" sx={{ color: '#C7D2FE', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-//           Intelligence Console
-//         </Typography>
-//         <Typography variant="caption" sx={{ backgroundColor: '#4338CA', px: 1.5, py: 0.5, borderRadius: '4px', fontWeight: 600 }}>
-//           Live Narrative
-//         </Typography>
-//       </Box>
-//       <Typography variant="h5" sx={{ fontWeight: 800, mb: 1.5, color: '#FFFFFF' }}>
-//         Dynamic AI Action Plan
-//       </Typography>
-//       <Typography variant="body1" sx={{ color: '#E0E7FF', lineHeight: 1.7 }}>
-//         {data?.narrative.executiveActionPlan}
-//       </Typography>
-//     </Paper>
-//   </IonCol>
-// </IonRow>
-//           <IonRow>
-//             <IonCol size="12">
-//               <Box mb={3} mt={1}>
-//                 <Typography variant="h4" component="h1" sx={{ fontWeight: 800, color: '#111827', letterSpacing: '-0.025em' }}>
-//                   Farm Intelligence Summary: Dual-Enterprise Console
-//                 </Typography>
-//                 <Typography variant="subtitle1" sx={{ color: '#4B5563', mt: 0.5, fontWeight: 500 }}>
-//                   <strong>Date:</strong> {data?.date} | <strong>Enterprise Focus:</strong> Integrated Beef Fattening & Dairy Operations
-//                 </Typography>
-//               </Box>
-//               <Divider sx={{ mb: 4, borderColor: '#E5E7EB', borderWidth: '1px' }} />
-//             </IonCol>
-//           </IonRow>
+          {/* HEADER SECTION */}
+          {/* 1. DYNAMIC AI ACTION PLAN */}
+<IonRow>
+  <IonCol size="12">
+    <Paper 
+      variant="outlined" 
+      sx={{ 
+        p: 3, 
+        backgroundColor: '#1E1B4B', 
+        color: '#FFFFFF', 
+        borderRadius: '8px', 
+        mb: 4, 
+        border: '1px solid #4338CA' 
+      }}
+    >
+      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 1 }}>
+        <Typography variant="subtitle2" sx={{ color: '#C7D2FE', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+          Intelligence Console
+        </Typography>
+        <Typography variant="caption" sx={{ backgroundColor: '#4338CA', px: 1.5, py: 0.5, borderRadius: '4px', fontWeight: 600 }}>
+          Live Narrative
+        </Typography>
+      </Box>
+      <Typography variant="h5" sx={{ fontWeight: 800, mb: 1.5, color: '#FFFFFF' }}>
+        Dynamic AI Action Plan
+      </Typography>
+      <Typography variant="body1" sx={{ color: '#E0E7FF', lineHeight: 1.7 }}>
+        {data?.narrative.executiveActionPlan}
+      </Typography>
+    </Paper>
+  </IonCol>
+</IonRow>
+          <IonRow>
+            <IonCol size="12">
+              <Box mb={3} mt={1}>
+                <Typography variant="h4" component="h1" sx={{ fontWeight: 800, color: '#111827', letterSpacing: '-0.025em' }}>
+                  Farm Intelligence Summary: Dual-Enterprise Console
+                </Typography>
+                <Typography variant="subtitle1" sx={{ color: '#4B5563', mt: 0.5, fontWeight: 500 }}>
+                  <strong>Date:</strong> {data?.date} | <strong>Enterprise Focus:</strong> Integrated Beef Fattening & Dairy Operations
+                </Typography>
+              </Box>
+              <Divider sx={{ mb: 4, borderColor: '#E5E7EB', borderWidth: '1px' }} />
+            </IonCol>
+          </IonRow>
 
-//           {/* SECTION 1: EXECUTIVE OPERATIONS SNAPSHOT */}
-//           <IonRow>
-//             <IonCol size="12">
-//               <Typography variant="h5" sx={{ fontWeight: 700, mb: 2, color: '#1F2937' }}>
-//                 1. Executive Operations Snapshot
-//               </Typography>
-//               <TableContainer component={Paper} variant="outlined" sx={{ borderRadius: '8px', mb: 3, border: '1px solid #D1D5DB' }}>
-//                 <Table>
-//                   <TableHead sx={{ backgroundColor: '#F3F4F6' }}>
-//                     <TableRow>
-//                       <TableCell colSpan={2} align="center" sx={{ fontWeight: 800, py: 1.5, color: '#111827', fontSize: '0.95rem', borderBottom: '1px solid #D1D5DB' }}>
-//                         DUAL-ENTERPRISE METRICS
-//                       </TableCell>
-//                     </TableRow>
-//                     <TableRow>
-//                       <TableCell sx={{ width: '50%', fontWeight: 700, color: '#374151', borderRight: '1px solid #E5E7EB' }}>
-//                         BEEF & HERD
-//                       </TableCell>
-//                       <TableCell sx={{ width: '50%', fontWeight: 700, color: '#374151' }}>
-//                         DAIRY
-//                       </TableCell>
-//                     </TableRow>
-//                   </TableHead>
-//                   <TableBody>
-//                     <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-//                       <TableCell sx={{ borderRight: '1px solid #E5E7EB', verticalAlign: 'top', py: 2 }}>
-//                         <Typography variant="body1">Total Active Cattle: <strong>{data?.beef.totalActiveCattle} head</strong></Typography>
-//                         <Typography variant="body1" sx={{ mt: 1 }}>Avg Daily Gain (ADG): <strong>+{data?.beef.avgDailyGain} kg</strong></Typography>
-//                         <Typography variant="body1" sx={{ mt: 1 }}>Est. Herd Market Value: <strong>${data?.beef.estHerdValue.toLocaleString()}</strong></Typography>
-//                       </TableCell>
-//                       <TableCell sx={{ verticalAlign: 'top', py: 2 }}>
-//                         <Typography variant="body1">Milking Cows (Active): <strong>{data?.dairy.activeMilkingCows} head</strong></Typography>
-//                         <Typography variant="body1" sx={{ mt: 1 }}>Avg Daily Yield: <strong>{data?.dairy.avgDailyYield} L/cow</strong></Typography>
-//                         <Typography variant="body1" sx={{ mt: 1 }}>Bulk Somatic Cell Count: <strong>{data?.dairy.somaticCellCount.toLocaleString()}/mL</strong></Typography>
-//                       </TableCell>
-//                     </TableRow>
-//                   </TableBody>
-//                 </Table>
-//               </TableContainer>
+          {/* SECTION 1: EXECUTIVE OPERATIONS SNAPSHOT */}
+          <IonRow>
+            <IonCol size="12">
+              <Typography variant="h5" sx={{ fontWeight: 700, mb: 2, color: '#1F2937' }}>
+                1. Executive Operations Snapshot
+              </Typography>
+              <TableContainer component={Paper} variant="outlined" sx={{ borderRadius: '8px', mb: 3, border: '1px solid #D1D5DB' }}>
+                <Table>
+                  <TableHead sx={{ backgroundColor: '#F3F4F6' }}>
+                    <TableRow>
+                      <TableCell colSpan={2} align="center" sx={{ fontWeight: 800, py: 1.5, color: '#111827', fontSize: '0.95rem', borderBottom: '1px solid #D1D5DB' }}>
+                        DUAL-ENTERPRISE METRICS
+                      </TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell sx={{ width: '50%', fontWeight: 700, color: '#374151', borderRight: '1px solid #E5E7EB' }}>
+                        BEEF & HERD
+                      </TableCell>
+                      <TableCell sx={{ width: '50%', fontWeight: 700, color: '#374151' }}>
+                        DAIRY
+                      </TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+                      <TableCell sx={{ borderRight: '1px solid #E5E7EB', verticalAlign: 'top', py: 2 }}>
+                        <Typography variant="body1">Total Active Cattle: <strong>{data?.beef.totalActiveCattle} head</strong></Typography>
+                        <Typography variant="body1" sx={{ mt: 1 }}>Avg Daily Gain (ADG): <strong>+{data?.beef.avgDailyGain} kg</strong></Typography>
+                        <Typography variant="body1" sx={{ mt: 1 }}>Est. Herd Market Value: <strong>${data?.beef.estHerdValue.toLocaleString()}</strong></Typography>
+                      </TableCell>
+                      <TableCell sx={{ verticalAlign: 'top', py: 2 }}>
+                        <Typography variant="body1">Milking Cows (Active): <strong>{data?.dairy.activeMilkingCows} head</strong></Typography>
+                        <Typography variant="body1" sx={{ mt: 1 }}>Avg Daily Yield: <strong>{data?.dairy.avgDailyYield} L/cow</strong></Typography>
+                        <Typography variant="body1" sx={{ mt: 1 }}>Bulk Somatic Cell Count: <strong>{data?.dairy.somaticCellCount.toLocaleString()}/mL</strong></Typography>
+                      </TableCell>
+                    </TableRow>
+                  </TableBody>
+                </Table>
+              </TableContainer>
 
-//               <Box sx={{ p: 2.5, backgroundColor: '#F8FAFC', borderRadius: '8px', borderLeft: '4px solid #3B82F6', mb: 4 }}>
-//                 <Typography variant="subtitle2" sx={{ fontWeight: 700, color: '#1E3A8A', textTransform: 'uppercase', mb: 0.5 }}>
-//                   Strategic Directive
-//                 </Typography>
-//                 <Typography variant="body2" sx={{ color: '#334155', lineHeight: 1.6 }}>
-//                   {data?.narrative.strategicDirective}
-//                 </Typography>
-//               </Box>
-//               <Divider sx={{ mb: 4, borderColor: '#E5E7EB' }} />
-//             </IonCol>
-//           </IonRow>
+              <Box sx={{ p: 2.5, backgroundColor: '#F8FAFC', borderRadius: '8px', borderLeft: '4px solid #3B82F6', mb: 4 }}>
+                <Typography variant="subtitle2" sx={{ fontWeight: 700, color: '#1E3A8A', textTransform: 'uppercase', mb: 0.5 }}>
+                  Strategic Directive
+                </Typography>
+                <Typography variant="body2" sx={{ color: '#334155', lineHeight: 1.6 }}>
+                  {data?.narrative.strategicDirective}
+                </Typography>
+              </Box>
+              <Divider sx={{ mb: 4, borderColor: '#E5E7EB' }} />
+            </IonCol>
+          </IonRow>
 
-//           {/* SECTION 2: BEEF FATTENING & ROI INTELLIGENCE */}
-//           <IonRow>
-//             <IonCol size="12">
-//               <Typography variant="h5" sx={{ fontWeight: 700, mb: 2, color: '#1F2937' }}>
-//                 2. Beef Fattening & ROI Intelligence
-//               </Typography>
+          {/* SECTION 2: BEEF FATTENING & ROI INTELLIGENCE */}
+          <IonRow>
+            <IonCol size="12">
+              <Typography variant="h5" sx={{ fontWeight: 700, mb: 2, color: '#1F2937' }}>
+                2. Beef Fattening & ROI Intelligence
+              </Typography>
               
-//               <TableContainer component={Paper} variant="outlined" sx={{ p: 3, mb: 3, backgroundColor: '#1E293B', borderRadius: '8px' }}>
-//                 <Typography variant="caption" sx={{ display: 'block', textAlign: 'center', color: '#94A3B8', fontWeight: 700, mb: 2, letterSpacing: '0.1em' }}>
-//                   WEIGHT & VALUE TRENDS
-//                 </Typography>
-//                 <Box sx={{ fontFamily: 'monospace', whiteSpace: 'pre', color: '#38BDF8', fontSize: '0.85rem', overflowX: 'auto' }}>
-//                   {`460 kg ─────────────────────────────────────────── ▲ Target: $1,104/hd\n`}
-//                   {`                                                   │ \n`}
-//                   {`410 kg ─────────────────────────── ▲ Current Avg   │ \n`}
-//                   {`                                   │               │ \n`}
-//                   {`320 kg ─── ▲ Entry Avg             │               │ \n`}
-//                   {`          │                        │               │ \n`}
-//                   {` ───────────┴───────────────────────┴───────────────┴───────────────►\n`}
-//                   {`           M1 (Entry)              M2 (Feedlot)     M3 (Marketing)`}
-//                 </Box>
-//               </TableContainer>
+              <TableContainer component={Paper} variant="outlined" sx={{ p: 3, mb: 3, backgroundColor: '#1E293B', borderRadius: '8px' }}>
+                <Typography variant="caption" sx={{ display: 'block', textAlign: 'center', color: '#94A3B8', fontWeight: 700, mb: 2, letterSpacing: '0.1em' }}>
+                  WEIGHT & VALUE TRENDS
+                </Typography>
+                <Box sx={{ fontFamily: 'monospace', whiteSpace: 'pre', color: '#38BDF8', fontSize: '0.85rem', overflowX: 'auto' }}>
+                  {`460 kg ─────────────────────────────────────────── ▲ Target: $1,104/hd\n`}
+                  {`                                                   │ \n`}
+                  {`410 kg ─────────────────────────── ▲ Current Avg   │ \n`}
+                  {`                                   │               │ \n`}
+                  {`320 kg ─── ▲ Entry Avg             │               │ \n`}
+                  {`          │                        │               │ \n`}
+                  {` ───────────┴───────────────────────┴───────────────┴───────────────►\n`}
+                  {`           M1 (Entry)              M2 (Feedlot)     M3 (Marketing)`}
+                </Box>
+              </TableContainer>
 
-//               <Box mb={3}>
-//                 <Typography variant="body1" sx={{ mb: 1, color: '#374151' }}>
-//                   • <strong>Average Daily Gain (ADG):</strong> The feedlot division is currently achieving <strong>+{data?.beef.avgDailyGain} kg/day</strong> across high-performance breeds. Indigenous breeds are tracking at <strong>0.98 kg/day</strong>.
-//                 </Typography>
-//                 <Typography variant="body1" sx={{ mb: 1, color: '#374151' }}>
-//                   • <strong>Target Weight Projections:</strong> For the upcoming marketing cycle, <strong>{data?.beef.projectedAnimals} animals</strong> are projected to hit the <strong>{data?.beef.targetWeight} kg</strong> target weight.
-//                 </Typography>
-//                 <Typography variant="body1" sx={{ mb: 1, color: '#374151' }}>
-//                   • <strong>Valuation & Price Per Kg:</strong> Using the cached market price of <strong>${data?.beef.pricePerKg.toFixed(2)}/kg live weight</strong>, the current finished head inventory stands at <strong>${(data?.beef.targetWeight * data?.beef.pricePerKg).toLocaleString()} per head</strong>.
-//                 </Typography>
-//               </Box>
+              <Box mb={3}>
+                <Typography variant="body1" sx={{ mb: 1, color: '#374151' }}>
+                  • <strong>Average Daily Gain (ADG):</strong> The feedlot division is currently achieving <strong>+{data?.beef.avgDailyGain} kg/day</strong> across high-performance breeds. Indigenous breeds are tracking at <strong>0.98 kg/day</strong>.
+                </Typography>
+                <Typography variant="body1" sx={{ mb: 1, color: '#374151' }}>
+                  • <strong>Target Weight Projections:</strong> For the upcoming marketing cycle, <strong>{data?.beef.projectedAnimals} animals</strong> are projected to hit the <strong>{data?.beef.targetWeight} kg</strong> target weight.
+                </Typography>
+                <Typography variant="body1" sx={{ mb: 1, color: '#374151' }}>
+                  • <strong>Valuation & Price Per Kg:</strong> Using the cached market price of <strong>${data?.beef.pricePerKg.toFixed(2)}/kg live weight</strong>, the current finished head inventory stands at <strong>${(data?.beef.targetWeight * data?.beef.pricePerKg).toLocaleString()} per head</strong>.
+                </Typography>
+              </Box>
 
-//               <Box sx={{ p: 2.5, backgroundColor: '#FFFBEB', borderRadius: '8px', borderLeft: '4px solid #D97706', mb: 4 }}>
-//                 <Typography variant="subtitle2" sx={{ fontWeight: 700, color: '#92400E', textTransform: 'uppercase', mb: 0.5 }}>
-//                   Margin Optimization Alert
-//                 </Typography>
-//                 <Typography variant="body2" sx={{ color: '#78350F', lineHeight: 1.6 }}>
-//                   {data?.narrative.marginOptimizationAlert}
-//                 </Typography>
-//               </Box>
-//               <Divider sx={{ mb: 4, borderColor: '#E5E7EB' }} />
-//             </IonCol>
-//           </IonRow>
+              <Box sx={{ p: 2.5, backgroundColor: '#FFFBEB', borderRadius: '8px', borderLeft: '4px solid #D97706', mb: 4 }}>
+                <Typography variant="subtitle2" sx={{ fontWeight: 700, color: '#92400E', textTransform: 'uppercase', mb: 0.5 }}>
+                  Margin Optimization Alert
+                </Typography>
+                <Typography variant="body2" sx={{ color: '#78350F', lineHeight: 1.6 }}>
+                  {data?.narrative.marginOptimizationAlert}
+                </Typography>
+              </Box>
+              <Divider sx={{ mb: 4, borderColor: '#E5E7EB' }} />
+            </IonCol>
+          </IonRow>
 
-//           {/* SECTION 3: DAIRY OPERATIONS & LACTATION ANALYTICS */}
-//           <IonRow>
-//             <IonCol size="12">
-//               <Typography variant="h5" sx={{ fontWeight: 700, mb: 2, color: '#1F2937' }}>
-//                 3. Dairy Operations & Lactation Analytics
-//               </Typography>
+          {/* SECTION 3: DAIRY OPERATIONS & LACTATION ANALYTICS */}
+          <IonRow>
+            <IonCol size="12">
+              <Typography variant="h5" sx={{ fontWeight: 700, mb: 2, color: '#1F2937' }}>
+                3. Dairy Operations & Lactation Analytics
+              </Typography>
               
-//               <TableContainer component={Paper} variant="outlined" sx={{ borderRadius: '8px', mb: 3, border: '1px solid #D1D5DB' }}>
-//                 <Table>
-//                   <TableHead sx={{ backgroundColor: '#F8FAFC' }}>
-//                     <TableRow>
-//                       <TableCell sx={{ fontWeight: 700, color: '#1E293B' }}>Metric</TableCell>
-//                       <TableCell sx={{ fontWeight: 700, color: '#1E293B' }}>Current Level</TableCell>
-//                     </TableRow>
-//                   </TableHead>
-//                   <TableBody>
-//                     <TableRow sx={{ borderBottom: '1px solid #E2E8F0' }}>
-//                       <TableCell sx={{ color: '#334155' }}>Butterfat</TableCell>
-//                       <TableCell sx={{ fontWeight: 600, color: '#0F172A' }}>{data?.dairy.butterfat}%</TableCell>
-//                     </TableRow>
-//                     <TableRow sx={{ borderBottom: '1px solid #E2E8F0' }}>
-//                       <TableCell sx={{ color: '#334155' }}>Protein</TableCell>
-//                       <TableCell sx={{ fontWeight: 600, color: '#0F172A' }}>{data?.dairy.protein}%</TableCell>
-//                     </TableRow>
-//                     <TableRow>
-//                       <TableCell sx={{ color: '#334155' }}>Avg Days in Milk (DIM)</TableCell>
-//                       <TableCell sx={{ fontWeight: 600, color: '#0F172A' }}>{data?.dairy.avgDaysInMilk} Days</TableCell>
-//                     </TableRow>
-//                   </TableBody>
-//                 </Table>
-//               </TableContainer>
+              <TableContainer component={Paper} variant="outlined" sx={{ borderRadius: '8px', mb: 3, border: '1px solid #D1D5DB' }}>
+                <Table>
+                  <TableHead sx={{ backgroundColor: '#F8FAFC' }}>
+                    <TableRow>
+                      <TableCell sx={{ fontWeight: 700, color: '#1E293B' }}>Metric</TableCell>
+                      <TableCell sx={{ fontWeight: 700, color: '#1E293B' }}>Current Level</TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    <TableRow sx={{ borderBottom: '1px solid #E2E8F0' }}>
+                      <TableCell sx={{ color: '#334155' }}>Butterfat</TableCell>
+                      <TableCell sx={{ fontWeight: 600, color: '#0F172A' }}>{data?.dairy.butterfat}%</TableCell>
+                    </TableRow>
+                    <TableRow sx={{ borderBottom: '1px solid #E2E8F0' }}>
+                      <TableCell sx={{ color: '#334155' }}>Protein</TableCell>
+                      <TableCell sx={{ fontWeight: 600, color: '#0F172A' }}>{data?.dairy.protein}%</TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell sx={{ color: '#334155' }}>Avg Days in Milk (DIM)</TableCell>
+                      <TableCell sx={{ fontWeight: 600, color: '#0F172A' }}>{data?.dairy.avgDaysInMilk} Days</TableCell>
+                    </TableRow>
+                  </TableBody>
+                </Table>
+              </TableContainer>
 
-//               <Box mb={3}>
-//                 <Typography variant="body1" sx={{ mb: 1, color: '#374151' }}>
-//                   • <strong>Milk Yield Dynamics:</strong> Total milk production across morning, midday, and evening sessions over the last 30 days stands at <strong>{data?.dairy.totalProduction30d.toLocaleString()} liters</strong>.
-//                 </Typography>
-//                 <Typography variant="body1" sx={{ mb: 1, color: '#374151' }}>
-//                   • <strong>Mastitis Screening:</strong> The current SCC sits at <strong>{data?.dairy.somaticCellCount.toLocaleString()} cells/mL</strong>. Any upward trend toward 250,000 cells/mL will trigger critical animal screenings.
-//                 </Typography>
-//                 <Typography variant="body1" sx={{ mb: 1, color: '#374151' }}>
-//                   • <strong>Antibiotic Security:</strong> There are currently <strong>{data?.dairy.activeTreatments} cows</strong> flagged on health treatments. Their milk is immediately diverted and excluded from commercial bulk tank sales.
-//                 </Typography>
-//               </Box>
+              <Box mb={3}>
+                <Typography variant="body1" sx={{ mb: 1, color: '#374151' }}>
+                  • <strong>Milk Yield Dynamics:</strong> Total milk production across morning, midday, and evening sessions over the last 30 days stands at <strong>{data?.dairy.totalProduction30d.toLocaleString()} liters</strong>.
+                </Typography>
+                <Typography variant="body1" sx={{ mb: 1, color: '#374151' }}>
+                  • <strong>Mastitis Screening:</strong> The current SCC sits at <strong>{data?.dairy.somaticCellCount.toLocaleString()} cells/mL</strong>. Any upward trend toward 250,000 cells/mL will trigger critical animal screenings.
+                </Typography>
+                <Typography variant="body1" sx={{ mb: 1, color: '#374151' }}>
+                  • <strong>Antibiotic Security:</strong> There are currently <strong>{data?.dairy.activeTreatments} cows</strong> flagged on health treatments. Their milk is immediately diverted and excluded from commercial bulk tank sales.
+                </Typography>
+              </Box>
 
-//               <Box sx={{ p: 2.5, backgroundColor: '#F8FAFC', borderRadius: '8px', borderLeft: '4px solid #3B82F6', mb: 4 }}>
-//                 <Typography variant="subtitle2" sx={{ fontWeight: 700, color: '#1E3A8A', textTransform: 'uppercase', mb: 0.5 }}>
-//                   Immediate Dry-Off Actions
-//                 </Typography>
-//                 <Typography variant="body2" sx={{ color: '#334155', lineHeight: 1.6 }}>
-//                   {data?.narrative.dryOffActionItem}
-//                 </Typography>
-//               </Box>
-//               <Divider sx={{ mb: 4, borderColor: '#E5E7EB' }} />
-//             </IonCol>
-//           </IonRow>
+              <Box sx={{ p: 2.5, backgroundColor: '#F8FAFC', borderRadius: '8px', borderLeft: '4px solid #3B82F6', mb: 4 }}>
+                <Typography variant="subtitle2" sx={{ fontWeight: 700, color: '#1E3A8A', textTransform: 'uppercase', mb: 0.5 }}>
+                  Immediate Dry-Off Actions
+                </Typography>
+                <Typography variant="body2" sx={{ color: '#334155', lineHeight: 1.6 }}>
+                  {data?.narrative.dryOffActionItem}
+                </Typography>
+              </Box>
+              <Divider sx={{ mb: 4, borderColor: '#E5E7EB' }} />
+            </IonCol>
+          </IonRow>
 
-//           {/* SECTION 4: BIOCLIMATIC RISK & RISK MATRIX */}
-//           <IonRow>
-//             <IonCol size="12">
-//               <Typography variant="h5" sx={{ fontWeight: 700, mb: 2, color: '#1F2937' }}>
-//                 4. Bioclimatic Risk & Environmental Management
-//               </Typography>
+          {/* SECTION 4: BIOCLIMATIC RISK & RISK MATRIX */}
+          <IonRow>
+            <IonCol size="12">
+              <Typography variant="h5" sx={{ fontWeight: 700, mb: 2, color: '#1F2937' }}>
+                4. Bioclimatic Risk & Environmental Management
+              </Typography>
 
-//               <TableContainer component={Paper} variant="outlined" sx={{ borderRadius: '8px', mb: 3, border: '1px solid #D1D5DB' }}>
-//                 <Table>
-//                   <TableHead sx={{ backgroundColor: '#F8FAFC' }}>
-//                     <TableRow>
-//                       <TableCell sx={{ fontWeight: 700, color: '#1E293B' }}>Metric</TableCell>
-//                       <TableCell sx={{ fontWeight: 700, color: '#1E293B' }}>Value</TableCell>
-//                       <TableCell sx={{ fontWeight: 700, color: '#1E293B' }}>Risk Level</TableCell>
-//                     </TableRow>
-//                   </TableHead>
-//                   <TableBody>
-//                     <TableRow sx={{ borderBottom: '1px solid #E2E8F0' }}>
-//                       <TableCell sx={{ color: '#334155' }}>Ambient Temperature</TableCell>
-//                       <TableCell sx={{ color: '#0F172A' }}>{data?.bioclimatic.temperature}°C</TableCell>
-//                       <TableCell sx={{ fontWeight: 600, color: '#16A34A' }}>Low (Thermal Comfort)</TableCell>
-//                     </TableRow>
-//                     <TableRow sx={{ borderBottom: '1px solid #E2E8F0' }}>
-//                       <TableCell sx={{ color: '#334155' }}>Relative Humidity</TableCell>
-//                       <TableCell sx={{ color: '#0F172A' }}>{data?.bioclimatic.humidity}%</TableCell>
-//                       <TableCell sx={{ fontWeight: 600, color: '#16A34A' }}>Low</TableCell>
-//                     </TableRow>
-//                     <TableRow>
-//                       <TableCell sx={{ color: '#334155' }}>THI (Computed)</TableCell>
-//                       <TableCell sx={{ color: '#0F172A' }}>{data?.bioclimatic.thi}</TableCell>
-//                       <TableCell sx={{ fontWeight: 600, color: '#16A34A' }}>Safe</TableCell>
-//                     </TableRow>
-//                   </TableBody>
-//                 </Table>
-//               </TableContainer>
+              <TableContainer component={Paper} variant="outlined" sx={{ borderRadius: '8px', mb: 3, border: '1px solid #D1D5DB' }}>
+                <Table>
+                  <TableHead sx={{ backgroundColor: '#F8FAFC' }}>
+                    <TableRow>
+                      <TableCell sx={{ fontWeight: 700, color: '#1E293B' }}>Metric</TableCell>
+                      <TableCell sx={{ fontWeight: 700, color: '#1E293B' }}>Value</TableCell>
+                      <TableCell sx={{ fontWeight: 700, color: '#1E293B' }}>Risk Level</TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    <TableRow sx={{ borderBottom: '1px solid #E2E8F0' }}>
+                      <TableCell sx={{ color: '#334155' }}>Ambient Temperature</TableCell>
+                      <TableCell sx={{ color: '#0F172A' }}>{data?.bioclimatic.temperature}°C</TableCell>
+                      <TableCell sx={{ fontWeight: 600, color: '#16A34A' }}>Low (Thermal Comfort)</TableCell>
+                    </TableRow>
+                    <TableRow sx={{ borderBottom: '1px solid #E2E8F0' }}>
+                      <TableCell sx={{ color: '#334155' }}>Relative Humidity</TableCell>
+                      <TableCell sx={{ color: '#0F172A' }}>{data?.bioclimatic.humidity}%</TableCell>
+                      <TableCell sx={{ fontWeight: 600, color: '#16A34A' }}>Low</TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell sx={{ color: '#334155' }}>THI (Computed)</TableCell>
+                      <TableCell sx={{ color: '#0F172A' }}>{data?.bioclimatic.thi}</TableCell>
+                      <TableCell sx={{ fontWeight: 600, color: '#16A34A' }}>Safe</TableCell>
+                    </TableRow>
+                  </TableBody>
+                </Table>
+              </TableContainer>
 
-//               <Box mb={4}>
-//                 <Typography variant="body2" sx={{ color: '#4B5563', lineHeight: 1.6 }}>
-//                   {data?.narrative.bioclimaticAssessment}
-//                 </Typography>
-//               </Box>
-//               <Divider sx={{ mb: 4, borderColor: '#E5E7EB' }} />
-//             </IonCol>
-//           </IonRow>
+              <Box mb={4}>
+                <Typography variant="body2" sx={{ color: '#4B5563', lineHeight: 1.6 }}>
+                  {data?.narrative.bioclimaticAssessment}
+                </Typography>
+              </Box>
+              <Divider sx={{ mb: 4, borderColor: '#E5E7EB' }} />
+            </IonCol>
+          </IonRow>
 
-//           {/* SECTION 5: LOGISTICS, INVENTORY & OUTLOOK */}
-//           <IonRow>
-//             <IonCol size="12">
-//               <Typography variant="h5" sx={{ fontWeight: 700, mb: 2, color: '#1F2937' }}>
-//                 5. Logistics, Inventory & Financial Outlook
-//               </Typography>
+          {/* SECTION 5: LOGISTICS, INVENTORY & OUTLOOK */}
+          <IonRow>
+            <IonCol size="12">
+              <Typography variant="h5" sx={{ fontWeight: 700, mb: 2, color: '#1F2937' }}>
+                5. Logistics, Inventory & Financial Outlook
+              </Typography>
 
-//               <TableContainer component={Paper} variant="outlined" sx={{ borderRadius: '8px', mb: 3, border: '1px solid #D1D5DB' }}>
-//                 <Table>
-//                   <TableHead sx={{ backgroundColor: '#F8FAFC' }}>
-//                     <TableRow>
-//                       <TableCell sx={{ fontWeight: 700, color: '#1E293B' }}>Resource</TableCell>
-//                       <TableCell sx={{ fontWeight: 700, color: '#1E293B' }}>Level</TableCell>
-//                       <TableCell sx={{ fontWeight: 700, color: '#1E293B' }}>Status</TableCell>
-//                     </TableRow>
-//                   </TableHead>
-//                   <TableBody>
-//                     {data?.inventory.map((item, index) => (
-//                       <TableRow key={index} sx={{ borderBottom: index !== data.inventory.length - 1 ? '1px solid #E2E8F0' : 'none' }}>
-//                         <TableCell sx={{ color: '#334155', fontWeight: 600 }}>{item.resource}</TableCell>
-//                         <TableCell sx={{ color: '#334155' }}>{item.level}</TableCell>
-//                         <TableCell sx={{ fontWeight: 600, color: item.isLowStock ? '#DC2626' : '#16A34A' }}>
-//                           {item.status}
-//                         </TableCell>
-//                       </TableRow>
-//                     ))}
-//                   </TableBody>
-//                 </Table>
-//               </TableContainer>
+              <TableContainer component={Paper} variant="outlined" sx={{ borderRadius: '8px', mb: 3, border: '1px solid #D1D5DB' }}>
+                <Table>
+                  <TableHead sx={{ backgroundColor: '#F8FAFC' }}>
+                    <TableRow>
+                      <TableCell sx={{ fontWeight: 700, color: '#1E293B' }}>Resource</TableCell>
+                      <TableCell sx={{ fontWeight: 700, color: '#1E293B' }}>Level</TableCell>
+                      <TableCell sx={{ fontWeight: 700, color: '#1E293B' }}>Status</TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {data?.inventory.map((item, index) => (
+                      <TableRow key={index} sx={{ borderBottom: index !== data.inventory.length - 1 ? '1px solid #E2E8F0' : 'none' }}>
+                        <TableCell sx={{ color: '#334155', fontWeight: 600 }}>{item.resource}</TableCell>
+                        <TableCell sx={{ color: '#334155' }}>{item.level}</TableCell>
+                        <TableCell sx={{ fontWeight: 600, color: item.isLowStock ? '#DC2626' : '#16A34A' }}>
+                          {item.status}
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </TableContainer>
 
-//               {/* PROCUREMENT PRIORITY */}
-//               <Box sx={{ p: 2.5, backgroundColor: '#FFFBEB', borderRadius: '8px', borderLeft: '4px solid #D97706', mb: 3 }}>
-//                 <Typography variant="subtitle2" sx={{ fontWeight: 700, color: '#92400E', textTransform: 'uppercase', mb: 0.5 }}>
-//                   Procurement Priority
-//                 </Typography>
-//                 <Typography variant="body2" sx={{ color: '#78350F', lineHeight: 1.6 }}>
-//                   {data?.narrative.procurementInstruction}
-//                 </Typography>
-//               </Box>
+              {/* PROCUREMENT PRIORITY */}
+              <Box sx={{ p: 2.5, backgroundColor: '#FFFBEB', borderRadius: '8px', borderLeft: '4px solid #D97706', mb: 3 }}>
+                <Typography variant="subtitle2" sx={{ fontWeight: 700, color: '#92400E', textTransform: 'uppercase', mb: 0.5 }}>
+                  Procurement Priority
+                </Typography>
+                <Typography variant="body2" sx={{ color: '#78350F', lineHeight: 1.6 }}>
+                  {data?.narrative.procurementInstruction}
+                </Typography>
+              </Box>
 
-//               {/* NEW SUBSECTION: TRANSACTION & CURRENCY STRATEGY */}
-//               <Box sx={{ p: 2.5, backgroundColor: '#F0FDF4', borderRadius: '8px', borderLeft: '4px solid #16A34A', mb: 2 }}>
-//                 <Typography variant="subtitle2" sx={{ fontWeight: 700, color: '#14532D', textTransform: 'uppercase', mb: 0.5 }}>
-//                   Transaction & Currency Strategy
-//                 </Typography>
-//                 <Typography variant="body2" sx={{ color: '#166534', lineHeight: 1.6 }}>
-//                   {data?.narrative.currencyStrategy}
-//                 </Typography>
-//               </Box>
-//             </IonCol>
-//           </IonRow>
+              {/* NEW SUBSECTION: TRANSACTION & CURRENCY STRATEGY */}
+              <Box sx={{ p: 2.5, backgroundColor: '#F0FDF4', borderRadius: '8px', borderLeft: '4px solid #16A34A', mb: 2 }}>
+                <Typography variant="subtitle2" sx={{ fontWeight: 700, color: '#14532D', textTransform: 'uppercase', mb: 0.5 }}>
+                  Transaction & Currency Strategy
+                </Typography>
+                <Typography variant="body2" sx={{ color: '#166534', lineHeight: 1.6 }}>
+                  {data?.narrative.currencyStrategy}
+                </Typography>
+              </Box>
+            </IonCol>
+          </IonRow>
 
-//         </IonGrid>
-//       </IonContent>
-//     </IonPage>
-//   );
-// };
+        </IonGrid>
+      </IonContent>
+    </IonPage>
+  );
+};
 
-// export default Insights;
+export default Insights;
 
 // import React, { useEffect } from 'react';
 // import { 
@@ -1484,603 +1484,3 @@
 // };
 
 // export default Insights;
-
-import React, { useEffect } from 'react';
-import { 
-  IonContent, 
-  IonPage, 
-  IonGrid, 
-  IonRow, 
-  IonCol,
-  IonSpinner,
-  IonHeader,
-  IonToolbar,
-  IonMenuButton,
-  IonTitle,
-  IonButtons
-} from '@ionic/react';
-import { 
-  Box, 
-  Typography, 
-  Paper, 
-  Table, 
-  TableBody, 
-  TableCell, 
-  TableContainer, 
-  TableHead, 
-  TableRow, 
-  Divider, 
-  Grid
-} from '@mui/material';
-
-import { Geolocation } from '@capacitor/geolocation';
-import ReactMarkdown from 'react-markdown';
-
-import { useAppDispatch, useAppSelector } from '../redux/hooks';
-import { fetchLiveInsights } from '../redux/store/slices/insightsSlice';
-import { ConsoleDataProps } from '../types/types';
-import { LoadingSpinner } from '../components/feedback/LoadingSpinner';
-
-// Core interface matching dynamic output
-
-
-export const Insights: React.FC = () => {
-  const dispatch = useAppDispatch();
-  
-  // Extract state matching slice schema
-  const { insights_data, loading_insights, lastFetched } = useAppSelector(
-    (state: any) => state.insights
-  );
-
-  useEffect(() => {
-    const CACHE_TIME = 30 * 60 * 1000; // 30 minutes
-    const now = Date.now();
-
-    if (!insights_data || !lastFetched || now - lastFetched > CACHE_TIME) {
-      const initIntelligence = async () => {
-        try {
-          const position = await Geolocation.getCurrentPosition({
-            enableHighAccuracy: true,
-            timeout: 10000
-          });
-          
-          dispatch(
-            fetchLiveInsights({
-              lat: position.coords.latitude,
-              lon: position.coords.longitude
-            })
-          );
-        } catch (e) {
-          // Precise fallback coordinates
-          dispatch(fetchLiveInsights({ lat: -17.8248, lon: 31.0530 }));
-        }
-      };
-      initIntelligence();
-    }
-  }, [dispatch, insights_data, lastFetched]);
-
-  // Loading indicator for empty data
-  if (loading_insights && !insights_data) {
-    return (
-      <IonPage style={{ background: '#F9FAFB' }}>
-        <IonContent className="ion-padding">
-          <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100%' }}>
-          <LoadingSpinner/>
-          </Box>
-        </IonContent>
-      </IonPage>
-    );
-  }
-
-  // Extract from the Redux payload
-  const weather = insights_data?.weather;
-  const stats = insights_data;
-  
-// Cleanly map fallback values directly to the expected visual component structures
-  const data: ConsoleDataProps = {
-    date: stats?.date || weather?.current_date || 'N/A',
-    beef: {
-      totalActiveCattle: stats?.beef?.totalActiveCattle || 0,
-      avgDailyGain: stats?.beef?.avgDailyGain || 0,
-      estHerdValue: stats?.beef?.estHerdValue || 0,
-      currentAvgWeight: stats?.beef?.currentAvgWeight || stats?.beef?.avg_weight || 0,
-      targetWeight: stats?.beef?.targetWeight || 450,
-      pricePerKg: stats?.beef?.pricePerKg || 0,
-      projectedAnimals: stats?.beef?.projectedAnimals || 0
-    },
-    dairy: {
-      activeMilkingCows: stats?.dairy?.activeMilkingCows || 0,
-      avgDailyYield: stats?.dairy?.avgDailyYield || 0,
-      somaticCellCount: stats?.dairy?.somaticCellCount || 0,
-      butterfat: stats?.dairy?.butterfat || 0,
-      protein: stats?.dairy?.protein || 0,
-      avgDaysInMilk: stats?.dairy?.avgDaysInMilk || 0,
-      totalProduction30d: stats?.dairy?.totalProduction30d || 0,
-      activeTreatments: stats?.dairy?.activeTreatments || 0,
-      today_yield: stats?.dairy?.today_yield || 0,
-      quality_alerts: stats?.dairy?.quality_alerts || 0,
-      yield_change: stats?.dairy?.yield_change || 0
-    },
-    bioclimatic: {
-      temperature: weather?.temp || 0,
-      humidity: weather?.humidity || 0,
-      thi: weather?.thi || 0
-    },
-    inventory: stats?.inventory || [],
-    narrative: {
-      executiveActionPlan: typeof insights_data?.narrative === 'object' 
-        ? insights_data.narrative.executiveActionPlan 
-        : 'Action plan unavailable.',
-      strategicDirective: typeof insights_data?.narrative === 'object' 
-        ? insights_data.narrative.strategicDirective 
-        : 'Directive pending generation.',
-      marginOptimizationAlert: typeof insights_data?.narrative === 'object' 
-        ? insights_data.narrative.marginOptimizationAlert 
-        : 'Optimization metrics pending evaluation.',
-      dryOffActionItem: typeof insights_data?.narrative === 'object' 
-        ? insights_data.narrative.dryOffActionItem 
-        : 'Standard operational protocol applies.',
-      bioclimaticAssessment: typeof insights_data?.narrative === 'object' 
-        ? insights_data.narrative.bioclimaticAssessment 
-        : 'Bioclimatic metrics normal.',
-      procurementInstruction: typeof insights_data?.narrative === 'object' 
-        ? insights_data.narrative.procurementInstruction 
-        : 'No supply constraints detected.',
-      currencyStrategy: typeof insights_data?.narrative === 'object' 
-        ? insights_data.narrative.currencyStrategy 
-        : 'Maintain current allocation strategy.'
-    }
-  };
-
-  return (
-    <IonPage style={{ background: '#F9FAFB' }}>
-            <IonHeader className="ion-no-border">
-              <IonToolbar>
-                <IonButtons slot="start">
-                  <IonMenuButton />
-                </IonButtons>
-                <IonTitle>Zvipfuyo Intelligence Insights</IonTitle>
-              </IonToolbar>
-            </IonHeader>
-      <IonContent className="ion-padding">
-        <IonGrid style={{ width: '100%', maxWidth: '1440px', margin: '0 auto', position: 'relative' }}>
-          
-          {/* HEADER SECTION - 1. DYNAMIC AI ACTION PLAN */}
-          <IonRow>
-            <IonCol size="12">
-              <Paper 
-                variant="outlined" 
-                sx={{ 
-                  p: 3, 
-                  backgroundColor: '#1E1B4B', 
-                  color: '#FFFFFF', 
-                  borderRadius: '8px', 
-                  mb: 4, 
-                  border: '1px solid #4338CA' 
-                }}
-              >
-                <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 1 }}>
-                  <Typography variant="subtitle2" sx={{ color: '#C7D2FE', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-                    Intelligence Console
-                  </Typography>
-                  <Typography variant="caption" sx={{ backgroundColor: '#4338CA', px: 1.5, py: 0.5, borderRadius: '4px', fontWeight: 600 }}>
-                    Live Narrative
-                  </Typography>
-                </Box>
-                <Typography variant="h5" sx={{ fontWeight: 800, mb: 1.5, color: '#FFFFFF' }}>
-                  Dynamic AI Action Plan
-                </Typography>
-                <Typography variant="body1" component="div" sx={{ color: '#E0E7FF', lineHeight: 1.7 }}>
-                  <ReactMarkdown>{data.narrative?.executiveActionPlan || ""}</ReactMarkdown>
-                </Typography>
-              </Paper>
-            </IonCol>
-          </IonRow>
-
-          <IonRow>
-            <IonCol size="12">
-              <Box mb={3} mt={1}>
-                <Typography variant="h4" component="h1" sx={{ fontWeight: 800, color: '#111827', letterSpacing: '-0.025em' }}>
-                  Farm Intelligence Summary: Dual-Enterprise Console
-                </Typography>
-                <Typography variant="subtitle1" sx={{ color: '#4B5563', mt: 0.5, fontWeight: 500 }}>
-                  <strong>Date:</strong> {data.date} | <strong>Enterprise Focus:</strong> Integrated Beef Fattening & Dairy Operations
-                </Typography>
-              </Box>
-              <Divider sx={{ mb: 4, borderColor: '#E5E7EB', borderWidth: '1px' }} />
-            </IonCol>
-          </IonRow>
-
-          {/* SECTION 1: EXECUTIVE OPERATIONS SNAPSHOT */}
-          <IonRow>
-            <IonCol size="12">
-              <Typography variant="h5" sx={{ fontWeight: 700, mb: 2, color: '#1F2937' }}>
-                1. Executive Operations Snapshot
-              </Typography>
-              <TableContainer component={Paper} variant="outlined" sx={{ borderRadius: '8px', mb: 3, border: '1px solid #D1D5DB' }}>
-                <Table>
-                  <TableHead sx={{ backgroundColor: '#F3F4F6' }}>
-                    <TableRow>
-                      <TableCell colSpan={2} align="center" sx={{ fontWeight: 800, py: 1.5, color: '#111827', fontSize: '0.95rem', borderBottom: '1px solid #D1D5DB' }}>
-                        DUAL-ENTERPRISE METRICS
-                      </TableCell>
-                    </TableRow>
-                    <TableRow>
-                      <TableCell sx={{ width: '50%', fontWeight: 700, color: '#374151', borderRight: '1px solid #E5E7EB' }}>
-                        BEEF & HERD
-                      </TableCell>
-                      <TableCell sx={{ width: '50%', fontWeight: 700, color: '#374151' }}>
-                        DAIRY
-                      </TableCell>
-                    </TableRow>
-                  </TableHead>
-                  <TableBody>
-                    <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-                      <TableCell sx={{ borderRight: '1px solid #E5E7EB', verticalAlign: 'top', py: 2 }}>
-                        <Typography variant="body1">Total Active Cattle: <strong>{data.beef.totalActiveCattle} head</strong></Typography>
-                        <Typography variant="body1" sx={{ mt: 1 }}>Avg Daily Gain (ADG): <strong>+{data.beef.avgDailyGain} kg</strong></Typography>
-                        <Typography variant="body1" sx={{ mt: 1 }}>Est. Herd Market Value: <strong>${data.beef.estHerdValue.toLocaleString()}</strong></Typography>
-                      </TableCell>
-                      <TableCell sx={{ verticalAlign: 'top', py: 2 }}>
-                        <Typography variant="body1">Milking Cows (Active): <strong>{data.dairy.activeMilkingCows} head</strong></Typography>
-                        <Typography variant="body1" sx={{ mt: 1 }}>Avg Daily Yield: <strong>{data.dairy.avgDailyYield} L/cow</strong></Typography>
-                        <Typography variant="body1" sx={{ mt: 1 }}>Bulk Somatic Cell Count: <strong>{data.dairy.somaticCellCount.toLocaleString()}/mL</strong></Typography>
-                      </TableCell>
-                    </TableRow>
-                  </TableBody>
-                </Table>
-              </TableContainer>
-
-              <Box sx={{ p: 2.5, backgroundColor: '#F8FAFC', borderRadius: '8px', borderLeft: '4px solid #3B82F6', mb: 4 }}>
-                <Typography variant="subtitle2" sx={{ fontWeight: 700, color: '#1E3A8A', textTransform: 'uppercase', mb: 0.5 }}>
-                  Strategic Directive
-                </Typography>
-                <Typography variant="body2" component="div" sx={{ color: '#334155', lineHeight: 1.6 }}>
-                  <ReactMarkdown>{data.narrative.strategicDirective}</ReactMarkdown>
-                </Typography>
-              </Box>
-              <Divider sx={{ mb: 4, borderColor: '#E5E7EB' }} />
-            </IonCol>
-          </IonRow>
-
-          {/* SECTION 2: BEEF FATTENING & ROI INTELLIGENCE */}
-          <IonRow>
-            <IonCol size="12">
-              <Typography variant="h5" sx={{ fontWeight: 700, mb: 2, color: '#1F2937' }}>
-                2. Beef Fattening & ROI Intelligence
-              </Typography>
-              
-{/* SECTION 2: BEEF FATTENING & ROI INTELLIGENCE - VISUAL TIMELINE */}
-<Box sx={{ mb: 4, mt: 1 }}>
-  <Typography variant="subtitle2" sx={{ color: '#64748B', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em', mb: 3 }}>
-    Weight & Value Progression Timeline
-  </Typography>
-
-  <Paper 
-    variant="outlined" 
-    sx={{ 
-      p: 4, 
-      backgroundColor: '#FFFFFF', 
-      borderRadius: '12px', 
-      border: '1px solid #E2E8F0' 
-    }}
-  >
-    <Grid container spacing={0} sx={{ position: 'relative' }}>
-      
-      {/* ================= STEP 1: ENTRY POINT ================= */}
-      <Grid item xs={12} md={4}>
-        <Box sx={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
-          {/* Top Node & Track */}
-          <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
-            {/* The Dot */}
-            <Box 
-              sx={{ 
-                width: 24, 
-                height: 24, 
-                borderRadius: '50%', 
-                border: '4px solid #94A3B8', 
-                backgroundColor: '#FFFFFF', 
-                zIndex: 2,
-                boxShadow: '0 0 0 4px #F1F5F9'
-              }} 
-            />
-            {/* Horizontal connecting line to the next step (Desktop only) */}
-            <Box sx={{ display: { xs: 'none', md: 'block' }, flexGrow: 1, height: '3px', backgroundColor: '#CBD5E1' }} />
-          </Box>
-
-          {/* Card Content */}
-          <Box sx={{ p: 2, mr: { md: 4 }, backgroundColor: '#F8FAFC', borderRadius: '8px', borderLeft: '4px solid #94A3B8' }}>
-            <Typography variant="caption" sx={{ color: '#64748B', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.025em' }}>
-              Phase 1: Entry Baseline
-            </Typography>
-            <Typography variant="h5" sx={{ fontWeight: 800, color: '#1E293B', mt: 0.5 }}>
-              320 kg
-            </Typography>
-            <Typography variant="body2" sx={{ color: '#475569', mt: 0.5, fontWeight: 500 }}>
-              Initial intake metric
-            </Typography>
-          </Box>
-        </Box>
-      </Grid>
-
-      {/* ================= STEP 2: FEEDLOT Focus (Current) ================= */}
-      <Grid item xs={12} md={4} sx={{ mt: { xs: 3, md: 0 } }}>
-        <Box sx={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
-          {/* Top Node & Track */}
-          <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
-            <Box 
-              sx={{ 
-                width: 24, 
-                height: 24, 
-                borderRadius: '50%', 
-                border: '4px solid #3B82F6', 
-                backgroundColor: '#EFF6FF', 
-                zIndex: 2,
-                boxShadow: '0 0 0 4px #DBEAFE'
-              }} 
-            />
-            <Box sx={{ display: { xs: 'none', md: 'block' }, flexGrow: 1, height: '3px', backgroundColor: '#CBD5E1' }} />
-          </Box>
-
-          {/* Card Content */}
-          <Box 
-            sx={{ 
-              p: 2, 
-              mr: { md: 4 }, 
-              backgroundColor: '#EFF6FF', 
-              borderRadius: '8px', 
-              borderLeft: '4px solid #3B82F6', 
-              boxShadow: '0 4px 6px -1px rgba(59, 130, 246, 0.05)'
-            }}
-          >
-            <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-              <Typography variant="caption" sx={{ color: '#1D4ED8', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.025em' }}>
-                Phase 2: Current Feedlot
-              </Typography>
-              <Typography variant="caption" sx={{ backgroundColor: '#DBEAFE', color: '#1D4ED8', px: 1, py: 0.25, borderRadius: '4px', fontWeight: 700 }}>
-                Live Status
-              </Typography>
-            </Box>
-            <Typography variant="h5" sx={{ fontWeight: 800, color: '#1E293B', mt: 0.5 }}>
-              {data.beef.currentAvgWeight} kg
-            </Typography>
-            <Typography variant="body2" sx={{ color: '#1E40AF', mt: 0.5, fontWeight: 500 }}>
-              Tracking dynamic daily gains
-            </Typography>
-          </Box>
-        </Box>
-      </Grid>
-
-      {/* ================= STEP 3: MARKETING TARGET ================= */}
-      <Grid item xs={12} md={4} sx={{ mt: { xs: 3, md: 0 } }}>
-        <Box sx={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
-          {/* Top Node */}
-          <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
-            <Box 
-              sx={{ 
-                width: 24, 
-                height: 24, 
-                borderRadius: '50%', 
-                border: '4px solid #10B981', 
-                backgroundColor: '#ECFDF5', 
-                zIndex: 2,
-                boxShadow: '0 0 0 4px #D1FAE5'
-              }} 
-            />
-          </Box>
-
-          {/* Card Content */}
-          <Box sx={{ p: 2, backgroundColor: '#ECFDF5', borderRadius: '8px', borderLeft: '4px solid #10B981' }}>
-            <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-              <Typography variant="caption" sx={{ color: '#047857', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.025em' }}>
-                Phase 3: Marketing Target
-              </Typography>
-              <Typography variant="caption" sx={{ backgroundColor: '#D1FAE5', color: '#065F46', px: 1, py: 0.25, borderRadius: '4px', fontWeight: 700 }}>
-                Target Cap
-              </Typography>
-            </Box>
-            <Typography variant="h5" sx={{ fontWeight: 800, color: '#1E293B', mt: 0.5 }}>
-              {data.beef.targetWeight} kg
-            </Typography>
-            <Typography variant="body2" sx={{ color: '#065F46', mt: 0.5, fontWeight: 500 }}>
-              Est. value: ${(data.beef.targetWeight * data.beef.pricePerKg).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })} /head
-            </Typography>
-          </Box>
-        </Box>
-      </Grid>
-
-    </Grid>
-  </Paper>
-</Box>
-
-              <Box mb={3}>
-                <Typography variant="body1" sx={{ mb: 1, color: '#374151' }}>
-                  • <strong>Average Daily Gain (ADG):</strong> The feedlot division is currently achieving <strong>+{data.beef.avgDailyGain} kg/day</strong> across the performance index.
-                </Typography>
-                <Typography variant="body1" sx={{ mb: 1, color: '#374151' }}>
-                  • <strong>Target Weight Projections:</strong> For the upcoming marketing cycle, <strong>{data.beef.projectedAnimals} animals</strong> are projected to hit the <strong>{data.beef.targetWeight} kg</strong> target weight.
-                </Typography>
-                <Typography variant="body1" sx={{ mb: 1, color: '#374151' }}>
-                  • <strong>Valuation & Price Per Kg:</strong> Using current market pricing of <strong>${data.beef.pricePerKg.toFixed(2)}/kg live weight</strong>, the current finished head inventory stands at <strong>${(data.beef.targetWeight * data.beef.pricePerKg).toLocaleString()} per head</strong>.
-                </Typography>
-              </Box>
-
-              <Box sx={{ p: 2.5, backgroundColor: '#FFFBEB', borderRadius: '8px', borderLeft: '4px solid #D97706', mb: 4 }}>
-                <Typography variant="subtitle2" sx={{ fontWeight: 700, color: '#92400E', textTransform: 'uppercase', mb: 0.5 }}>
-                  Margin Optimization Alert
-                </Typography>
-                <Typography variant="body2" component="div" sx={{ color: '#78350F', lineHeight: 1.6 }}>
-                  <ReactMarkdown>{data.narrative.marginOptimizationAlert}</ReactMarkdown>
-                </Typography>
-              </Box>
-              <Divider sx={{ mb: 4, borderColor: '#E5E7EB' }} />
-            </IonCol>
-          </IonRow>
-
-          {/* SECTION 3: DAIRY OPERATIONS & LACTATION ANALYTICS */}
-          <IonRow>
-            <IonCol size="12">
-              <Typography variant="h5" sx={{ fontWeight: 700, mb: 2, color: '#1F2937' }}>
-                3. Dairy Operations & Lactation Analytics
-              </Typography>
-              
-              <TableContainer component={Paper} variant="outlined" sx={{ borderRadius: '8px', mb: 3, border: '1px solid #D1D5DB' }}>
-                <Table>
-                  <TableHead sx={{ backgroundColor: '#F8FAFC' }}>
-                    <TableRow>
-                      <TableCell sx={{ fontWeight: 700, color: '#1E293B' }}>Metric</TableCell>
-                      <TableCell sx={{ fontWeight: 700, color: '#1E293B' }}>Current Level</TableCell>
-                    </TableRow>
-                  </TableHead>
-                  <TableBody>
-                    <TableRow sx={{ borderBottom: '1px solid #E2E8F0' }}>
-                      <TableCell sx={{ color: '#334155' }}>Butterfat</TableCell>
-                      <TableCell sx={{ fontWeight: 600, color: '#0F172A' }}>{data.dairy.butterfat}%</TableCell>
-                    </TableRow>
-                    <TableRow sx={{ borderBottom: '1px solid #E2E8F0' }}>
-                      <TableCell sx={{ color: '#334155' }}>Protein</TableCell>
-                      <TableCell sx={{ fontWeight: 600, color: '#0F172A' }}>{data.dairy.protein}%</TableCell>
-                    </TableRow>
-                    <TableRow>
-                      <TableCell sx={{ color: '#334155' }}>Avg Days in Milk (DIM)</TableCell>
-                      <TableCell sx={{ fontWeight: 600, color: '#0F172A' }}>{data.dairy.avgDaysInMilk} Days</TableCell>
-                    </TableRow>
-                  </TableBody>
-                </Table>
-              </TableContainer>
-
-              <Box mb={3}>
-                <Typography variant="body1" sx={{ mb: 1, color: '#374151' }}>
-                  • <strong>Milk Yield Dynamics:</strong> Total milk production across morning, midday, and evening sessions over the last 30 days stands at <strong>{data.dairy.totalProduction30d.toLocaleString()} liters</strong>.
-                </Typography>
-                <Typography variant="body1" sx={{ mb: 1, color: '#374151' }}>
-                  • <strong>Mastitis Screening:</strong> The current bulk tank somatic cell count is <strong>{data.dairy.somaticCellCount.toLocaleString()} cells/mL</strong>.
-                </Typography>
-                <Typography variant="body1" sx={{ mb: 1, color: '#374151' }}>
-                  • <strong>Antibiotic Security:</strong> There are currently <strong>{data.dairy.activeTreatments} cows</strong> flagged on health treatments. Their milk is safely diverted from commercial distribution.
-                </Typography>
-              </Box>
-
-              <Box sx={{ p: 2.5, backgroundColor: '#F8FAFC', borderRadius: '8px', borderLeft: '4px solid #3B82F6', mb: 4 }}>
-                <Typography variant="subtitle2" sx={{ fontWeight: 700, color: '#1E3A8A', textTransform: 'uppercase', mb: 0.5 }}>
-                  Immediate Dry-Off Actions
-                </Typography>
-                <Typography variant="body2" component="div" sx={{ color: '#334155', lineHeight: 1.6 }}>
-                  <ReactMarkdown>{data.narrative.dryOffActionItem}</ReactMarkdown>
-                </Typography>
-              </Box>
-              <Divider sx={{ mb: 4, borderColor: '#E5E7EB' }} />
-            </IonCol>
-          </IonRow>
-
-          {/* SECTION 4: BIOCLIMATIC RISK & RISK MATRIX */}
-          <IonRow>
-            <IonCol size="12">
-              <Typography variant="h5" sx={{ fontWeight: 700, mb: 2, color: '#1F2937' }}>
-                4. Bioclimatic Risk & Environmental Management
-              </Typography>
-
-              <TableContainer component={Paper} variant="outlined" sx={{ borderRadius: '8px', mb: 3, border: '1px solid #D1D5DB' }}>
-                <Table>
-                  <TableHead sx={{ backgroundColor: '#F8FAFC' }}>
-                    <TableRow>
-                      <TableCell sx={{ fontWeight: 700, color: '#1E293B' }}>Metric</TableCell>
-                      <TableCell sx={{ fontWeight: 700, color: '#1E293B' }}>Value</TableCell>
-                      <TableCell sx={{ fontWeight: 700, color: '#1E293B' }}>Risk Level</TableCell>
-                    </TableRow>
-                  </TableHead>
-                  <TableBody>
-                    <TableRow sx={{ borderBottom: '1px solid #E2E8F0' }}>
-                      <TableCell sx={{ color: '#334155' }}>Ambient Temperature</TableCell>
-                      <TableCell sx={{ color: '#0F172A' }}>{data.bioclimatic.temperature}°C</TableCell>
-                      <TableCell sx={{ fontWeight: 600, color: '#16A34A' }}>Low (Thermal Comfort)</TableCell>
-                    </TableRow>
-                    <TableRow sx={{ borderBottom: '1px solid #E2E8F0' }}>
-                      <TableCell sx={{ color: '#334155' }}>Relative Humidity</TableCell>
-                      <TableCell sx={{ color: '#0F172A' }}>{data.bioclimatic.humidity}%</TableCell>
-                      <TableCell sx={{ fontWeight: 600, color: '#16A34A' }}>Optimal</TableCell>
-                    </TableRow>
-                    <TableRow>
-                      <TableCell sx={{ color: '#334155' }}>THI (Computed)</TableCell>
-                      <TableCell sx={{ color: '#0F172A' }}>{data.bioclimatic.thi}</TableCell>
-                      <TableCell sx={{ fontWeight: 600, color: '#16A34A' }}>Safe Range</TableCell>
-                    </TableRow>
-                  </TableBody>
-                </Table>
-              </TableContainer>
-
-              <Box mb={4}>
-                <Typography variant="body2" component="div" sx={{ color: '#4B5563', lineHeight: 1.6 }}>
-                  <ReactMarkdown>{data.narrative.bioclimaticAssessment}</ReactMarkdown>
-                </Typography>
-              </Box>
-              <Divider sx={{ mb: 4, borderColor: '#E5E7EB' }} />
-            </IonCol>
-          </IonRow>
-
-          {/* SECTION 5: LOGISTICS, INVENTORY & OUTLOOK */}
-          <IonRow>
-            <IonCol size="12">
-              <Typography variant="h5" sx={{ fontWeight: 700, mb: 2, color: '#1F2937' }}>
-                5. Logistics, Inventory & Financial Outlook
-              </Typography>
-
-              <TableContainer component={Paper} variant="outlined" sx={{ borderRadius: '8px', mb: 3, border: '1px solid #D1D5DB' }}>
-                <Table>
-                  <TableHead sx={{ backgroundColor: '#F8FAFC' }}>
-                    <TableRow>
-                      <TableCell sx={{ fontWeight: 700, color: '#1E293B' }}>Resource</TableCell>
-                      <TableCell sx={{ fontWeight: 700, color: '#1E293B' }}>Level</TableCell>
-                      <TableCell sx={{ fontWeight: 700, color: '#1E293B' }}>Status</TableCell>
-                    </TableRow>
-                  </TableHead>
-                  <TableBody>
-                    {data.inventory.map((item, index) => (
-                      <TableRow key={index} sx={{ borderBottom: index !== data.inventory.length - 1 ? '1px solid #E2E8F0' : 'none' }}>
-                        <TableCell sx={{ color: '#334155', fontWeight: 600 }}>{item.resource}</TableCell>
-                        <TableCell sx={{ color: '#334155' }}>{item.level}</TableCell>
-                        <TableCell sx={{ fontWeight: 600, color: item.isLowStock ? '#DC2626' : '#16A34A' }}>
-                          {item.status}
-                        </TableCell>
-                      </TableRow>
-                    ))}
-                    {data.inventory.length === 0 && (
-                      <TableRow>
-                        <TableCell colSpan={3} align="center" sx={{ color: '#6B7280' }}>
-                          Inventory operational data clear.
-                        </TableCell>
-                      </TableRow>
-                    )}
-                  </TableBody>
-                </Table>
-              </TableContainer>
-
-              {/* PROCUREMENT PRIORITY */}
-              <Box sx={{ p: 2.5, backgroundColor: '#FFFBEB', borderRadius: '8px', borderLeft: '4px solid #D97706', mb: 3 }}>
-                <Typography variant="subtitle2" sx={{ fontWeight: 700, color: '#92400E', textTransform: 'uppercase', mb: 0.5 }}>
-                  Procurement Priority
-                </Typography>
-                <Typography variant="body2" component="div" sx={{ color: '#78350F', lineHeight: 1.6 }}>
-                  <ReactMarkdown>{data.narrative.procurementInstruction}</ReactMarkdown>
-                </Typography>
-              </Box>
-
-              {/* TRANSACTION & CURRENCY STRATEGY */}
-              <Box sx={{ p: 2.5, backgroundColor: '#F0FDF4', borderRadius: '8px', borderLeft: '4px solid #16A34A', mb: 2 }}>
-                <Typography variant="subtitle2" sx={{ fontWeight: 700, color: '#14532D', textTransform: 'uppercase', mb: 0.5 }}>
-                  Transaction & Currency Strategy
-                </Typography>
-                <Typography variant="body2" component="div" sx={{ color: '#166534', lineHeight: 1.6 }}>
-                  <ReactMarkdown>{data.narrative.currencyStrategy}</ReactMarkdown>
-                </Typography>
-              </Box>
-            </IonCol>
-          </IonRow>
-
-        </IonGrid>
-      </IonContent>
-    </IonPage>
-  );
-};
-
-export default Insights;

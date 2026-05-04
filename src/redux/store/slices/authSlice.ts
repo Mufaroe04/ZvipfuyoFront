@@ -5,6 +5,7 @@ import { authService } from '../../../services/authService';
 interface AuthState {
   user: User | null;
   isAuthenticated: boolean;
+  isInitializing: boolean;
   loading: boolean;
   error: string | null;
 }
@@ -12,6 +13,7 @@ interface AuthState {
 const initialState: AuthState = {
   user: null,
   isAuthenticated: !!localStorage.getItem('token'),
+  isInitializing: true,
   loading: false,
   error: null,
 };
@@ -78,11 +80,13 @@ const authSlice = createSlice({
       .addCase(initializeAuth.fulfilled, (state, action: PayloadAction<User>) => {
     state.user = action.payload;
     state.isAuthenticated = true;
+    state.isInitializing = false;
     state.loading = false;
   })
   .addCase(initializeAuth.rejected, (state) => {
     state.user = null;
     state.isAuthenticated = false;
+    state.isInitializing = false;
     state.loading = false;
   });
   },

@@ -26,6 +26,7 @@ import '@ionic/react/css/flex-utils.css';
 import '@ionic/react/css/display.css';
 import './theme/variables.css';
 import { StyledEngineProvider } from '@mui/material/styles';
+import { LoadingSpinner } from './components/feedback/LoadingSpinner';
 
 /**
 
@@ -50,12 +51,24 @@ const App: React.FC = () => {
   const { user, isAuthenticated } = useSelector((state: RootState) => state.auth);
 
   // Derive active roles
-  const userRole: UserRole = (user?.profile?.role as UserRole) || 'hand';
+  // const userRole: UserRole = (user?.profile?.role as UserRole) || 'hand';
+  const isInitializing = isAuthenticated && !user;
 
   useEffect(() => {
     dispatch(initializeAuth());
     dispatch(fetchNotifications());
   }, [dispatch]);
+
+// 2. Prevent the routes from loading too early while reading from storage
+  if (isInitializing) {
+    return (
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100vh' }}>
+        {/* Or use your Ionic/Loading Spinner */}
+        <LoadingSpinner/>
+      </div>
+    );
+  }
+  const userRole: UserRole | null = (user?.profile?.role as UserRole) || null;
 
   return (
     <IonApp>

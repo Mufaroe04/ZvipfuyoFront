@@ -2,13 +2,13 @@ import React from 'react';
 import { IonRow, IonCol, IonCard, IonItem, IonIcon, IonLabel, IonButton, IonNote } from '@ionic/react';
 import { cartOutline, arrowForwardOutline, businessOutline } from 'ionicons/icons';
 import { useHistory } from 'react-router-dom';
+import { useAppSelector } from '../../../redux/hooks';
 
-interface SupplyChainProps {
-  pendingProcurementCount: number;
-}
-
-export const SupplyChainProcurement: React.FC<SupplyChainProps> = ({ pendingProcurementCount }) => {
+export const SupplyChainProcurement: React.FC = () => {
   const history = useHistory();
+  const { data } = useAppSelector((state) => state.dashboard);
+
+  const pendingProcurementCount = data?.pending_procurement_count || 0;
 
   return (
     <IonRow>

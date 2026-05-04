@@ -151,12 +151,7 @@ export interface ConsoleDataProps {
     humidity: number;
     thi: number;
   };
-  inventory: Array<{
-    resource: string;
-    level: string;
-    status: string;
-    isLowStock: boolean;
-  }>;
+  inventory: Array<InventoryItem>;
   narrative: {
     executiveActionPlan: string;
     strategicDirective: string;
@@ -499,12 +494,12 @@ export interface MenuItem {
 }
 
 export interface RoleRouteProps {
-  exact?: boolean;
-  path: string;
   component: React.ComponentType<any>;
   allowedRoles: UserRole[];
-  userRole: UserRole;
+  userRole: UserRole | null | undefined;
   isAuthenticated: boolean;
+  exact?: boolean;
+  path: string;
 }
 export interface Props {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
