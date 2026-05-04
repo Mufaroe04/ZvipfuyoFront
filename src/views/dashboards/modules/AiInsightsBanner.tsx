@@ -19,11 +19,14 @@ export const AiInsightsBanner: React.FC = () => {
                 Zvipfuyo Intelligence
               </h2>
               <div style={{ color: '#444', lineHeight: '1.5', fontSize: '0.9rem', display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                {/* ReactMarkdown is safely wrapped here. We override block tags cleanly 
+                  by keeping the raw text context intact.
+                */}
                 <ReactMarkdown 
                   components={{
-                    p: ({node, ...props}) => <span {...props} />,
-                    ul: ({node, ...props}) => <span {...props} />, 
-                    li: ({node, ...props}) => <span {...props} />
+                    p: ({ children }) => <>{children}</>,
+                    ul: ({ children }) => <>{children}</>, 
+                    li: ({ children }) => <span> {children}</span>
                   }}
                 >
                   {narrative || "Analyzing farm data..."}

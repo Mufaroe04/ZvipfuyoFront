@@ -8,13 +8,13 @@ import { fetchLiveInsights } from '../redux/store/slices/insightsSlice';
 import { LoadingSpinner } from '../components/feedback/LoadingSpinner';
 
 // Refactored Domain Components (Direct state consumers)
-import { ActionPlanCard } from '../insights/ActionPlanCard';
-import { SummaryHeader } from '../insights/SummaryHeader';
-import { SnapshotTable } from '../insights/SnapshotTable';
-import { BeefTimeline } from '../insights/BeefTimeline';
-import { DairyTable } from '../insights/DairyTable';
-import { BioclimaticTable } from '../insights/BioclimaticTable';
-import { LogisticsInventory } from '../insights/LogisticsInventory';
+import { ActionPlanCard } from '../components/insights/ActionPlanCard';
+import { SummaryHeader } from '../components/insights/SummaryHeader';
+import { SnapshotTable } from '../components/insights/SnapshotTable';
+import { BeefTimeline } from '../components/insights/BeefTimeline';
+import { DairyTable } from '../components/insights/DairyTable';
+import { BioclimaticTable } from '../components/insights/BioclimaticTable';
+import { LogisticsInventory } from '../components/insights/LogisticsInventory';
 
 export const InsightsPage: React.FC = () => {
   const dispatch = useAppDispatch();

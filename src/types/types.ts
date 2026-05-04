@@ -188,7 +188,7 @@ export interface BreedingEvent {
 export interface Animal {
   id: number;
   tag_number: string;
-  herd:string| number;
+  herd: number;
   herd_name:string;
   breed: string;
   breed_display: string;

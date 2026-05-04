@@ -25,12 +25,12 @@ const RegisterAnimalView: React.FC = () => {
   // Form State
   const [formData, setFormData] = useState({
     tag_number: '',
-    herd: herdId ? Number(herdId) : '',
-    breed: 'OTH',
-    gender: 'female',
+    herd: herdId ? Number(herdId) : 0,
+    breed: '',
+    gender: '',
     date_of_birth: new Date().toISOString().split('T')[0],
-    status: 'active',
-    reproductive_status: 'none',
+    status: '',
+    reproductive_status: '',
     mother_id: '', 
     father_tag: '',
     birth_weight: ''
@@ -59,7 +59,7 @@ const RegisterAnimalView: React.FC = () => {
 
     setLoading(true);
     try {
-      await livestockService.registerAnimal(formData);
+      await livestockService.createAnimal(formData);
       setToastMsg(`Animal ${formData.tag_number} registered successfully!`);
       
       setTimeout(() => {

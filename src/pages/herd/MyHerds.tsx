@@ -7,10 +7,15 @@ import {
   IonTitle, 
   IonToolbar,
 } from '@ionic/react';
-import HerdList from '../components/HerdList';
+import HerdList from '../../components/herd/HerdList';
+import { UserRole } from '../../types/types';
 // import './MyHerds.css';
 
-const MyHerds: React.FC = () => {
+interface MyHerdsProps {
+  userRole?: UserRole | null;
+}
+const MyHerds: React.FC <MyHerdsProps> = () => {
+
   return (
     <IonPage>
       <IonHeader className="ion-no-border">
@@ -24,7 +29,7 @@ const MyHerds: React.FC = () => {
       </IonHeader>
 
       <IonContent fullscreen className="ion-padding">
-        <HerdList/>
+        <HerdList />
       </IonContent>
     </IonPage>
   );

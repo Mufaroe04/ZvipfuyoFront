@@ -1,24 +1,14 @@
 import React from 'react';
-import { Route, Redirect } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import { RootState } from '../redux/store';
-import { Props, RoleRouteProps } from '../types/types';
+import { Route, Redirect, RouteProps } from 'react-router-dom';
+import { UserRole } from '../types/types';
 
-const ProtectedRoute: React.FC<Props> = ({ component: Component, ...rest }) => {
-  const { isAuthenticated } = useSelector((state: RootState) => state.auth);
-  console.log('isAuthenticated', isAuthenticated);
-
-  return (
-    <Route
-      {...rest}
-      render={props =>
-        isAuthenticated ? <Component {...props} /> : <Redirect to="/login" />
-      }
-    />
-  );
-};
-
-export default ProtectedRoute;
+// Add the props we expect for authentication and role checking
+export interface RoleRouteProps extends RouteProps {
+  component: React.ComponentType<any>;
+  allowedRoles: UserRole[];
+  userRole: UserRole | null | undefined;
+  isAuthenticated: boolean;
+}
 
 export const RoleProtectedRoute: React.FC<RoleRouteProps> = ({ 
   component: Component, 
@@ -36,10 +26,9 @@ export const RoleProtectedRoute: React.FC<RoleRouteProps> = ({
           return <Redirect to="/login" />;
         }
 
-        // 2. Safely check if the userRole has finished loading. 
-        // Returning a fallback component instead of null prevents the router from matching the default route.
+        // 2. Wait for user profile/role state to fully load
         if (!userRole) {
-          return <div>Loading...</div>; 
+          return <div>Loading...</div>; // Or your LoadingSpinner
         }
 
         // 3. If unauthorized, go to dashboard
@@ -47,8 +36,8 @@ export const RoleProtectedRoute: React.FC<RoleRouteProps> = ({
           return <Redirect to="/dashboard" />;
         }
 
-        // 4. Authorized
-        return <Component {...props} />;
+        // 4. Authorized: Pass route props AND userRole directly to the component
+        return <Component {...props} userRole={userRole} />;
       }}
     />
   );

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, Typography, Paper } from '@mui/material';
 import ReactMarkdown from 'react-markdown';
-import { useAppSelector } from '../redux/hooks';
+import { useAppSelector } from '../../redux/hooks';
 
 export const ActionPlanCard: React.FC = () => {
   const { insights_data } = useAppSelector((state: any) => state.insights);

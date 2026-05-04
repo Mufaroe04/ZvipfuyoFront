@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from '../redux/hooks';
+import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { 
-  Box, Typography, Button, Chip, Stack, Divider, Paper, Alert, TextField, InputAdornment
+  Box, Typography, Button, Stack, Divider, Paper, Alert, TextField, InputAdornment
 } from '@mui/material';
 import { DataGrid, GridColDef } from '@mui/x-data-grid'; // Removed GridToolbar as we are using custom search
 import { 
@@ -12,8 +12,8 @@ import {
 } from '@ionic/react';
 import { addOutline, searchOutline } from 'ionicons/icons';
 import { IonIcon } from '@ionic/react';
-import { fetchHerdById } from '../redux/store/slices/livestockSlice';
-import { livestockService } from '../services/livestockService';
+import { fetchHerdById } from '../../redux/store/slices/livestockSlice';
+import { livestockService } from '../../services/livestockService';
 
 const HerdDetailView: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -67,55 +67,22 @@ const HerdDetailView: React.FC = () => {
       field: 'gender', 
       headerName: 'Gender', 
       width: 100,
-      // renderCell: (p) => (
-      //   <Chip 
-      //     label={p.value} 
-      //     size="small" 
-      //     variant="outlined" 
-      //     color={p.value?.toLowerCase() === 'female' ? 'secondary' : 'primary'} 
-      //   />
-      // )
     },
     { 
       field: 'status_display', 
       headerName: 'Health Status', 
       width: 130,
-      // renderCell: (params: any) => {
-      //   const val = params.value;
-      //   let chipColor = '#2dd36f'; 
-      //   if (val === 'Sick') chipColor = '#eb445a';
-      //   if (val === 'Quarantine') chipColor = '#f2a104';
-      //   if (val === 'Deceased') chipColor = '#707070';
-
-      //   return (
-      //     <Chip 
-      //       label={val} 
-      //       size="small" 
-      //       sx={{ bgcolor: chipColor, color: 'white', fontWeight: 'bold' }} 
-      //     />
-      //   );
-      // }
     },
     { 
       field: 'last_treatment_date', 
       headerName: 'Last Treatment', 
       width: 150,
-      // renderCell: (p) => (
-      //   <Typography variant="body2" color={p.value === 'N/A' ? 'text.disabled' : 'text.primary'}>
-      //     {p.value}
-      //   </Typography>
-      // )
     },
     { field: 'latest_weight', headerName: 'Weight (kg)', type: 'number', width: 110 },
     { 
         field: 'reproductive_status', 
         headerName: 'Reproduction', 
         width: 130,
-        // renderCell: (p) => (
-        //     <Typography variant="body2" sx={{ color: p.value === 'pregnant' ? '#7044ff' : 'inherit', textTransform: 'capitalize' }}>
-        //         {p.value || 'N/A'}
-        //     </Typography>
-        // )
     },
     {
       field: 'actions',
@@ -138,10 +105,10 @@ const HerdDetailView: React.FC = () => {
 
   return (
     <IonPage>
-      <IonHeader>
+      <IonHeader className="ion-no-border">
         <IonToolbar>
           <IonButtons slot="start"><IonBackButton defaultHref="/herds" /> </IonButtons>
-                    <IonTitle>Herd Details</IonTitle>
+                    <IonTitle>Herd Info</IonTitle>
           
         </IonToolbar>
       </IonHeader>

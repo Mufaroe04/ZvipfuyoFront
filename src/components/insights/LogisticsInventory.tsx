@@ -1,8 +1,8 @@
 import React from 'react';
 import { Box, Typography, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
 import ReactMarkdown from 'react-markdown';
-import { useAppSelector } from '../redux/hooks';
-import { InventoryItem } from '../types/types';
+import { useAppSelector } from '../../redux/hooks';
+import { InventoryItem } from '../../types/types';
 
 export const LogisticsInventory: React.FC = () => {
   const { insights_data } = useAppSelector((state: any) => state.insights);

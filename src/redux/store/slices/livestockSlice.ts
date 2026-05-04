@@ -192,14 +192,19 @@ const livestockSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(fetchAllHerds.fulfilled, (state, action) => {
       state.herds = action.payload;
+      state.loading=false
     })
     .addCase(fetchAllHerds.pending, (state) => {
       state.getHerdsStatus = "loading";
       state.getHerdsError = null;
+      state.loading=true
+
     })
     .addCase(fetchAllHerds.rejected, (state,action) => {
       state.getHerdsStatus = "failed";
       state.getHerdsError = action.payload as string;
+      state.loading=true
+
     })
 // fetchHerdById
     .addCase(fetchHerdById.pending, (state) => {
@@ -217,17 +222,24 @@ const livestockSlice = createSlice({
     })
    .addCase(createHerd.pending, (state) => {
         state.createHerdStatus = "loading";
+        state.loading=true;
         state.createHerderror = null;
       })
     .addCase(
         createHerd.fulfilled,
-        (state) => {
+        (state,action:PayloadAction<Herd>) => {
+        const index = state.herds.findIndex(a => a.id === action.payload.id);
+        if (index !== -1) {
+          state.herds[index] = action.payload;
+        }
           state.createHerdStatus = "succeeded";
+          state.loading=false;
           state.createHerderror = null;
         }
       )
     .addCase(createHerd.rejected, (state,action) => {
         state.createHerdStatus = "failed";
+        state.loading=true;
         state.createHerderror = action.payload as string;
       })
     .addCase(fetchAllAnimals.pending, (state) => {

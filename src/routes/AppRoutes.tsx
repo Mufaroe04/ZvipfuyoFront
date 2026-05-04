@@ -125,9 +125,9 @@ import Profile from '../pages/Profile';
 import Notifications from '../pages/Notifications';
 import Chat from '../pages/Chat';
 import InsightsPage from '../pages/InsightsPage';
-import MyHerds from '../pages/MyHerds';
-import HerdCreatePage from '../pages/HerdCreatePage';
-import HerdDetailView from '../pages/HerdDetailView';
+import MyHerds from '../pages/herd/MyHerds';
+import HerdCreatePage from '../pages/herd/HerdCreatePage';
+import HerdDetailView from '../pages/herd/HerdDetailView';
 import MyAnimals from '../pages/MyAnimals';
 import RegisterAnimalView from '../pages/RegisterAnimalView';
 import AnimalDetailView from '../pages/AnimalDetailView';
@@ -156,6 +156,7 @@ import Procurement from '../pages/Procurement';
 import Suppliers from '../pages/Suppliers';
 import StaffPage from '../pages/StaffPage';
 import DashboardView from '../pages/DashboardView';
+import HerdEditPage from '../pages/herd/HerdEditPage';
 
 interface AppRoutesProps {
   userRole: UserRole | null; // Correctly typed to allow null values during initialization
@@ -196,6 +197,7 @@ export const AppRoutes: React.FC<AppRoutesProps> = ({
       <RoleProtectedRoute exact path="/herds" component={MyHerds} allowedRoles={['owner', 'manager', 'hand', 'vet']} userRole={userRole} isAuthenticated={isAuthenticated} />
       <RoleProtectedRoute exact path="/herdsadd" component={HerdCreatePage} allowedRoles={['owner', 'manager']} userRole={userRole} isAuthenticated={isAuthenticated} />
       <RoleProtectedRoute exact path="/herds/:id" component={HerdDetailView} allowedRoles={['owner', 'manager', 'hand', 'vet']} userRole={userRole} isAuthenticated={isAuthenticated} />
+      <RoleProtectedRoute exact path="/herds/edit/:id" component={HerdEditPage} allowedRoles={['owner', 'manager']} userRole={userRole} isAuthenticated={isAuthenticated} />
       <RoleProtectedRoute exact path="/animals" component={MyAnimals} allowedRoles={['owner', 'manager', 'hand', 'vet']} userRole={userRole} isAuthenticated={isAuthenticated} />
       <RoleProtectedRoute exact path="/animals/add" component={RegisterAnimalView} allowedRoles={['owner', 'manager', 'hand']} userRole={userRole} isAuthenticated={isAuthenticated} />
       <RoleProtectedRoute exact path="/herds/:herdId/add-animal" component={RegisterAnimalView} allowedRoles={['owner', 'manager', 'hand']} userRole={userRole} isAuthenticated={isAuthenticated} />

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Box, Typography, Divider } from '@mui/material';
-import { useAppSelector } from '../redux/hooks';
+import { useAppSelector } from '../../redux/hooks';
 
 export const SummaryHeader: React.FC = () => {
   const { insights_data } = useAppSelector((state: any) => state.insights);

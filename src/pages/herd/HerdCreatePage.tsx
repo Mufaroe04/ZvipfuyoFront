@@ -8,7 +8,7 @@ import {
   IonTitle, 
   IonToolbar,
 } from '@ionic/react';
-import HerdAdd from '../components/HerdAdd';
+import HerdAdd from '../../components/herd/HerdAdd';
 import { useHistory } from "react-router-dom";
 import { arrowBackOutline } from 'ionicons/icons';
 import { IconButton } from '@mui/material';
@@ -19,7 +19,7 @@ const HerdCreatePage: React.FC = () => {
     
   return (
     <IonPage>
-      <IonHeader>
+      <IonHeader className="ion-no-border">
         <IonToolbar>
           <IonButtons slot="start">
             {/* The missing piece of the puzzle! */}
@@ -29,7 +29,7 @@ const HerdCreatePage: React.FC = () => {
         </IconButton>
           </IonButtons>
   
-          <IonTitle>Register Herd</IonTitle>
+          <IonTitle>Create New Herd</IonTitle>
         
         </IonToolbar>
       </IonHeader>
