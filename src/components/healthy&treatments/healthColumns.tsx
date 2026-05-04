@@ -1,33 +1,36 @@
 import { GridColDef } from '@mui/x-data-grid';
-import { Button, Stack, IconButton, Tooltip } from '@mui/material';
+import {  Stack, Button, Tooltip, IconButton } from '@mui/material';
+import { ActionHandlers, UserRole } from '../../types/types';
 import { IonIcon } from '@ionic/react';
 import { pencilOutline, trashOutline } from 'ionicons/icons';
-import { ActionHandlers, UserRole } from '../../types/types';
 
+export const getHealthColumns = ( role: UserRole | null | undefined,
+  handlers: ActionHandlers): GridColDef[] => {
 
-
-export const getHerdColumns = (
-  role: UserRole | null | undefined,
-  handlers: ActionHandlers
-): GridColDef[] => {
   const isPrivileged = role === 'owner' || role === 'manager';
 
-  return [
-    { field: 'id', headerName: 'ID', width: 60 },
-    { 
-      field: 'name', 
-      headerName: 'Herd Name', 
-      flex: 1, 
-      minWidth: 150,
-      renderCell: (params) => <span style={{ fontWeight: 500 }}>{params.value}</span> 
-    },
-    { field: 'location', headerName: 'Location', width: 130 },
-    { field: 'total_cattle', headerName: 'Total', type: 'number', width: 80, align: 'center' },
-    { field: 'cows_count', headerName: 'Cows', type: 'number', width: 70, align: 'center' },
-    { field: 'bulls_count', headerName: 'Bulls', type: 'number', width: 70, align: 'center' },
-    { field: 'calves_count', headerName: 'Calves', type: 'number', width: 70, align: 'center' },
-    { field: 'pregnant_count', headerName: 'Preg', type: 'number', width: 70, align: 'center' },
-    { field: 'sick_count', headerName: 'Sick', type: 'number', width: 80, align: 'center' },
+   return [
+  { 
+    field: 'treatment_date', 
+    headerName: 'Date', 
+    width: 120 
+  },
+  { 
+    field: 'condition', 
+    headerName: 'Condition', 
+    flex: 1 
+  },
+  { 
+    field: 'treatment', 
+    headerName: 'Treatment Administered', 
+    flex: 1.5 
+  },
+  { 
+    field: 'cost', 
+    headerName: 'Cost ($)', 
+    width: 110,
+    renderCell: (params) => `$${Number(params.value).toLocaleString()}`
+  },
     {
       field: 'actions',
       headerName: 'Action',
@@ -83,5 +86,5 @@ export const getHerdColumns = (
         </Stack>
       ),
     },
-  ];
-};
+]
+  };

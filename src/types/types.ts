@@ -18,6 +18,11 @@ export type UserRole = 'owner' | 'manager' | 'hand' | 'vet';
 //   email: string;
 // }
 
+export interface ActionHandlers {
+  onView: (id: string | number) => void;
+  onEdit: (id: string | number) => void;
+  onDelete: (id: string | number) => void;
+}
 export interface User {
   id: number;
   username: string;

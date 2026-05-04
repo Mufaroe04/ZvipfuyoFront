@@ -4,30 +4,57 @@ import { IonIcon } from '@ionic/react';
 import { pencilOutline, trashOutline } from 'ionicons/icons';
 import { ActionHandlers, UserRole } from '../../types/types';
 
-
-
-export const getHerdColumns = (
+export const getReproductionColumns = (
   role: UserRole | null | undefined,
   handlers: ActionHandlers
 ): GridColDef[] => {
   const isPrivileged = role === 'owner' || role === 'manager';
 
   return [
-    { field: 'id', headerName: 'ID', width: 60 },
-    { 
-      field: 'name', 
-      headerName: 'Herd Name', 
-      flex: 1, 
-      minWidth: 150,
-      renderCell: (params) => <span style={{ fontWeight: 500 }}>{params.value}</span> 
+   { 
+      field: 'breeding_date', 
+      headerName: 'Date', 
+      width: 120,
     },
-    { field: 'location', headerName: 'Location', width: 130 },
-    { field: 'total_cattle', headerName: 'Total', type: 'number', width: 80, align: 'center' },
-    { field: 'cows_count', headerName: 'Cows', type: 'number', width: 70, align: 'center' },
-    { field: 'bulls_count', headerName: 'Bulls', type: 'number', width: 70, align: 'center' },
-    { field: 'calves_count', headerName: 'Calves', type: 'number', width: 70, align: 'center' },
-    { field: 'pregnant_count', headerName: 'Preg', type: 'number', width: 70, align: 'center' },
-    { field: 'sick_count', headerName: 'Sick', type: 'number', width: 80, align: 'center' },
+    { 
+      field: 'dam_tag', 
+      headerName: 'Dam (Cow)', 
+      width: 120 
+    },
+    { 
+      field: 'sire_tag', 
+      headerName: 'Sire (Bull)', 
+      width: 120 
+    },
+    { 
+      field: 'method', 
+      headerName: 'Method', 
+      width: 80,
+
+    },
+    { 
+      field: 'status', 
+      headerName: 'Status', 
+      width: 100,
+
+    },
+    { 
+      field: 'expected_calving_date', 
+      headerName: 'Exp. Calving', 
+      width: 120,
+
+    },
+        { 
+      field: 'breeding_date', 
+      headerName: 'Breeding Date', 
+      width: 120,
+
+    },
+        { 
+      field: 'days_to_calving', 
+      headerName: 'Days to calving', 
+      width: 120,
+    },
     {
       field: 'actions',
       headerName: 'Action',

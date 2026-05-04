@@ -120,7 +120,7 @@ import { UserRole } from '../types/types';
 import { LoadingSpinner } from '../components/feedback/LoadingSpinner';
 
 // Pages
-import Login from '../pages/Login';
+import Login from '../pages/authentication/Login';
 import Profile from '../pages/Profile';
 import Notifications from '../pages/Notifications';
 import Chat from '../pages/Chat';
@@ -128,32 +128,32 @@ import InsightsPage from '../pages/InsightsPage';
 import MyHerds from '../pages/herd/MyHerds';
 import HerdCreatePage from '../pages/herd/HerdCreatePage';
 import HerdDetailView from '../pages/herd/HerdDetailView';
-import MyAnimals from '../pages/MyAnimals';
-import RegisterAnimalView from '../pages/RegisterAnimalView';
-import AnimalDetailView from '../pages/AnimalDetailView';
-import DairyOperations from '../pages/DairyOperations';
-import AddMilkYields from '../pages/AddMilkYields';
-import AddMilkQuality from '../pages/AddMilkQuality';
-import AddLactation from '../pages/AddLactation';
+import MyAnimals from '../pages/animal/MyAnimals';
+import RegisterAnimalView from '../pages/animal/RegisterAnimalView';
+import AnimalDetailView from '../pages/animal/AnimalDetailView';
+import DairyOperations from '../pages/milk/DairyOperations';
+import AddMilkYields from '../pages/milk/AddMilkYields';
+import AddMilkQuality from '../pages/milk/AddMilkQuality';
+import AddLactation from '../pages/milk/AddLactation';
 import BeefDashboard from '../pages/BeefDashboard';
-import HealthAndTreatments from '../pages/HealthAndTreatments';
-import AddHealthRecord from '../pages/AddHealthRecord';
-import Reproduction from '../pages/Reproduction';
-import AddBreedingEvent from '../pages/AddBreedingEvent';
-import WeightListing from '../pages/WeightListing';
-import AddWeight from '../pages/AddWeight';
+import HealthAndTreatments from '../pages/healthy&treatments/HealthAndTreatments';
+import AddHealthRecord from '../pages/healthy&treatments/AddHealthRecord';
+import Reproduction from '../pages/reproduction/Reproduction';
+import AddBreedingEvent from '../pages/reproduction/AddBreedingEvent';
+import WeightListing from '../pages/weight/WeightListing';
+import AddWeight from '../pages/weight/AddWeight';
 import CountingSession from '../pages/CountingSession';
-import Tasks from '../pages/Tasks';
-import AddTask from '../pages/AddTask';
-import Transfer from '../pages/Transfer';
-import AddTransfer from '../pages/AddTransfer';
-import Inventory from '../pages/Inventory';
-import AddInventoryItem from '../pages/AddInventoryItem';
-import StockHistory from '../pages/StockHistory';
-import FinancePage from '../pages/FinancePage';
-import NewEntryPage from '../pages/NewEntryPage';
-import Procurement from '../pages/Procurement';
-import Suppliers from '../pages/Suppliers';
+import Tasks from '../pages/task/Tasks';
+import AddTask from '../pages/task/AddTask';
+import Transfer from '../pages/transfer/Transfer';
+import AddTransfer from '../pages/transfer/AddTransfer';
+import Inventory from '../pages/inventory/Inventory';
+import AddInventoryItem from '../pages/inventory/AddInventoryItem';
+import StockHistory from '../pages/inventory/StockHistory';
+import FinancePage from '../pages/finance/FinancePage';
+import NewEntryPage from '../pages/finance/NewEntryPage';
+import Procurement from '../pages/inventory/Procurement';
+import Suppliers from '../pages/inventory/Suppliers';
 import StaffPage from '../pages/StaffPage';
 import DashboardView from '../pages/DashboardView';
 import HerdEditPage from '../pages/herd/HerdEditPage';
@@ -202,6 +202,8 @@ export const AppRoutes: React.FC<AppRoutesProps> = ({
       <RoleProtectedRoute exact path="/animals/add" component={RegisterAnimalView} allowedRoles={['owner', 'manager', 'hand']} userRole={userRole} isAuthenticated={isAuthenticated} />
       <RoleProtectedRoute exact path="/herds/:herdId/add-animal" component={RegisterAnimalView} allowedRoles={['owner', 'manager', 'hand']} userRole={userRole} isAuthenticated={isAuthenticated} />
       <RoleProtectedRoute exact path="/animal/:id" component={AnimalDetailView} allowedRoles={['owner', 'manager', 'hand', 'vet']} userRole={userRole} isAuthenticated={isAuthenticated} />
+      <RoleProtectedRoute exact path="/animal/edit/:id" component={AnimalDetailView} allowedRoles={['owner', 'manager', 'hand', 'vet']} userRole={userRole} isAuthenticated={isAuthenticated} />
+
 
       {/* Specialized Production Operations */}
       <RoleProtectedRoute exact path="/dairy" component={DairyOperations} allowedRoles={['owner', 'manager', 'hand']} userRole={userRole} isAuthenticated={isAuthenticated} />
