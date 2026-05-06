@@ -1,5 +1,5 @@
 import React from 'react';
-import { IonRow, IonCol, IonCard, IonItem, IonIcon, IonLabel, IonButton } from '@ionic/react';
+import { IonRow, IonCol, IonCard, IonItem, IonIcon, IonLabel, IonButton, IonText } from '@ionic/react';
 import { sparklesOutline, arrowForwardOutline } from 'ionicons/icons';
 import { useAppSelector } from '../../../redux/hooks';
 import ReactMarkdown from 'react-markdown';
@@ -11,9 +11,9 @@ export const AiInsightsBanner: React.FC = () => {
   return (
     <IonRow>
       <IonCol size="12">
-        <IonCard style={{ borderLeft: '4px solid var(--ion-color-secondary)', borderRadius: '16px', boxShadow: 'none' }}>
+        <IonCard style={{ borderLeft: '4px solid var(--ion-color-#18774c)', borderRadius: '6px', boxShadow: 'none' ,height: '100%' }}>
           <IonItem lines="none" style={{ alignItems: 'flex-start', py: 1 }}>
-            <IonIcon icon={sparklesOutline} slot="start" color="secondary" style={{ marginTop: '12px' }} />
+            <IonIcon icon={sparklesOutline} slot="start" style={{ marginTop: '12px' ,'--color':'#18774c'  }} />
             <IonLabel className="ion-text-wrap" style={{ width: '100%', margin: '12px 0' }}>
               <h2 style={{ fontWeight: 800, color: '#18774c', marginBottom: '8px', fontSize: '1.1rem', letterSpacing: '-0.5px' }}>
                 Zvipfuyo Intelligence
@@ -24,7 +24,7 @@ export const AiInsightsBanner: React.FC = () => {
                 */}
                 <ReactMarkdown 
                   components={{
-                    p: ({ children }) => <>{children}</>,
+                    p: ({ children }) => <IonText>{children}</IonText>,
                     ul: ({ children }) => <>{children}</>, 
                     li: ({ children }) => <span> {children}</span>
                   }}

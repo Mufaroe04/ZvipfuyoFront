@@ -75,7 +75,7 @@ export const AnimalListGrid: React.FC<AnimalListGridProps> = ({ animals, filterI
         placeholder="Search animals by tag or breed..."
         value={searchQuery}
         onChange={(e) => setSearchQuery(e.target.value)}
-        sx={{ mb: 2, bgcolor: 'white', '& .MuiOutlinedInput-root': { borderRadius: '10px' } }}
+        sx={{ mb: 2, bgcolor: 'white', borderRadius: '10px' }}
         InputProps={{
           startAdornment: (
             <InputAdornment position="start">
@@ -94,11 +94,11 @@ export const AnimalListGrid: React.FC<AnimalListGridProps> = ({ animals, filterI
 
       {/* Shared Deletion Confirmation Modal */}
       <Dialog open={deleteTargetId !== null} onClose={() => setDeleteTargetId(null)}>
-        <DialogTitle sx={{ fontWeight: 'bold', fontFamily: '"Plus Jakarta Sans", sans-serif' }}>
+        <DialogTitle sx={{ fontWeight: 'bold',}}>
           Delete Animal
         </DialogTitle>
         <DialogContent>
-          <DialogContentText sx={{ fontFamily: '"Plus Jakarta Sans", sans-serif' }}>
+          <DialogContentText >
             Are you sure you want to delete this animal? This action cannot be undone and will permanently erase all associated data.
           </DialogContentText>
         </DialogContent>
@@ -106,7 +106,7 @@ export const AnimalListGrid: React.FC<AnimalListGridProps> = ({ animals, filterI
           <Button 
             onClick={() => setDeleteTargetId(null)} 
             color="inherit"
-            sx={{ textTransform: 'none', fontWeight: 600, fontFamily: '"Plus Jakarta Sans", sans-serif' }}
+            sx={{ textTransform: 'none', fontWeight: 600,  }}
           >
             Cancel
           </Button>
@@ -118,7 +118,7 @@ export const AnimalListGrid: React.FC<AnimalListGridProps> = ({ animals, filterI
               textTransform: 'none', 
               borderRadius: '6px', 
               fontWeight: 600, 
-              fontFamily: '"Plus Jakarta Sans", sans-serif' 
+               
             }}
           >
             Confirm Delete

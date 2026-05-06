@@ -36,7 +36,8 @@ export const CustomDataGrid: React.FC<CustomDataGridProps> = ({
         disableRowSelectionOnClick
         sx={{
           border: 0,
-          fontFamily: '"Plus Jakarta Sans", sans-serif',
+          // fontFamily: '"Plus Jakarta Sans", sans-serif',
+          fontWeight:'medium',
           '& .MuiDataGrid-columnHeaderTitle': {
             fontWeight: 700,
             color: '#374151',

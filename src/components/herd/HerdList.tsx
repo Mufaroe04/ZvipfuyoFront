@@ -75,7 +75,7 @@ const HerdList: React.FC = () => {
       {/* Top Header Section */}
       <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ mb: 3 }}>
         <Box>
-          <Typography variant="body2" color="text.secondary">
+          <Typography variant="body2" color="text.secondary" fontWeight={"medium"}>
             Select a herd to manage its digital kraal
           </Typography>
         </Box>
@@ -105,7 +105,7 @@ const HerdList: React.FC = () => {
         placeholder="Search herds by name or location..."
         value={searchQuery}
         onChange={(e) => setSearchQuery(e.target.value)}
-        sx={{ mb: 2, bgcolor: 'white' }}
+        sx={{ mb: 2, bgcolor: 'white' , borderRadius: '4px' , }}
         InputProps={{
           startAdornment: (
             <InputAdornment position="start">

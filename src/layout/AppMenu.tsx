@@ -54,7 +54,7 @@ export const AppMenu: React.FC<AppMenuProps> = ({ userRole }) => {
             <IonMenuToggle key={item.url} autoHide={false}>
               <IonItem button routerLink={item.url} lines="none">
                 <IonIcon icon={item.icon} slot="start" />
-                <IonLabel><strong>{item.label}</strong></IonLabel>
+                <IonLabel>{item.label}</IonLabel>
               </IonItem>
             </IonMenuToggle>
           ))}
@@ -63,9 +63,9 @@ export const AppMenu: React.FC<AppMenuProps> = ({ userRole }) => {
           <IonMenuToggle autoHide={false}>
             <IonItem button routerLink="/notifications" lines="none">
               <IonIcon icon={notificationsOutline} slot="start" />
-              <IonLabel><strong>Notifications</strong></IonLabel>
+              <IonLabel>Notifications</IonLabel>
               {unreadCount > 0 && (
-                <IonText slot="end" style={{ color: "#18774c", fontWeight: "bold" }}>
+                <IonText slot="end" style={{ color: "#18774c", }}>
                   {unreadCount}
                 </IonText>
               )}
@@ -75,7 +75,7 @@ export const AppMenu: React.FC<AppMenuProps> = ({ userRole }) => {
           <IonMenuToggle autoHide={false}>
             <IonItem button routerLink="/chat" lines="none">
               <IonIcon icon={chatbubblesOutline} slot="start" />
-              <IonLabel><strong>Chat</strong></IonLabel>
+              <IonLabel>Chat</IonLabel>
             </IonItem>
           </IonMenuToggle>
 
@@ -84,7 +84,7 @@ export const AppMenu: React.FC<AppMenuProps> = ({ userRole }) => {
             <IonMenuToggle autoHide={false}>
               <IonItem button routerLink="/staff" lines="none">
                 <IonIcon icon={peopleOutline} slot="start" />
-                <IonLabel><strong>Staff Management</strong></IonLabel>
+                <IonLabel>Staff Management</IonLabel>
               </IonItem>
             </IonMenuToggle>
           )}
@@ -93,14 +93,14 @@ export const AppMenu: React.FC<AppMenuProps> = ({ userRole }) => {
           <IonMenuToggle autoHide={false}>
             <IonItem button routerLink="/profile" lines="none">
               <IonIcon icon={personOutline} slot="start" />
-              <IonLabel><strong>Profile</strong></IonLabel>
+              <IonLabel>Profile</IonLabel>
             </IonItem>
           </IonMenuToggle>
 
           <IonMenuToggle autoHide={false}>
             <IonItem button lines="none" detail={false} onClick={handleLogout}>
               <IonIcon icon={logOutOutline} slot="start" />
-              <IonLabel><strong>Logout</strong></IonLabel>
+              <IonLabel>Logout</IonLabel>
             </IonItem>
           </IonMenuToggle>
         </IonList>

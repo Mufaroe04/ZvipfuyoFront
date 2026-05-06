@@ -1,5 +1,5 @@
 import React from 'react';
-import { IonRow, IonCol, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonList, IonItem, IonLabel, IonBadge, IonIcon } from '@ionic/react';
+import { IonRow, IonCol, IonCard, IonCardHeader, IonCardContent, IonList, IonItem, IonLabel, IonBadge, IonIcon, IonCardTitle, IonText } from '@ionic/react';
 import { calendarOutline, repeatOutline } from 'ionicons/icons';
 import { useAppSelector } from '../../../redux/hooks';
 
@@ -15,7 +15,7 @@ export const OperationsSummary: React.FC = () => {
       <IonCol size="12" sizeMd="8">
         <IonCard style={{ borderBottom: '4px solid var(--ion-color-success)', height: '100%' }}>
           <IonCardHeader>
-            <IonCardTitle><IonIcon icon={calendarOutline} /> Task Summary</IonCardTitle>
+            <IonCardTitle style={{  color: 'var(--ion-color-dark)' }}><IonIcon icon={calendarOutline} /> Task Summary</IonCardTitle>
           </IonCardHeader>
           <IonCardContent>
             {upcomingTasks && upcomingTasks.length > 0 ? (
@@ -23,13 +23,14 @@ export const OperationsSummary: React.FC = () => {
                 {upcomingTasks.slice(0, 3).map((task) => (
                   <IonItem key={task.id}>
                     <IonLabel>
-                      <p style={{ fontWeight: 'bold' }}>{task.title}</p>
-                      <small style={{ color: 'var(--ion-color-medium)' }}>Assigned to: {task.assigned_to_name}</small>
+                      <IonText style={{  color: 'var(--ion-color-medium)' }}>{task.title}</IonText> <br></br>
+                      < small style={{ color: 'var(--ion-color-medium)', fontWeight:'bold' }}> Assigned to: {task.assigned_to_name}</ small>
                     </IonLabel>
                     <IonLabel slot="end" color={task.priority === 'high' ? 'danger' : 'primary'}>
-                      <small style={{ color: 'var(--ion-color-medium)' }}>{task.priority} </small> 
+                      < IonText style={{ color: 'var(--ion-color-dark)' }}>{task.priority} </ IonText> 
                     </IonLabel>
                   </IonItem>
+                    
                 ))}
               </IonList>
             ) : (
@@ -38,13 +39,13 @@ export const OperationsSummary: React.FC = () => {
                   <tr>
                     <td>Due Today</td>
                     <td className="ion-text-end">
-                      <IonBadge color="warning">{taskStats.due_today}</IonBadge>
+                      <IonText color="warning">{taskStats.due_today}</IonText>
                     </td>
                   </tr>
                   <tr>
                     <td>Overdue</td>
                     <td className="ion-text-end">
-                      <IonBadge color="danger">{taskStats.overdue}</IonBadge>
+                      <IonText color="danger">{taskStats.overdue}</IonText>
                     </td>
                   </tr>
                 </tbody>
@@ -55,23 +56,23 @@ export const OperationsSummary: React.FC = () => {
       </IonCol>
 
       <IonCol size="12" sizeMd="4">
-        <IonCard style={{ borderBottom: '4px solid var(--ion-color-warning)', height: '100%' }}>
+        <IonCard style={{ borderBottom: '4px solid var(--ion-color-warning)', height: '100%'  }}>
           <IonCardHeader>
-            <IonCardTitle><IonIcon icon={repeatOutline} /> Transfers</IonCardTitle>
+            <IonCardTitle style={{  color: 'var(--ion-color-dark)' }}><IonIcon icon={repeatOutline} /> Transfers</IonCardTitle>
           </IonCardHeader>
           <IonCardContent>
             <IonList lines="none">
               <IonItem>
-                <IonLabel>  <small style={{ color: 'var(--ion-color-medium)' }}>Pending</small> </IonLabel>
-                <IonLabel color="warning">{transferStats.pending}</IonLabel>
+                <IonLabel>  < IonText style={{  color: 'var(--ion-color-medium)' }}>Pending</ IonText> </IonLabel>
+                <IonCardTitle style={{  fontWeight: 'bold',  }} >{transferStats.pending}</IonCardTitle>
               </IonItem>
               <IonItem>
-                <IonLabel>  <small style={{ color: 'var(--ion-color-medium)' }}>In Transit</small></IonLabel>
-                <IonLabel color="primary">{transferStats.intransit}</IonLabel>
+                <IonLabel>  < IonText style={{  color: 'var(--ion-color-medium)' }} >In Transit</ IonText></IonLabel>
+                <IonCardTitle style={{  fontWeight: 'bold',  }}  >{transferStats.intransit}</IonCardTitle>
               </IonItem>
               <IonItem>
-                <IonLabel> <small style={{ color: 'var(--ion-color-medium)' }}>Incoming</small> </IonLabel>
-                <IonLabel color="success">{transferStats.incoming}</IonLabel>
+                <IonLabel> < IonText style={{  color: 'var(--ion-color-medium)' }} >Incoming</ IonText> </IonLabel>
+                <IonCardTitle style={{  fontWeight: 'bold',  }}  >{transferStats.incoming}</IonCardTitle>
               </IonItem>
             </IonList>
           </IonCardContent>

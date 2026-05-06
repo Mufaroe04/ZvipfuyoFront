@@ -1,5 +1,5 @@
 import React from 'react';
-import { IonRow, IonCol, IonCard, IonItem, IonIcon, IonLabel, IonButton, IonNote } from '@ionic/react';
+import { IonRow, IonCol, IonCard, IonItem, IonIcon, IonLabel, IonButton, IonNote, IonCardTitle, IonCardHeader, IonText } from '@ionic/react';
 import { cartOutline, arrowForwardOutline, businessOutline } from 'ionicons/icons';
 import { useHistory } from 'react-router-dom';
 import { useAppSelector } from '../../../redux/hooks';
@@ -18,13 +18,14 @@ export const SupplyChainProcurement: React.FC = () => {
           style={{ 
             cursor: 'pointer',
             borderLeft: pendingProcurementCount > 0 ? '4px solid var(--ion-color-warning)' : '4px solid var(--ion-color-success)' 
+            , height: '100%' 
           }}
         >
           <IonItem lines="none">
             <IonIcon icon={cartOutline} slot="start" color={pendingProcurementCount > 0 ? 'warning' : 'success'} />
             <IonLabel>
-              <h2>Procurement Drafts</h2>
-              <p>You have <strong>{pendingProcurementCount}</strong> requisitions to review</p>
+              <IonText style={{ fontSize: '1.4rem', color: 'var(--ion-color-dark)' }}>Procurement Drafts</IonText> <br></br>
+              <IonText style={{  color: 'var(--ion-color-medium)' }} >You have <strong style={{  color: 'var(--ion-color-dark)' }} >{pendingProcurementCount}</strong> requisitions to review</IonText>
             </IonLabel>
             <IonButton fill="clear" slot="end">
               Review <IonIcon icon={arrowForwardOutline} slot="end" />
@@ -34,14 +35,17 @@ export const SupplyChainProcurement: React.FC = () => {
       </IonCol>
 
       <IonCol size="12" sizeMd="6">
-        <IonCard style={{ borderLeft: '4px solid var(--ion-color-primary)' }}>
+        <IonCard style={{ borderLeft: '4px solid var(--ion-color-primary)', height: '100%' }}>
           <IonItem lines="none" button routerLink="/suppliers">
             <IonIcon icon={businessOutline} slot="start" color="primary" />
             <IonLabel>
-              <h2>Supplier Directory</h2>
-              <p>Quick access to NatFoods, Agrifoods & more</p>
+              <IonText style={{ fontSize: '1.4rem', color: 'var(--ion-color-dark)' }}>Supplier Directory</IonText> <br></br>
+              <IonText style={{  color: 'var(--ion-color-medium)' }} >Quick access to NatFoods, Agrifoods & more</IonText>
             </IonLabel>
-            <IonNote slot="end">Manage</IonNote>
+            {/* <IonNote slot="end">Manage</IonNote> */}
+              <IonButton fill="clear" slot="end">
+              Manage <IonIcon icon={arrowForwardOutline} slot="end" />
+            </IonButton>
           </IonItem>
         </IonCard>
       </IonCol>

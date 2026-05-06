@@ -72,7 +72,6 @@ const HerdAdd: React.FC = () => {
         <Typography 
           variant="h5" 
           fontWeight="bold" 
-          sx={{ fontFamily: '"Plus Jakarta Sans", sans-serif' }}
         >
           Add New Herd
         </Typography>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React  from 'react';
 import { 
   IonCard, IonCardHeader, IonCardSubtitle, IonCardTitle, 
   IonCardContent, IonIcon, IonChip, IonLabel, 
@@ -12,48 +12,23 @@ import {
   alertCircleOutline,
   checkmarkCircleOutline
 } from 'ionicons/icons';
-import { useAppDispatch, useAppSelector } from '../redux/hooks';
-import { fetchLiveInsights } from '../redux/store/slices/insightsSlice';
-import { Geolocation } from '@capacitor/geolocation';
+import {  useAppSelector } from '../redux/hooks';
 
 const WeatherCard: React.FC = () => {
-  const { insights_data, loading_insights, lastFetched } = useAppSelector((state: any) => state.insights);
-  const dispatch = useAppDispatch();
+  const { insights_data, loading_insights,  } = useAppSelector((state: any) => state.insights);
   
-  useEffect(() => {
-    const CACHE_TIME = 30 * 60 * 1000; // 30 Minutes
-    const now = Date.now();
 
-    // Only fetch if we have no data OR the data is older than 30 mins
-    if (!insights_data || !lastFetched || (now - lastFetched > CACHE_TIME)) {
-      const initIntelligence = async () => {
-        try {
-                const position = await Geolocation.getCurrentPosition({
-                enableHighAccuracy: true,
-                timeout: 10000 });
-          dispatch(fetchLiveInsights({ 
-            lat: position.coords.latitude, 
-            lon: position.coords.longitude 
-          }));
-        } catch (e) {
-          // Fallback to Harare if GPS fails
-          dispatch(fetchLiveInsights({ lat: -17.82, lon: 31.05 }));
-        }
-      };
-      initIntelligence();
-    }
-  }, [dispatch, insights_data, lastFetched]);
   if (loading_insights) return <IonSpinner name="crescent" />;
   // const isHeatStress = weather.thi >= 72;
   const isHeatStress = insights_data?.weather.thi >= 72;
 
   return (
-  <IonCard color="secondary"> {/* This makes the background Primary and text white */}
+  <IonCard color="secondary" style={{ height: '100%' ,}}> {/* This makes the background Primary and text white */}
   <IonCardHeader>
     {/* By default, subtitle and title will now be white */}
-    <IonCardSubtitle style={{ color: 'white' }}>
+    <IonCardTitle style={{ color: 'white' }}>
       {insights_data?.weather.location} Forecast
-    </IonCardSubtitle>
+    </IonCardTitle>
     <IonCardTitle style={{ color: 'white', display: 'flex', alignItems: 'center', gap: '8px' }}>
       <IonIcon icon={sunnyOutline} color="warning" /> 
       {insights_data?.weather.temp}°C
@@ -86,9 +61,9 @@ const WeatherCard: React.FC = () => {
         color: 'white' 
       }}>
         <IonIcon icon={alertCircleOutline} style={{ marginRight: '8px' }} />
-        <p style={{ margin: 0, fontSize: '0.9rem' }}>
+        <IonText style={{ margin: 0, fontSize: '0.9rem' }}>
           Mild Heat Stress Alert: Ensure adequate water.
-        </p>
+        </IonText>
       </div>
     ) : (
       <div style={{ 
@@ -98,7 +73,7 @@ const WeatherCard: React.FC = () => {
         opacity: 0.9
       }}>
         <IonIcon icon={checkmarkCircleOutline} style={{ marginRight: '8px', color: '#2dd36f' }} />
-        <p style={{ margin: 0 }}>Optimal conditions for grazing.</p>
+        <IonText style={{ margin: 0 }}>Optimal conditions for grazing.</IonText>
       </div>
     )}
   </IonCardContent>

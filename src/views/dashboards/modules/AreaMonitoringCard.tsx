@@ -1,5 +1,5 @@
 import React from 'react';
-import { IonCol, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonList, IonItem, IonLabel, IonIcon } from '@ionic/react';
+import { IonCol, IonCard, IonCardHeader, IonCardContent, IonList, IonItem, IonLabel, IonIcon, IonCardTitle, IonRow, IonText } from '@ionic/react';
 import { pinOutline, leafOutline, waterOutline, statsChartOutline } from 'ionicons/icons';
 import { useAppSelector } from '../../../redux/hooks';
 
@@ -25,17 +25,17 @@ export const AreaMonitoringCard: React.FC = () => {
   };
 
   return (
-    <>
+    <IonRow>
       <IonCol size="12" sizeMd="6">
-        <IonCard style={{ borderBottom: '4px solid var(--ion-color-secondary)', height: '100%' }}>
+        <IonCard style={{ borderBottom: '4px solid var(--ion-color-secondary)', height: '100%'  }}>
           <IonCardHeader>
-            <IonCardTitle><IonIcon icon={pinOutline} /> Area Monitoring</IonCardTitle>
+            <IonCardTitle style={{  color: 'var(--ion-color-dark)' }}><IonIcon icon={pinOutline} /> Area Monitoring</IonCardTitle>
           </IonCardHeader>
           <IonCardContent>
             <IonList lines="none">
-              <IonItem>
-                <IonLabel> <small>State: <strong>{areaMonitoring.condition}</strong> </small></IonLabel>
-                <IonLabel color="primary" slot="end">{herdCount} Herds Total</IonLabel>
+              <IonItem style={{  color: 'var(--ion-color-medium)' }}>
+                <IonText style={{  color: 'var(--ion-color-medium)' }}> State: <strong>{areaMonitoring.condition}</strong> </IonText>
+                <IonCardTitle style={{ fontWeight: 'bold', color: 'var(--ion-color-dark)' }} slot="end">{herdCount} Herds Total</IonCardTitle>
               </IonItem>
               <IonItem>
                 <IonIcon 
@@ -43,14 +43,16 @@ export const AreaMonitoringCard: React.FC = () => {
                   slot="start" 
                   color={areaMonitoring.feed_stations > 0 ? 'success' : 'danger'} 
                 />
-                <IonLabel>
-                  <small> Feed Present: <strong>{areaMonitoring.feed_stations > 0 ? 'Yes' : 'No'}</strong></small>
-                  <p>{areaMonitoring.bales_available ?? 0} Bales in stock</p>
-                </IonLabel>
+                {/* <IonLabel> */}
+                  <IonText style={{ color: 'var(--ion-color-medium)' }}> Feed Present: <strong>{areaMonitoring.feed_stations > 0 ? 'Yes' : 'No'} :</strong></IonText>
+                   <IonText style={{ color: 'var(--ion-color-medium)' }}> You have {areaMonitoring.bales_available ?? 0} Bales in stock</IonText>
+                {/* </IonLabel> */}
               </IonItem>
               <IonItem>
                 <IonIcon icon={waterOutline} slot="start" color="primary" />
-                <IonLabel> <small> Water Supply: {areaMonitoring.water_ponds} Ponds</small></IonLabel>
+                {/* <IonLabel > */}
+                   <IonText style={{ color: 'var(--ion-color-medium)' }}>  Water Supply: <strong>  {areaMonitoring.water_ponds}  Ponds</strong> </IonText>
+                {/* </IonLabel> */}
               </IonItem>
             </IonList>
           </IonCardContent>
@@ -58,32 +60,35 @@ export const AreaMonitoringCard: React.FC = () => {
       </IonCol>
 
       <IonCol size="12" sizeMd="6">
-        <IonCard style={{ borderLeft: '4px solid var(--ion-color-warning)', height: '100%' }}>
+        <IonCard style={{ borderLeft: '4px solid var(--ion-color-warning)', height: '100%'}}>
           <IonCardHeader>
-            <IonCardTitle><IonIcon icon={statsChartOutline} /> Counting Session</IonCardTitle>
+            <IonCardTitle style={{  color: 'var(--ion-color-dark)' }}><IonIcon icon={statsChartOutline} /> Counting Session</IonCardTitle>
           </IonCardHeader>
           <IonCardContent>
             <div style={{ display: 'flex', justifyContent: 'space-around', textAlign: 'center', alignItems: 'center', height: '100%' }}>
               <div>
-                <h2 style={{ margin: 0, fontWeight: 'bold' }}>{countingStats.today_count}</h2>
-                <p style={{ margin: 0 }}>Today</p>
+                < IonCardTitle style={{ margin: 0, }}>{countingStats.today_count}</ IonCardTitle>
+                <IonText style={{ margin: 0 ,color: 'var(--ion-color-dark)' }}>Today</IonText>
               </div>
               <div>
-                <h2 style={{ margin: 0, fontWeight: 'bold' }}>{countingStats.last_7_days}</h2>
-                <p style={{ margin: 0 }}>Last 7d</p>
+                < IonCardTitle style={{ margin: 0, }}>{countingStats.last_7_days}</ IonCardTitle>
+                <IonText style={{ margin: 0 ,color: 'var(--ion-color-dark)' }}>Last 7d</IonText>
               </div>
               <div>
-                <p style={{ margin: 0 }}>Last Session:</p>
-                <small>
+                <p style={{ margin: 0,color: 'var(--ion-color-dark)' ,fontSize: '0.9rem'  }}>Last Session:</p> 
+                <strong>
+                <small style={{ margin: 0,color: 'var(--ion-color-dark)' }}>
                   {countingStats.last_session_date 
                     ? new Date(countingStats.last_session_date).toLocaleDateString() 
                     : 'N/A'}
                 </small>
+                </strong>
+
               </div>
             </div>
           </IonCardContent>
         </IonCard>
       </IonCol>
-    </>
+    </IonRow>
   );
 };

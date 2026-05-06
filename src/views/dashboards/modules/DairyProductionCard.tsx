@@ -1,5 +1,5 @@
 import React from 'react';
-import { IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonIcon } from '@ionic/react';
+import { IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonIcon, IonCardSubtitle, IonText } from '@ionic/react';
 import { waterOutline } from 'ionicons/icons';
 import { Box, Typography } from '@mui/material';
 import { useAppSelector } from '../../../redux/hooks';
@@ -35,25 +35,25 @@ export const DairyProductionCard: React.FC = () => {
   }];
 
   return (
-    <IonCard style={{ borderLeft: '4px solid var(--ion-color-primary)', height: '100%' }}>
+    <IonCard style={{ borderLeft: '4px solid var(--ion-color-primary)', height: '100%'  }}>
       <IonCardHeader>
-        <IonCardTitle>
-          <IonIcon icon={waterOutline} /> Dairy Production
+        <IonCardTitle style={{  color: 'var(--ion-color-dark)' }}>
+          <IonIcon icon={waterOutline} /> Dairy Production 
         </IonCardTitle>
       </IonCardHeader>
       <IonCardContent>
         <div style={{ display: 'flex', justifyContent: 'space-around', textAlign: 'center', marginBottom: '15px' }}>
           <div>
-            <h2 style={{ margin: 0, fontWeight: 'bold' }}>{dairyStats.active_milkers || 0}</h2>
-            <p style={{ fontSize: '0.8rem', color: 'var(--ion-color-medium)' }}>Active Milkers</p>
+            <h2 style={{ margin: 0, fontWeight: 'bold', color: 'var(--ion-color-dark)' }}>{dairyStats.active_milkers || 0}</h2>
+            <IonText style={{ fontSize: '0.8rem', color: 'var(--ion-color-medium)' }}>Active Milkers</IonText>
           </div>
           <div>
-            <h2 style={{ margin: 0, fontWeight: 'bold' }}>{dairyStats.daily_total || 0} L</h2>
-            <p style={{ fontSize: '0.8rem', color: 'var(--ion-color-medium)' }}>Total Today</p>
+            <h2 style={{ margin: 0, fontWeight: 'bold' ,color: 'var(--ion-color-dark)'}}>{dairyStats.daily_total || 0} L</h2>
+            <IonText style={{ fontSize: '0.8rem', color: 'var(--ion-color-medium)' }}>Total Today</IonText>
           </div>
           <div>
-            <h2 style={{ margin: 0, fontWeight: 'bold' }}>{dairyStats.avg_yield_per_cow || 0} L</h2>
-            <p style={{ fontSize: '0.8rem', color: 'var(--ion-color-medium)' }}>Avg/Cow</p>
+            <h2 style={{ margin: 0, fontWeight: 'bold',color: 'var(--ion-color-dark)' }}>{dairyStats.avg_yield_per_cow || 0} L</h2>
+            <IonText style={{ fontSize: '0.8rem', color: 'var(--ion-color-medium)' }}>Avg/Cow</IonText>
           </div>
         </div>
         <Box sx={{ mt: 2, height: '150px' }}>

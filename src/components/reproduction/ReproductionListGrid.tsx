@@ -59,7 +59,9 @@ export const ReproductionListGrid: React.FC<ReproductionListGridProps> = ({ even
         placeholder="Search by Tag or Status..."
         value={searchQuery}
         onChange={(e) => setSearchQuery(e.target.value)}
-        sx={{ mb: 3, bgcolor: 'white', '& .MuiOutlinedInput-root': { borderRadius: '4px' } }}
+        // sx={{ mb: 3, bgcolor: 'white', '& .MuiOutlinedInput-root': { borderRadius: '4px' } }}
+        sx={{ mb: 3, bgcolor: 'white',borderRadius: '4px'}}
+
         InputProps={{
           startAdornment: (
             <InputAdornment position="start">

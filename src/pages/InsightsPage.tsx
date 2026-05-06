@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { IonContent, IonPage, IonGrid, IonRow, IonCol, IonHeader, IonToolbar, IonMenuButton, IonTitle, IonButtons } from '@ionic/react';
 import { Box, Divider } from '@mui/material';
 import { Geolocation } from '@capacitor/geolocation';
@@ -20,25 +20,45 @@ export const InsightsPage: React.FC = () => {
   const dispatch = useAppDispatch();
   const { insights_data, loading_insights, lastFetched } = useAppSelector((state: any) => state.insights);
 
-  useEffect(() => {
-    const CACHE_TIME = 30 * 60 * 1000;
-    const now = Date.now();
+  const isFetchingRef = useRef(false);
 
-    if (!insights_data || !lastFetched || now - lastFetched > CACHE_TIME) {
-      const initIntelligence = async () => {
-        try {
-          const position = await Geolocation.getCurrentPosition({
-            enableHighAccuracy: true,
-            timeout: 10000,
-          });
-          dispatch(fetchLiveInsights({ lat: position.coords.latitude, lon: position.coords.longitude }));
-        } catch (e) {
-          dispatch(fetchLiveInsights({ lat: -17.8248, lon: 31.0530 }));
-        }
-      };
-      initIntelligence();
+  useEffect(() => {
+    // 2. Global Guard: If dashboard is loading, or we are already fetching, or data is fresh
+    const CACHE_TIME = 30 * 60 * 1000;
+    const isFresh = lastFetched && (Date.now() - lastFetched < CACHE_TIME);
+
+    if (isFetchingRef.current || loading_insights || isFresh) {
+      return;
     }
-  }, [dispatch, insights_data, lastFetched]);
+
+    const initIntelligence = async () => {
+      // 3. Lock it immediately before the async call
+      isFetchingRef.current = true;
+      
+      try {
+        const position = await Geolocation.getCurrentPosition({
+          enableHighAccuracy: true,
+          timeout: 10000 
+        });
+        
+        await dispatch(fetchLiveInsights({ 
+          lat: position.coords.latitude, 
+          lon: position.coords.longitude 
+        })).unwrap(); // unwrap helps catch errors properly
+        
+      } catch (e) {
+        await dispatch(fetchLiveInsights({ lat: -17.82, lon: 31.05 })).unwrap();
+      } finally {
+        // 4. Release lock only after the request is finished
+        isFetchingRef.current = false;
+      }
+    };
+
+    initIntelligence();
+  }, [dispatch, lastFetched, loading_insights]); // Dependencies are now safe with the Ref guard
+
+  // Initial Data Fetch - Moved to separate Effect
+
 
   if (!insights_data || loading_insights) {
     return (

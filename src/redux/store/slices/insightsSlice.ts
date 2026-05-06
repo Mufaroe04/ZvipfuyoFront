@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { insightsService } from '../../../services/insightsService';
-import { ConsoleDataProps, InsightData } from '../../../types/types';
+import { ConsoleDataProps,  } from '../../../types/types';
 
 interface InsightsState {
   // insights_data: InsightData | null;
@@ -40,7 +40,7 @@ const insightsSlice = createSlice({
       state.lastFetched = null;
     }
   },
-  extraReducers: (builder) => {
+extraReducers: (builder) => {
     builder
       .addCase(fetchLiveInsights.pending, (state) => {
         state.loading_insights = true;
@@ -49,11 +49,13 @@ const insightsSlice = createSlice({
       .addCase(fetchLiveInsights.fulfilled, (state, action) => {
         state.insights_data = action.payload;
         state.loading_insights = false;
-        state.lastFetched = Date.now(); // Record when we got this data
+        state.lastFetched = Date.now(); 
       })
       .addCase(fetchLiveInsights.rejected, (state, action) => {
-        state.loading_insights = false;
+      state.loading_insights = false;
         state.error = action.payload as string;
+        // CRITICAL: Set timestamp even on failure to prevent immediate retries
+        state.lastFetched = Date.now(); 
       });
   },
 });

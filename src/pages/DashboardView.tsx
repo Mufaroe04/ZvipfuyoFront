@@ -22,19 +22,7 @@ const DashboardView: React.FC<DashboardViewProps> = () => {
         </IonToolbar>
       </IonHeader>
 
-      <IonContent fullscreen className="ion-padding" color="light">
-        <IonHeader collapse="condense">
-          <IonToolbar>
-            <IonTitle size="large">Zvipfuyo zvako</IonTitle>
-          </IonToolbar>
-          <IonText>
-            <p style={{ margin: '0 0 16px 12px', fontSize: '1rem', color: 'var(--ion-color-medium)' }}>
-              Digital Kraal
-            </p>
-          </IonText>
-        </IonHeader>
-
-        {/* The single dashboard entry point with built-in role orchestration */}
+      <IonContent fullscreen className="ion-padding" >
         <MainDashboard  />
       </IonContent>
     </IonPage>
