@@ -16,10 +16,10 @@ import HerdDetailView from '../views/herd/HerdDetailView';
 import MyAnimals from '../views/livestock/MyAnimals';
 import RegisterAnimalView from '../views/livestock/RegisterAnimalView';
 import AnimalDetailView from '../views/livestock/AnimalListView';
-import DairyOperations from '../pages/milk/DairyOperations';
-import AddMilkYields from '../pages/milk/AddMilkYields';
-import AddMilkQuality from '../pages/milk/AddMilkQuality';
-import AddLactation from '../pages/milk/AddLactation';
+import DairyOperations from '../views/dairy/DairyOperationsView';
+import AddMilkYieldView from '../views/dairy/AddMilkYieldView';
+import AddMilkQualityView from '../views/dairy/AddMilkQualityView';
+import AddLactationView from '../views/dairy/AddLactationView';
 import BeefDashboard from '../pages/BeefDashboard';
 import HealthAndTreatments from '../pages/healthy&treatments/HealthAndTreatments';
 import AddHealthRecord from '../pages/healthy&treatments/AddHealthRecord';
@@ -94,9 +94,9 @@ export const AppRoutes: React.FC<AppRoutesProps> = ({
 
       {/* Specialized Production Operations */}
       <RoleProtectedRoute exact path="/dairy" component={DairyOperations} allowedRoles={['owner', 'manager', 'hand']} userRole={userRole} isAuthenticated={isAuthenticated} />
-      <RoleProtectedRoute exact path="/dairy/milk-yield/add" component={AddMilkYields} allowedRoles={['owner', 'manager', 'hand']} userRole={userRole} isAuthenticated={isAuthenticated} />
-      <RoleProtectedRoute exact path="/dairy/milk-quality/add" component={AddMilkQuality} allowedRoles={['owner', 'manager', 'hand']} userRole={userRole} isAuthenticated={isAuthenticated} />
-      <RoleProtectedRoute exact path="/dairy/milk-lactation/add" component={AddLactation} allowedRoles={['owner', 'manager', 'hand']} userRole={userRole} isAuthenticated={isAuthenticated} />
+      <RoleProtectedRoute exact path="/dairy/milk-yield/add" component={AddMilkYieldView} allowedRoles={['owner', 'manager', 'hand']} userRole={userRole} isAuthenticated={isAuthenticated} />
+      <RoleProtectedRoute exact path="/dairy/milk-quality/add" component={AddMilkQualityView} allowedRoles={['owner', 'manager', 'hand']} userRole={userRole} isAuthenticated={isAuthenticated} />
+      <RoleProtectedRoute exact path="/dairy/milk-lactation/add" component={AddLactationView} allowedRoles={['owner', 'manager', 'hand']} userRole={userRole} isAuthenticated={isAuthenticated} />
       <RoleProtectedRoute exact path="/beef" component={BeefDashboard} allowedRoles={['owner', 'manager', 'hand']} userRole={userRole} isAuthenticated={isAuthenticated} />
 
       {/* Health, Breeding & Records */}
