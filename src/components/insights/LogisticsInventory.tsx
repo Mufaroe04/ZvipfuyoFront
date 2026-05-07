@@ -19,7 +19,7 @@ export const LogisticsInventory: React.FC = () => {
 
   return (
     <Box sx={{ mb: 2 }}>
-      <Typography variant="h5" sx={{ fontWeight: 700, mb: 2, color: '#1F2937' }}>
+      <Typography variant="body1" sx={{ fontWeight: 700, mb: 2, color: '#1F2937' }}>
         5. Logistics, Inventory & Financial Outlook
       </Typography>
 
@@ -53,20 +53,20 @@ export const LogisticsInventory: React.FC = () => {
         </Table>
       </TableContainer>
 
-      <Box sx={{ p: 2.5, backgroundColor: '#FFFBEB', borderRadius: '8px', borderLeft: '4px solid #D97706', mb: 3 }}>
+      <Box sx={{ p: 2.5, backgroundColor: '#ffffff', borderRadius: '8px', borderLeft: '4px solid #D97706', mb: 3 }}>
         <Typography variant="subtitle2" sx={{ fontWeight: 700, color: '#92400E', textTransform: 'uppercase', mb: 0.5 }}>
           Procurement Priority
         </Typography>
-        <Typography variant="body2" component="div" sx={{ color: '#78350F', lineHeight: 1.6 }}>
+        <Typography variant="body2" component="div" sx={{  lineHeight: 1.7,color:'#374151' }}>
           <ReactMarkdown>{procurementInstruction}</ReactMarkdown>
         </Typography>
       </Box>
 
-      <Box sx={{ p: 2.5, backgroundColor: '#F0FDF4', borderRadius: '8px', borderLeft: '4px solid #16A34A' }}>
+      <Box sx={{ p: 2.5, backgroundColor: '#ffffff', borderRadius: '8px', borderLeft: '4px solid #16A34A' }}>
         <Typography variant="subtitle2" sx={{ fontWeight: 700, color: '#14532D', textTransform: 'uppercase', mb: 0.5 }}>
           Transaction & Currency Strategy
         </Typography>
-        <Typography variant="body2" component="div" sx={{ color: '#166534', lineHeight: 1.6 }}>
+        <Typography variant="body2" component="div" sx={{  lineHeight: 1.7,color:'#374151' }}>
           <ReactMarkdown>{currencyStrategy}</ReactMarkdown>
         </Typography>
       </Box>

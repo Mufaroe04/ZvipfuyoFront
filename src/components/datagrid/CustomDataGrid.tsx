@@ -20,7 +20,7 @@ export const CustomDataGrid: React.FC<CustomDataGridProps> = ({
         height,
         width: '100%',
         bgcolor: 'white',
-        borderRadius: '12px',
+        borderRadius: '4px',
         // boxShadow: '0 4px 12px rgba(0,0,0,0.05)',
         overflow: 'hidden',
         border: '1px solid #f0f0f0',
@@ -44,6 +44,9 @@ export const CustomDataGrid: React.FC<CustomDataGridProps> = ({
           },
           '& .MuiDataGrid-cell': {
             borderColor: '#f0f0f0',
+          },
+             '& .MuiDataGrid-row': {
+            color: '#374151',
           },
           ...rest.sx,
         }}

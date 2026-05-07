@@ -1,7 +1,7 @@
 import { Grid, Paper, Stack, Box, Typography, Chip } from '@mui/material';
 import { IonIcon } from '@ionic/react';
 import { scaleOutline, calendarOutline, heartOutline, leafOutline } from 'ionicons/icons';
-import { calculateGrowthEfficiency } from '../../utils/livestockMetrics';
+import { calculateGrowthEfficiency } from '../../../utils/livestockMetrics';
 
 export const AnimalMetricsRibbon = ({ animal }: { animal: any }) => {
   const efficiency = calculateGrowthEfficiency(animal.birth_weight, animal.latest_weight, animal.date_of_birth);

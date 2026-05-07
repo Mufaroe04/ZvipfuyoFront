@@ -8,10 +8,10 @@ export const SummaryHeader: React.FC = () => {
 
   return (
     <Box mb={3} mt={1}>
-      <Typography variant="h4" component="h1" sx={{ fontWeight: 800, color: '#111827', letterSpacing: '-0.025em' }}>
+      <Typography variant="body1" component="h1" sx={{ fontWeight: 800, color: '#111827', letterSpacing: '-0.025em' }}>
         Farm Intelligence Summary: Dual-Enterprise Console
       </Typography>
-      <Typography variant="subtitle1" sx={{ color: '#4B5563', mt: 0.5, fontWeight: 500 }}>
+      <Typography variant="body2" sx={{ color: '#4B5563', mt: 0.5, fontWeight: 500 }}>
         <strong>Date:</strong> {date} | <strong>Enterprise Focus:</strong> Integrated Beef Fattening & Dairy Operations
       </Typography>
       <Divider sx={{ mt: 3, mb: 1, borderColor: '#E5E7EB', borderWidth: '1px' }} />

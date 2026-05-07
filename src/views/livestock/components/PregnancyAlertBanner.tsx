@@ -1,7 +1,7 @@
 import { Paper, Stack, Box, Typography, Button } from '@mui/material';
 import { IonIcon } from '@ionic/react';
 import { alertCircleOutline } from 'ionicons/icons';
-import { getDaysToCalving } from '../../utils/livestockMetrics';
+import { getDaysToCalving } from '../../../utils/livestockMetrics';
 
 export const PregnancyAlertBanner = ({ animal, onRegisterBirth }: { animal: any, onRegisterBirth: () => void }) => {
   const daysRemaining = getDaysToCalving(animal.expected_calving_date);

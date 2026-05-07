@@ -20,12 +20,12 @@ export const BeefTimeline: React.FC = () => {
 
   return (
     <Box sx={{ mb: 4 }}>
-      <Typography variant="h5" sx={{ fontWeight: 700, mb: 2, color: '#1F2937' }}>
+      <Typography variant="body1" sx={{ fontWeight: 700, mb: 2, color: '#1F2937' }}>
         2. Beef Fattening & ROI Intelligence
       </Typography>
 
       <Box sx={{ mb: 4, mt: 1 }}>
-        <Typography variant="subtitle2" sx={{ color: '#64748B', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em', mb: 3 }}>
+        <Typography variant="body2" sx={{ color: 'text.secondary', fontWeight: 700, letterSpacing: '0.05em', mb: 3 }}>
           Weight & Value Progression Timeline
         </Typography>
 
@@ -82,22 +82,22 @@ export const BeefTimeline: React.FC = () => {
       </Box>
 
       <Box mb={3}>
-        <Typography variant="body1" sx={{ mb: 1, color: '#374151' }}>
+        <Typography variant="body2" sx={{ mb: 1 }}>
           • <strong>Average Daily Gain (ADG):</strong> The feedlot division is currently achieving <strong>+{beef.avgDailyGain} kg/day</strong> across the performance index.
         </Typography>
-        <Typography variant="body1" sx={{ mb: 1, color: '#374151' }}>
+        <Typography variant="body2" sx={{ mb: 1 }}>
           • <strong>Target Weight Projections:</strong> For the upcoming marketing cycle, <strong>{beef.projectedAnimals} animals</strong> are projected to hit the <strong>{beef.targetWeight} kg</strong> target weight.
         </Typography>
-        <Typography variant="body1" sx={{ mb: 1, color: '#374151' }}>
+        <Typography variant="body2" sx={{ mb: 1,  }}>
           • <strong>Valuation & Price Per Kg:</strong> Using current market pricing of <strong>${beef.pricePerKg.toFixed(2)}/kg live weight</strong>, the current finished head inventory stands at <strong>${(beef.targetWeight * beef.pricePerKg).toLocaleString()} per head</strong>.
         </Typography>
       </Box>
 
-      <Box sx={{ p: 2.5, backgroundColor: '#FFFBEB', borderRadius: '8px', borderLeft: '4px solid #D97706' }}>
+      <Box sx={{ p: 2.5, backgroundColor: '#ffffff', borderRadius: '8px', borderLeft: '4px solid #D97706' }}>
         <Typography variant="subtitle2" sx={{ fontWeight: 700, color: '#92400E', textTransform: 'uppercase', mb: 0.5 }}>
           Margin Optimization Alert
         </Typography>
-        <Typography variant="body2" component="div" sx={{ color: '#78350F', lineHeight: 1.6 }}>
+        <Typography variant="body2" component="div" sx={{  lineHeight: 1.7,color:'#374151' }}>
           <ReactMarkdown>{marginAlert}</ReactMarkdown>
         </Typography>
       </Box>

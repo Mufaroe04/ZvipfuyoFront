@@ -24,11 +24,11 @@ export const OperationsSummary: React.FC = () => {
                 {upcomingTasks.slice(0, 3).map((task) => (
                   <IonItem key={task.id}>
                     <IonLabel>
-                      <Typography variant="body2" style={{fontWeight: '600',   color: 'var(--ion-color-medium)' }}>{task.title}</Typography> <br></br>
+                      <Typography variant="body2" style={{fontWeight: '500',   color:'#374151' }}>{task.title}</Typography> <br></br>
                       < small style={{ color: 'var(--ion-color-dark)', fontWeight:'bold' }}> Assigned to: {task.assigned_to_name}</ small>
                     </IonLabel>
                     <IonLabel slot="end" color={task.priority === 'high' ? 'danger' : 'primary'}>
-                      < Typography variant="body2" style={{fontWeight: '600',   color: 'var(--ion-color-dark)' }}>{task.priority} </ Typography> 
+                      < Typography variant="body2" style={{fontWeight: '500',   color: 'var(--ion-color-dark)' }}>{task.priority} </ Typography> 
                     </IonLabel>
                   </IonItem>
                     
@@ -40,13 +40,13 @@ export const OperationsSummary: React.FC = () => {
                   <tr>
                     <td>Due Today</td>
                     <td className="ion-text-end">
-                      <Typography variant="body2" style={{fontWeight: '600',    }} color="warning">{taskStats.due_today}</Typography>
+                      <Typography variant="body2" style={{fontWeight: '500',    }} color="warning">{taskStats.due_today}</Typography>
                     </td>
                   </tr>
                   <tr>
                     <td>Overdue</td>
                     <td className="ion-text-end">
-                      <Typography variant="body2" style={{fontWeight: '600',   }} color="danger">{taskStats.overdue}</Typography>
+                      <Typography variant="body2" style={{fontWeight: '500',   }} color="danger">{taskStats.overdue}</Typography>
                     </td>
                   </tr>
                 </tbody>
@@ -64,15 +64,15 @@ export const OperationsSummary: React.FC = () => {
           <IonCardContent>
             <IonList lines="none">
               <IonItem>
-                <IonLabel>  < Typography variant="body2" style={{fontWeight: '600',   color: 'var(--ion-color-medium)' }}>Pending</ Typography> </IonLabel>
+                <IonLabel>  < Typography variant="body2" style={{fontWeight: '500',   color:'#374151' }}>Pending</ Typography> </IonLabel>
                 <IonCardTitle style={{  fontWeight: 'bold',  }} >{transferStats.pending}</IonCardTitle>
               </IonItem>
               <IonItem>
-                <IonLabel>  < Typography variant="body2" style={{fontWeight: '600',   color: 'var(--ion-color-medium)' }} >In Transit</ Typography></IonLabel>
+                <IonLabel>  < Typography variant="body2" style={{fontWeight: '500',   color:'#374151' }} >In Transit</ Typography></IonLabel>
                 <IonCardTitle style={{  fontWeight: 'bold',  }}  >{transferStats.intransit}</IonCardTitle>
               </IonItem>
               <IonItem>
-                <IonLabel> < Typography variant="body2" style={{fontWeight: '600',   color: 'var(--ion-color-medium)' }}>Incoming</ Typography> </IonLabel>
+                <IonLabel> < Typography variant="body2" style={{fontWeight: '500',   color:'#374151' }}>Incoming</ Typography> </IonLabel>
                 <IonCardTitle style={{  fontWeight: 'bold',  }}  >{transferStats.incoming}</IonCardTitle>
               </IonItem>
             </IonList>

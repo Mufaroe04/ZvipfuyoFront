@@ -6,7 +6,7 @@ import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonButtons, IonMe
 import { addOutline, closeCircleOutline } from 'ionicons/icons';
 import { fetchAllAnimals } from '../../redux/store/slices/livestockSlice';
 import { LoadingSpinner } from '../../components/feedback/LoadingSpinner';
-import { AnimalListGrid } from '../../components/animal/AnimalListGrid';
+import { AnimalListGrid } from './components/AnimalListGrid';
 
 export const MyAnimals: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -38,7 +38,7 @@ export const MyAnimals: React.FC = () => {
 
       <IonContent className="ion-padding">
         {/* Header & Filter Clear Action */}
-        <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ mb: 3 }}>
+        <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ mb: 1 }}>
           <Box>
             {location.state?.filterIds ? (
               <Button 
@@ -60,8 +60,8 @@ export const MyAnimals: React.FC = () => {
         </Stack>
 
         {/* Dynamic Summary Ribbon */}
-        <Box  sx={{ p: 3 }}>
-          <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ mb: 3 }} >
+        <Box  sx={{ p: 1 }}>
+          <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ mb: 1 }} >
             <Box>
               <Typography variant="caption" fontWeight="bold" color="text.secondary">
                 {location.state?.filterIds ? "FILTERED RESULT" : "FARM TOTAL"}
@@ -80,7 +80,6 @@ export const MyAnimals: React.FC = () => {
                 textTransform: 'none', 
                 fontWeight: 'bold', 
                 backgroundColor: "#18774c",
-                fontFamily: '"Plus Jakarta Sans", sans-serif',
                 '&:hover': { backgroundColor: "#145c3b" }
               }}
             >

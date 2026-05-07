@@ -119,3 +119,6 @@ ion-card-title{
 ion-text{
   --font-size: '0.9rem' !important;
 }
+ion-title{
+  --font-weight:800 !important
+}

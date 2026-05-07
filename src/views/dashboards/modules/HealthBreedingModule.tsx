@@ -21,13 +21,13 @@ export const HealthBreedingModule: React.FC = () => {
           <IonCardContent>
             <IonList lines="none">
             <IonItem className="ion-no-padding">
-            <Typography variant="body2" style={{fontWeight: '600',   color: 'var(--ion-color-medium)' }}><IonIcon icon={heartOutline} color="success" />  Healthy: <strong style={{  color: 'var(--ion-color-dark)' }}>{healthStats.healthy_count}</strong></Typography>
+            <Typography variant="body2" style={{fontWeight: '500',   color:'#374151' }}><IonIcon icon={heartOutline} color="success" />  Healthy: <strong style={{  color: 'var(--ion-color-dark)' }}>{healthStats.healthy_count}</strong></Typography>
             </IonItem>
             <IonItem className="ion-no-padding">
-            <Typography variant="body2" style={{fontWeight: '600',   color: 'var(--ion-color-medium)' }}><IonIcon icon={alertCircleOutline} color="danger" />Sick/Quar: <strong style={{  color: 'var(--ion-color-dark)' }}>{healthStats.sick_count}</strong> </Typography>
+            <Typography variant="body2" style={{fontWeight: '500',   color:'#374151' }}><IonIcon icon={alertCircleOutline} color="danger" />Sick/Quar: <strong style={{  color: 'var(--ion-color-dark)' }}>{healthStats.sick_count}</strong> </Typography>
             </IonItem>
             <IonItem className="ion-no-padding">
-            <Typography variant="body2" style={{fontWeight: '600',   color: 'var(--ion-color-medium)' }}><IonIcon icon={bandageOutline} color="primary" /> Treatments Today: <strong style={{  color: 'var(--ion-color-dark)' }}>{healthStats.treatment_today}</strong> </Typography>
+            <Typography variant="body2" style={{fontWeight: '500',   color:'#374151' }}><IonIcon icon={bandageOutline} color="primary" /> Treatments Today: <strong style={{  color: 'var(--ion-color-dark)' }}>{healthStats.treatment_today}</strong> </Typography>
             </IonItem>
             </IonList>
           </IonCardContent>
@@ -42,10 +42,10 @@ export const HealthBreedingModule: React.FC = () => {
           <IonCardContent>
             <IonList lines="none">
             <IonItem className="ion-no-padding">
-            < Typography variant="body2" style={{fontWeight: '600',   color: 'var(--ion-color-medium)' }}>Pregnant: <strong style={{  color: 'var(--ion-color-dark)' }}>{operationalAlerts.pregnant_cows}</strong></ Typography> 
+            < Typography variant="body2" style={{fontWeight: '500',   color:'#374151' }}>Pregnant: <strong style={{  color: 'var(--ion-color-dark)' }}>{operationalAlerts.pregnant_cows}</strong></ Typography> 
             </IonItem>
             <IonItem className="ion-no-padding">
-            < Typography variant="body2" style={{fontWeight: '600',   color: 'var(--ion-color-medium)' }}>Avg Herd Weight: <strong style={{  color: 'var(--ion-color-dark)' }}>{operationalAlerts.avg_herd_weight} kg</strong></ Typography>
+            < Typography variant="body2" style={{fontWeight: '500',   color:'#374151' }}>Avg Herd Weight: <strong style={{  color: 'var(--ion-color-dark)' }}>{operationalAlerts.avg_herd_weight} kg</strong></ Typography>
             </IonItem>
             </IonList>
 
@@ -63,7 +63,7 @@ export const HealthBreedingModule: React.FC = () => {
               {lowStockItems.slice(0, 2).map((item) => (
                 <IonItem key={item.id} className="ion-no-padding">
                   <IonLabel>
-                    < Typography variant="body2" style={{fontWeight: '600',   color: 'var(--ion-color-medium)' }}> {item.name} <strong style={{  color: 'var(--ion-color-dark)' }}> ({item.quantity_on_hand} {item.unit})</strong></ Typography>
+                    < Typography variant="body2" style={{fontWeight: '500',   color:'#374151' }}> {item.name} <strong style={{  color: 'var(--ion-color-dark)' }}> ({item.quantity_on_hand} {item.unit})</strong></ Typography>
                   </IonLabel>
                 </IonItem>
               ))}

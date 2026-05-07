@@ -2,7 +2,7 @@
  import { Button, Stack, IconButton, Tooltip } from '@mui/material';
  import { IonIcon } from '@ionic/react';
  import { pencilOutline, trashOutline } from 'ionicons/icons';
- import { ActionHandlers, UserRole } from '../../types/types';
+ import { ActionHandlers, UserRole } from '../../../types/types';
 
  
  export const getAnimalColumns=(
@@ -14,13 +14,21 @@ return[
         { field: 'tag_number',
         headerName: 'Tag Number', 
         width: 130, 
-        // renderCell: (p) => <strong>{p.value}</strong> 
         },
         { field: 'breed', headerName: 'Breed', width: 120 },
         { 
         field: 'gender', 
         headerName: 'Gender', 
         width: 100,
+        },
+        { field: 'age',
+        headerName: 'Age',
+        width: 120,
+        renderCell: (params) => (
+            (params.value !== null && params.value !== 0) 
+                ? <>{params.value}</> 
+                : <span style={{ color:'#374151'}}>N/A</span>
+        )
         },
         { 
         field: 'status_display', 

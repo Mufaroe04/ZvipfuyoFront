@@ -25,7 +25,7 @@ export const FinancialPulse: React.FC = () => {
                 <IonCardTitle style={{ color: 'var(--ion-color-success)',fontWeight: '800', margin: '4px 0 0' }}>
                   ${(summary.total_income_usd || 0).toLocaleString(undefined, { minimumFractionDigits: 2 })}
                 </IonCardTitle>
-                <IonText style={{ color: 'var(--ion-color-medium)' }}>Total Revenue (Sales & Milk)</IonText>
+                <IonText style={{ color:'#374151' }}>Total Revenue (Sales & Milk)</IonText>
 
               </IonCol>
               
@@ -33,7 +33,7 @@ export const FinancialPulse: React.FC = () => {
                   <IonCardTitle style={{ color: 'var(--ion-color-danger)', fontWeight: 'bold', margin: '4px 0 0' }}>
                   ${(summary.total_expense_usd || 0).toLocaleString(undefined, { minimumFractionDigits: 2 })}
                 </IonCardTitle>
-                <IonText style={{ color: 'var(--ion-color-medium)' }}>Operating Expenses</IonText>
+                <IonText style={{ color:'#374151' }}>Operating Expenses</IonText>
 
               </IonCol>
 
@@ -48,7 +48,7 @@ export const FinancialPulse: React.FC = () => {
                   <IonIcon icon={isProfitable ? trendingUpOutline : trendingDownOutline} style={{ marginRight: '6px' }} />
                   ${(summary.net_profit_usd || 0).toLocaleString(undefined, { minimumFractionDigits: 2 })}
                 </IonCardTitle>
-                <IonText style={{ color: 'var(--ion-color-medium)' }}>Net Profit</IonText>
+                <IonText style={{ color:'#374151' }}>Net Profit</IonText>
 
               </IonCol>
             </IonRow>

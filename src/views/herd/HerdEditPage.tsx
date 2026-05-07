@@ -2,34 +2,39 @@ import {
   IonButtons, 
   IonContent, 
   IonHeader, 
-  IonMenuButton, 
+  IonIcon, 
   IonPage, 
   IonTitle, 
   IonToolbar,
 } from '@ionic/react';
-import HerdList from '../../components/herd/HerdList';
 import { UserRole } from '../../types/types';
-// import './MyHerds.css';
+import HerdEdit from './components/HerdEdit';
+import { useHistory } from 'react-router-dom';
+import { IconButton } from '@mui/material';
+import { arrowBackOutline } from 'ionicons/icons';
 
 interface MyHerdsProps {
   userRole?: UserRole | null;
 }
 const MyHerds: React.FC <MyHerdsProps> = () => {
+      const history = useHistory();
+
 
   return (
     <IonPage>
       <IonHeader className="ion-no-border">
         <IonToolbar>
           <IonButtons slot="start">
-            {/* The missing piece of the puzzle! */}
-            <IonMenuButton />
+          <IconButton onClick={() => history.goBack()} sx={{ color: 'text.primary' }}>
+          <IonIcon icon={arrowBackOutline} />
+        </IconButton>
           </IonButtons>
-          <IonTitle>My Herds</IonTitle>
+          <IonTitle>Edit Herd </IonTitle>
         </IonToolbar>
       </IonHeader>
 
       <IonContent fullscreen className="ion-padding">
-        <HerdList />
+        <HerdEdit />
       </IonContent>
     </IonPage>
   );

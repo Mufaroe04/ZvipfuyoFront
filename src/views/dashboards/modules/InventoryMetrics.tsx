@@ -66,10 +66,10 @@ export const InventoryMetrics: React.FC = () => {
               </IonCardHeader>
               <IonCardContent>
                 <IonRow className="ion-text-center">
-                  <IonCol> < IonCardTitle style={{ fontWeight: 'bold', color: 'var(--ion-color-dark)' }}>  {enclosureStats.enclosed || 0}</ IonCardTitle><br />< IonText style={{  color: 'var(--ion-color-medium)' }}> Enclosed</IonText> </IonCol>
-                  <IonCol>< IonCardTitle  style={{ fontWeight: 'bold', color: 'var(--ion-color-dark)' }} >  {enclosureStats.pens || 0} </ IonCardTitle><br />< IonText style={{  color: 'var(--ion-color-medium)' }}>Pens</ IonText></IonCol>
-                  <IonCol>< IonCardTitle  style={{ fontWeight: 'bold', color: 'var(--ion-color-dark)' }} > {enclosureStats.pastures || 0}    </ IonCardTitle><br />< IonText style={{  color: 'var(--ion-color-medium)' }}>Pasture</ IonText></IonCol>
-                  <IonCol>< IonCardTitle  style={{ fontWeight: 'bold', color: 'var(--ion-color-dark)' }} >  {enclosureStats.quarantine || 0} </ IonCardTitle><br />< IonText style={{  color: 'var(--ion-color-medium)' }}>Quar.</ IonText></IonCol>
+                  <IonCol> < IonCardTitle style={{ fontWeight: 'bold', color: 'var(--ion-color-dark)' }}>  {enclosureStats.enclosed || 0}</ IonCardTitle><br />< IonText style={{  color:'#374151' }}> Enclosed</IonText> </IonCol>
+                  <IonCol>< IonCardTitle  style={{ fontWeight: 'bold', color: 'var(--ion-color-dark)' }} >  {enclosureStats.pens || 0} </ IonCardTitle><br />< IonText style={{  color:'#374151' }}>Pens</ IonText></IonCol>
+                  <IonCol>< IonCardTitle  style={{ fontWeight: 'bold', color: 'var(--ion-color-dark)' }} > {enclosureStats.pastures || 0}    </ IonCardTitle><br />< IonText style={{  color:'#374151' }}>Pasture</ IonText></IonCol>
+                  <IonCol>< IonCardTitle  style={{ fontWeight: 'bold', color: 'var(--ion-color-dark)' }} >  {enclosureStats.quarantine || 0} </ IonCardTitle><br />< IonText style={{  color:'#374151' }}>Quar.</ IonText></IonCol>
                 </IonRow>
               </IonCardContent>
             </IonCard>

@@ -24,44 +24,44 @@ export const SnapshotTable: React.FC = () => {
 
   return (
     <Box sx={{ mb: 4 }}>
-      <Typography variant="h5" sx={{ fontWeight: 700, mb: 2, color: '#1F2937' }}>
+      <Typography variant="body1" sx={{ fontWeight: 700, mb: 2, color: '#1F2937' }}>
         1. Executive Operations Snapshot
       </Typography>
       <TableContainer component={Paper} variant="outlined" sx={{ borderRadius: '8px', mb: 3, border: '1px solid #D1D5DB' }}>
         <Table>
-          <TableHead sx={{ backgroundColor: '#F3F4F6' }}>
+          <TableHead sx={{ backgroundColor: '#ffffff' }}>
             <TableRow>
-              <TableCell colSpan={2} align="center" sx={{ fontWeight: 800, py: 1.5, color: '#111827', fontSize: '0.95rem', borderBottom: '1px solid #D1D5DB' }}>
+              <TableCell colSpan={2} align="center" sx={{ fontWeight: 800, py: 1.5, fontSize: '0.9rem', borderBottom: '1px solid #D1D5DB' }}>
                 DUAL-ENTERPRISE METRICS
               </TableCell>
             </TableRow>
             <TableRow>
-              <TableCell sx={{ width: '50%', fontWeight: 700, color: '#374151', borderRight: '1px solid #E5E7EB' }}>BEEF & HERD</TableCell>
-              <TableCell sx={{ width: '50%', fontWeight: 700, color: '#374151' }}>DAIRY</TableCell>
+              <TableCell sx={{ width: '50%', fontWeight: 700, borderRight: '1px solid #E5E7EB' }}>BEEF & HERD</TableCell>
+              <TableCell sx={{ width: '50%', fontWeight: 700, }}>DAIRY</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
               <TableCell sx={{ borderRight: '1px solid #E5E7EB', verticalAlign: 'top', py: 2 }}>
-                <Typography variant="body1">Total Active Cattle: <strong>{beef.totalActiveCattle} head</strong></Typography>
-                <Typography variant="body1" sx={{ mt: 1 }}>Avg Daily Gain (ADG): <strong>+{beef.avgDailyGain} kg</strong></Typography>
-                <Typography variant="body1" sx={{ mt: 1 }}>Est. Herd Market Value: <strong>${beef.estHerdValue.toLocaleString()}</strong></Typography>
+                <Typography variant="body2" sx={{ color: '#334155' }} >Total Active Cattle: <strong>{beef.totalActiveCattle} head</strong></Typography>
+                <Typography variant="body2" sx={{ mt: 1 ,color: '#334155' }} >Avg Daily Gain (ADG): <strong>+{beef.avgDailyGain} kg</strong></Typography>
+                <Typography variant="body2" sx={{ mt: 1,color: '#334155'  }} >Est. Herd Market Value: <strong>${beef.estHerdValue.toLocaleString()}</strong></Typography>
               </TableCell>
               <TableCell sx={{ verticalAlign: 'top', py: 2 }}>
-                <Typography variant="body1">Milking Cows (Active): <strong>{dairy.activeMilkingCows} head</strong></Typography>
-                <Typography variant="body1" sx={{ mt: 1 }}>Avg Daily Yield: <strong>{dairy.avgDailyYield} L/cow</strong></Typography>
-                <Typography variant="body1" sx={{ mt: 1 }}>Bulk Somatic Cell Count: <strong>{dairy.somaticCellCount.toLocaleString()}/mL</strong></Typography>
+                <Typography variant="body2" >Milking Cows (Active): <strong>{dairy.activeMilkingCows} head</strong></Typography>
+                <Typography variant="body2" sx={{ mt: 1 ,color: '#334155' }} >Avg Daily Yield: <strong>{dairy.avgDailyYield} L/cow</strong></Typography>
+                <Typography variant="body2" sx={{ mt: 1 ,color: '#334155' }} >Bulk Somatic Cell Count: <strong>{dairy.somaticCellCount.toLocaleString()}/mL</strong></Typography>
               </TableCell>
             </TableRow>
           </TableBody>
         </Table>
       </TableContainer>
 
-      <Box sx={{ p: 2.5, backgroundColor: '#F8FAFC', borderRadius: '8px', borderLeft: '4px solid #3B82F6' }}>
+      <Box sx={{ p: 2.5, backgroundColor: '#ffffff', borderRadius: '8px', borderLeft: '4px solid #3B82F6' }}>
         <Typography variant="subtitle2" sx={{ fontWeight: 700, color: '#1E3A8A', textTransform: 'uppercase', mb: 0.5 }}>
           Strategic Directive
         </Typography>
-        <Typography variant="body2" component="div" sx={{ color: '#334155', lineHeight: 1.6 }}>
+        <Typography variant="body2" component="div" sx={{  lineHeight: 1.7,color:'#374151' }}>
           <ReactMarkdown>{directiveText}</ReactMarkdown>
         </Typography>
       </Box>

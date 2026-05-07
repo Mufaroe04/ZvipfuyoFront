@@ -2,7 +2,7 @@ import { GridColDef } from '@mui/x-data-grid';
 import { Button, Stack, IconButton, Tooltip } from '@mui/material';
 import { IonIcon } from '@ionic/react';
 import { pencilOutline, trashOutline } from 'ionicons/icons';
-import { ActionHandlers, UserRole } from '../../types/types';
+import { ActionHandlers, UserRole } from '../../../types/types';
 
 
 

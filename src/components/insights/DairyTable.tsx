@@ -23,7 +23,7 @@ export const DairyTable: React.FC = () => {
 
   return (
     <Box sx={{ mb: 4 }}>
-      <Typography variant="h5" sx={{ fontWeight: 700, mb: 2, color: '#1F2937' }}>
+      <Typography variant="body1" sx={{ fontWeight: 700, mb: 2, color: '#1F2937' }}>
         3. Dairy Operations & Lactation Analytics
       </Typography>
 
@@ -53,22 +53,22 @@ export const DairyTable: React.FC = () => {
       </TableContainer>
 
       <Box mb={3}>
-        <Typography variant="body1" sx={{ mb: 1, color: '#374151' }}>
+        <Typography variant="body2" sx={{ mb: 1, }}>
           • <strong>Milk Yield Dynamics:</strong> Total milk production over the last 30 days stands at <strong>{dairy.totalProduction30d.toLocaleString()} liters</strong>.
         </Typography>
-        <Typography variant="body1" sx={{ mb: 1, color: '#374151' }}>
+        <Typography variant="body2" sx={{ mb: 1,  }}>
           • <strong>Mastitis Screening:</strong> The bulk tank somatic cell count is <strong>{dairy.somaticCellCount.toLocaleString()} cells/mL</strong>.
         </Typography>
-        <Typography variant="body1" sx={{ mb: 1, color: '#374151' }}>
+        <Typography variant="body2" sx={{ mb: 1,  }}>
           • <strong>Antibiotic Security:</strong> There are <strong>{dairy.activeTreatments} cows</strong> flagged on health treatments. Milk diverted.
         </Typography>
       </Box>
 
-      <Box sx={{ p: 2.5, backgroundColor: '#F8FAFC', borderRadius: '8px', borderLeft: '4px solid #3B82F6' }}>
+      <Box sx={{ p: 2.5, backgroundColor: '#ffffff', borderRadius: '8px', borderLeft: '4px solid #3B82F6' }}>
         <Typography variant="subtitle2" sx={{ fontWeight: 700, color: '#1E3A8A', textTransform: 'uppercase', mb: 0.5 }}>
           Immediate Dry-Off Actions
         </Typography>
-        <Typography variant="body2" component="div" sx={{ color: '#334155', lineHeight: 1.6 }}>
+        <Typography variant="body2" component="div" sx={{  lineHeight: 1.6 ,color:'#374151'}}>
           <ReactMarkdown>{dryOffText}</ReactMarkdown>
         </Typography>
       </Box>

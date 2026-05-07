@@ -11,12 +11,11 @@ import Profile from '../pages/Profile';
 import Notifications from '../pages/Notifications';
 import Chat from '../pages/Chat';
 import InsightsPage from '../pages/InsightsPage';
-import MyHerds from '../pages/herd/MyHerds';
-import HerdCreatePage from '../pages/herd/HerdCreatePage';
-import HerdDetailView from '../pages/herd/HerdDetailView';
-import MyAnimals from '../pages/animal/MyAnimals';
-import RegisterAnimalView from '../pages/animal/RegisterAnimalView';
-import AnimalDetailView from '../pages/animal/AnimalDetailView';
+import HerdCreatePage from '../views/herd/HerdCreatePage';
+import HerdDetailView from '../views/herd/HerdDetailView';
+import MyAnimals from '../views/livestock/MyAnimals';
+import RegisterAnimalView from '../views/livestock/RegisterAnimalView';
+import AnimalDetailView from '../views/livestock/AnimalListView';
 import DairyOperations from '../pages/milk/DairyOperations';
 import AddMilkYields from '../pages/milk/AddMilkYields';
 import AddMilkQuality from '../pages/milk/AddMilkQuality';
@@ -42,8 +41,9 @@ import Procurement from '../pages/inventory/Procurement';
 import Suppliers from '../pages/inventory/Suppliers';
 import StaffPage from '../pages/StaffPage';
 import DashboardView from '../pages/DashboardView';
-import HerdEditPage from '../pages/herd/HerdEditPage';
+import HerdEditPage from '../views/herd/HerdEditPage';
 import { RoleProtectedRoute } from './ProtectedRoute';
+import HerdListView from '../views/herd/HerdListView';
 
 interface AppRoutesProps {
   userRole: UserRole | null; // Correctly typed to allow null values during initialization
@@ -81,7 +81,7 @@ export const AppRoutes: React.FC<AppRoutesProps> = ({
 
       {/* Herd Management */}
       <RoleProtectedRoute exact path="/insights" component={InsightsPage} allowedRoles={['owner', 'manager', 'vet']} userRole={userRole} isAuthenticated={isAuthenticated} />
-      <RoleProtectedRoute exact path="/herds" component={MyHerds} allowedRoles={['owner', 'manager', 'hand', 'vet']} userRole={userRole} isAuthenticated={isAuthenticated} />
+      <RoleProtectedRoute exact path="/herds" component={HerdListView} allowedRoles={['owner', 'manager', 'hand', 'vet']} userRole={userRole} isAuthenticated={isAuthenticated} />
       <RoleProtectedRoute exact path="/herdsadd" component={HerdCreatePage} allowedRoles={['owner', 'manager']} userRole={userRole} isAuthenticated={isAuthenticated} />
       <RoleProtectedRoute exact path="/herds/:id" component={HerdDetailView} allowedRoles={['owner', 'manager', 'hand', 'vet']} userRole={userRole} isAuthenticated={isAuthenticated} />
       <RoleProtectedRoute exact path="/herds/edit/:id" component={HerdEditPage} allowedRoles={['owner', 'manager']} userRole={userRole} isAuthenticated={isAuthenticated} />

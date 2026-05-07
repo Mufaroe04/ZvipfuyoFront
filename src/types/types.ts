@@ -228,6 +228,9 @@ export interface AnimalPayload {
   reproductive_status: ReproStatus;
   father?: number;
   mother?: number;
+  mother_id?: string; 
+  father_tag?: string; 
+  birth_weight?: string; 
 }
 
 export interface Transfer {

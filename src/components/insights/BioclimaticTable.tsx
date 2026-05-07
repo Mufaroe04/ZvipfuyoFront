@@ -18,7 +18,7 @@ export const BioclimaticTable: React.FC = () => {
 
   return (
     <Box sx={{ mb: 4 }}>
-      <Typography variant="h5" sx={{ fontWeight: 700, mb: 2, color: '#1F2937' }}>
+      <Typography variant="body1" sx={{ fontWeight: 700, mb: 2, color: '#1F2937' }}>
         4. Bioclimatic Risk & Environmental Management
       </Typography>
 
@@ -52,7 +52,7 @@ export const BioclimaticTable: React.FC = () => {
       </TableContainer>
 
       <Box>
-        <Typography variant="body2" component="div" sx={{ color: '#4B5563', lineHeight: 1.6 }}>
+        <Typography variant="body2" component="div" sx={{ lineHeight: 1.7 }}>
           <ReactMarkdown>{assessmentText}</ReactMarkdown>
         </Typography>
       </Box>

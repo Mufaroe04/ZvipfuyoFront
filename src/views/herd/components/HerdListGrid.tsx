@@ -1,15 +1,15 @@
 import React, { useEffect, useState, useMemo } from 'react';
-import { useAppDispatch, useAppSelector } from '../../redux/hooks';
+import { useAppDispatch, useAppSelector } from '../../../redux/hooks';
 import { useHistory } from "react-router-dom";
 import { 
   Button, Box, Typography, Stack, TextField, InputAdornment, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions 
 } from '@mui/material';
-import { fetchAllHerds, deleteHerd } from '../../redux/store/slices/livestockSlice';
+import { fetchAllHerds, deleteHerd } from '../../../redux/store/slices/livestockSlice';
 import { IonIcon } from '@ionic/react';
 import { addOutline, searchOutline } from 'ionicons/icons';
-import { LoadingSpinner } from '../feedback/LoadingSpinner';
+import { LoadingSpinner } from '../../../components/feedback/LoadingSpinner';
 
-import { CustomDataGrid } from '../datagrid/CustomDataGrid';
+import { CustomDataGrid } from '../../../components/datagrid/CustomDataGrid';
 import { getHerdColumns } from './herdColumns';
 
 const HerdList: React.FC = () => {
@@ -71,11 +71,11 @@ const HerdList: React.FC = () => {
   }
 
   return (
-    <Box sx={{ p: 3 }}>
+    <Box sx={{ p: 1 }}>
       {/* Top Header Section */}
-      <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ mb: 3 }}>
+      <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ mb: 1 }}>
         <Box>
-          <Typography variant="body2" color="text.secondary" fontWeight={"medium"}>
+          <Typography variant="body2"  >
             Select a herd to manage its digital kraal
           </Typography>
         </Box>
@@ -105,7 +105,7 @@ const HerdList: React.FC = () => {
         placeholder="Search herds by name or location..."
         value={searchQuery}
         onChange={(e) => setSearchQuery(e.target.value)}
-        sx={{ mb: 2, bgcolor: 'white' , borderRadius: '4px' , }}
+        sx={{ mb: 1, bgcolor: 'white' , borderRadius: '4px' , }}
         InputProps={{
           startAdornment: (
             <InputAdornment position="start">
@@ -127,11 +127,11 @@ const HerdList: React.FC = () => {
         open={deleteTargetId !== null} 
         onClose={() => setDeleteTargetId(null)}
       >
-        <DialogTitle sx={{ fontWeight: 'bold', fontFamily: '"Plus Jakarta Sans", sans-serif' }}>
+        <DialogTitle sx={{ fontWeight: 'bold', }}>
           Delete Herd
         </DialogTitle>
         <DialogContent>
-          <DialogContentText sx={{ fontFamily: '"Plus Jakarta Sans", sans-serif' }}>
+          <DialogContentText sx={{ }}>
             Are you sure you want to delete this herd? This action cannot be undone and will permanently erase all associated livestock data.
           </DialogContentText>
         </DialogContent>
@@ -139,7 +139,7 @@ const HerdList: React.FC = () => {
           <Button 
             onClick={() => setDeleteTargetId(null)} 
             color="inherit" 
-            sx={{ textTransform: 'none', fontWeight: 600, fontFamily: '"Plus Jakarta Sans", sans-serif' }}
+            sx={{ textTransform: 'none', fontWeight: 600,  }}
           >
             Cancel
           </Button>
@@ -151,7 +151,7 @@ const HerdList: React.FC = () => {
               textTransform: 'none', 
               borderRadius: '6px', 
               fontWeight: 600,
-              fontFamily: '"Plus Jakarta Sans", sans-serif' 
+             
             }}
           >
             Confirm Delete
