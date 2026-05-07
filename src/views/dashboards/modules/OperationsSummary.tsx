@@ -2,6 +2,7 @@ import React from 'react';
 import { IonRow, IonCol, IonCard, IonCardHeader, IonCardContent, IonList, IonItem, IonLabel, IonBadge, IonIcon, IonCardTitle, IonText } from '@ionic/react';
 import { calendarOutline, repeatOutline } from 'ionicons/icons';
 import { useAppSelector } from '../../../redux/hooks';
+import { Typography } from '@mui/material';
 
 export const OperationsSummary: React.FC = () => {
   const { data } = useAppSelector((state) => state.dashboard);
@@ -23,11 +24,11 @@ export const OperationsSummary: React.FC = () => {
                 {upcomingTasks.slice(0, 3).map((task) => (
                   <IonItem key={task.id}>
                     <IonLabel>
-                      <IonText style={{  color: 'var(--ion-color-medium)' }}>{task.title}</IonText> <br></br>
-                      < small style={{ color: 'var(--ion-color-medium)', fontWeight:'bold' }}> Assigned to: {task.assigned_to_name}</ small>
+                      <Typography variant="body2" style={{fontWeight: '600',   color: 'var(--ion-color-medium)' }}>{task.title}</Typography> <br></br>
+                      < small style={{ color: 'var(--ion-color-dark)', fontWeight:'bold' }}> Assigned to: {task.assigned_to_name}</ small>
                     </IonLabel>
                     <IonLabel slot="end" color={task.priority === 'high' ? 'danger' : 'primary'}>
-                      < IonText style={{ color: 'var(--ion-color-dark)' }}>{task.priority} </ IonText> 
+                      < Typography variant="body2" style={{fontWeight: '600',   color: 'var(--ion-color-dark)' }}>{task.priority} </ Typography> 
                     </IonLabel>
                   </IonItem>
                     
@@ -39,13 +40,13 @@ export const OperationsSummary: React.FC = () => {
                   <tr>
                     <td>Due Today</td>
                     <td className="ion-text-end">
-                      <IonText color="warning">{taskStats.due_today}</IonText>
+                      <Typography variant="body2" style={{fontWeight: '600',    }} color="warning">{taskStats.due_today}</Typography>
                     </td>
                   </tr>
                   <tr>
                     <td>Overdue</td>
                     <td className="ion-text-end">
-                      <IonText color="danger">{taskStats.overdue}</IonText>
+                      <Typography variant="body2" style={{fontWeight: '600',   }} color="danger">{taskStats.overdue}</Typography>
                     </td>
                   </tr>
                 </tbody>
@@ -63,15 +64,15 @@ export const OperationsSummary: React.FC = () => {
           <IonCardContent>
             <IonList lines="none">
               <IonItem>
-                <IonLabel>  < IonText style={{  color: 'var(--ion-color-medium)' }}>Pending</ IonText> </IonLabel>
+                <IonLabel>  < Typography variant="body2" style={{fontWeight: '600',   color: 'var(--ion-color-medium)' }}>Pending</ Typography> </IonLabel>
                 <IonCardTitle style={{  fontWeight: 'bold',  }} >{transferStats.pending}</IonCardTitle>
               </IonItem>
               <IonItem>
-                <IonLabel>  < IonText style={{  color: 'var(--ion-color-medium)' }} >In Transit</ IonText></IonLabel>
+                <IonLabel>  < Typography variant="body2" style={{fontWeight: '600',   color: 'var(--ion-color-medium)' }} >In Transit</ Typography></IonLabel>
                 <IonCardTitle style={{  fontWeight: 'bold',  }}  >{transferStats.intransit}</IonCardTitle>
               </IonItem>
               <IonItem>
-                <IonLabel> < IonText style={{  color: 'var(--ion-color-medium)' }} >Incoming</ IonText> </IonLabel>
+                <IonLabel> < Typography variant="body2" style={{fontWeight: '600',   color: 'var(--ion-color-medium)' }}>Incoming</ Typography> </IonLabel>
                 <IonCardTitle style={{  fontWeight: 'bold',  }}  >{transferStats.incoming}</IonCardTitle>
               </IonItem>
             </IonList>

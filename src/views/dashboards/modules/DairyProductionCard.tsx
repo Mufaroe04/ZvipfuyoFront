@@ -45,7 +45,7 @@ export const DairyProductionCard: React.FC = () => {
         <div style={{ display: 'flex', justifyContent: 'space-around', textAlign: 'center', marginBottom: '15px' }}>
           <div>
             <h2 style={{ margin: 0, fontWeight: 'bold', color: 'var(--ion-color-dark)' }}>{dairyStats.active_milkers || 0}</h2>
-            <IonText style={{ fontSize: '0.8rem', color: 'var(--ion-color-medium)' }}>Active Milkers</IonText>
+            <IonText style={{ fontSize: '0.8rem',  color: 'var(--ion-color-medium)' }}>Active Milkers</IonText>
           </div>
           <div>
             <h2 style={{ margin: 0, fontWeight: 'bold' ,color: 'var(--ion-color-dark)'}}>{dairyStats.daily_total || 0} L</h2>
@@ -57,7 +57,7 @@ export const DairyProductionCard: React.FC = () => {
           </div>
         </div>
         <Box sx={{ mt: 2, height: '150px' }}>
-          <Typography variant="caption" sx={{ fontWeight: 'bold', ml: 1, color: 'text.secondary' }}>
+          <Typography variant="caption" sx={{ fontWeight: 'bold', ml: 1, color: '#000' }}>
             7-DAY YIELD TREND (Liters)
           </Typography>
           <Chart options={chartOptions} series={chartSeries} type="line" height="100%" />

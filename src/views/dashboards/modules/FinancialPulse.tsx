@@ -54,7 +54,7 @@ export const FinancialPulse: React.FC = () => {
             </IonRow>
             
             <div style={{ marginTop: '12px', borderTop: '1px solid #f4f5f8', paddingTop: '8px' }}>
-              <small style={{ color: 'var(--ion-color-medium)' }}>
+              <small style={{ color: 'var(--ion-color-dark)' }}>
                <strong> System rate: 1 USD = {summary.current_zig_rate || '0'} ZiG</strong>
               </small>
             </div>

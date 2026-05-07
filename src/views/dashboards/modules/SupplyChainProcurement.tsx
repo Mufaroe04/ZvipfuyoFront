@@ -3,6 +3,7 @@ import { IonRow, IonCol, IonCard, IonItem, IonIcon, IonLabel, IonButton, IonNote
 import { cartOutline, arrowForwardOutline, businessOutline } from 'ionicons/icons';
 import { useHistory } from 'react-router-dom';
 import { useAppSelector } from '../../../redux/hooks';
+import { Typography } from '@mui/material';
 
 export const SupplyChainProcurement: React.FC = () => {
   const history = useHistory();
@@ -24,8 +25,8 @@ export const SupplyChainProcurement: React.FC = () => {
           <IonItem lines="none">
             <IonIcon icon={cartOutline} slot="start" color={pendingProcurementCount > 0 ? 'warning' : 'success'} />
             <IonLabel>
-              <IonText style={{ fontSize: '1.4rem', color: 'var(--ion-color-dark)' }}>Procurement Drafts</IonText> <br></br>
-              <IonText style={{  color: 'var(--ion-color-medium)' }} >You have <strong style={{  color: 'var(--ion-color-dark)' }} >{pendingProcurementCount}</strong> requisitions to review</IonText>
+              <IonText style={{ fontSize: '1.4rem', fontWeight: '500', color: 'var(--ion-color-dark)' }}>Procurement Drafts</IonText> <br></br>
+              <Typography variant="body2" style={{fontWeight: '600',   color: 'var(--ion-color-medium)' }}>You have <strong style={{  color: 'var(--ion-color-dark)' }} >{pendingProcurementCount}</strong> requisitions to review</Typography>
             </IonLabel>
             <IonButton fill="clear" slot="end">
               Review <IonIcon icon={arrowForwardOutline} slot="end" />
@@ -39,8 +40,8 @@ export const SupplyChainProcurement: React.FC = () => {
           <IonItem lines="none" button routerLink="/suppliers">
             <IonIcon icon={businessOutline} slot="start" color="primary" />
             <IonLabel>
-              <IonText style={{ fontSize: '1.4rem', color: 'var(--ion-color-dark)' }}>Supplier Directory</IonText> <br></br>
-              <IonText style={{  color: 'var(--ion-color-medium)' }} >Quick access to NatFoods, Agrifoods & more</IonText>
+              <IonText style={{ fontSize: '1.4rem', color: 'var(--ion-color-dark)', fontWeight: '500' }}>Supplier Directory</IonText> <br></br>
+              <Typography variant="body2" style={{fontWeight: '600',   color: 'var(--ion-color-medium)' }} >Quick access to NatFoods, Agrifoods & more</Typography>
             </IonLabel>
             {/* <IonNote slot="end">Manage</IonNote> */}
               <IonButton fill="clear" slot="end">

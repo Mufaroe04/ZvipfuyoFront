@@ -2,6 +2,7 @@ import React from 'react';
 import { IonCol, IonCard, IonCardHeader, IonCardContent, IonList, IonItem, IonLabel, IonIcon, IonCardTitle, IonRow, IonText } from '@ionic/react';
 import { pinOutline, leafOutline, waterOutline, statsChartOutline } from 'ionicons/icons';
 import { useAppSelector } from '../../../redux/hooks';
+import { Typography } from '@mui/material';
 
 export const AreaMonitoringCard: React.FC = () => {
   const { data } = useAppSelector((state) => state.dashboard);
@@ -34,7 +35,7 @@ export const AreaMonitoringCard: React.FC = () => {
           <IonCardContent>
             <IonList lines="none">
               <IonItem style={{  color: 'var(--ion-color-medium)' }}>
-                <IonText style={{  color: 'var(--ion-color-medium)' }}> State: <strong>{areaMonitoring.condition}</strong> </IonText>
+                <Typography variant="body2" style={{fontWeight: '520',   color: 'var(--ion-color-medium)' }}> State: <strong style={{ color: 'var(--ion-color-dark)' }}>{areaMonitoring.condition}</strong> </Typography>
                 <IonCardTitle style={{ fontWeight: 'bold', color: 'var(--ion-color-dark)' }} slot="end">{herdCount} Herds Total</IonCardTitle>
               </IonItem>
               <IonItem>
@@ -44,14 +45,14 @@ export const AreaMonitoringCard: React.FC = () => {
                   color={areaMonitoring.feed_stations > 0 ? 'success' : 'danger'} 
                 />
                 {/* <IonLabel> */}
-                  <IonText style={{ color: 'var(--ion-color-medium)' }}> Feed Present: <strong>{areaMonitoring.feed_stations > 0 ? 'Yes' : 'No'} :</strong></IonText>
-                   <IonText style={{ color: 'var(--ion-color-medium)' }}> You have {areaMonitoring.bales_available ?? 0} Bales in stock</IonText>
+                  <Typography variant="body2" style={{fontWeight: '600',   color: 'var(--ion-color-medium)' }}> Feed Present: <strong  style={{ color: 'var(--ion-color-dark)' }}>{areaMonitoring.feed_stations > 0 ? 'Yes' : 'No'} :</strong></Typography>
+                   <Typography variant="body2" style={{ fontWeight: '600', color: 'var(--ion-color-medium)' }}> You have <strong style={{ color: 'var(--ion-color-dark)' }}> {areaMonitoring.bales_available ?? 0}</strong>  Bales in stock</Typography>
                 {/* </IonLabel> */}
               </IonItem>
               <IonItem>
                 <IonIcon icon={waterOutline} slot="start" color="primary" />
                 {/* <IonLabel > */}
-                   <IonText style={{ color: 'var(--ion-color-medium)' }}>  Water Supply: <strong>  {areaMonitoring.water_ponds}  Ponds</strong> </IonText>
+                   <Typography style={{fontWeight: '600', color: 'var(--ion-color-medium)' }}>  Water Supply: <strong style={{ color: 'var(--ion-color-dark)' }}>  {areaMonitoring.water_ponds}  Ponds</strong> </Typography>
                 {/* </IonLabel> */}
               </IonItem>
             </IonList>
@@ -68,21 +69,22 @@ export const AreaMonitoringCard: React.FC = () => {
             <div style={{ display: 'flex', justifyContent: 'space-around', textAlign: 'center', alignItems: 'center', height: '100%' }}>
               <div>
                 < IonCardTitle style={{ margin: 0, }}>{countingStats.today_count}</ IonCardTitle>
-                <IonText style={{ margin: 0 ,color: 'var(--ion-color-dark)' }}>Today</IonText>
+                <Typography variant="body2" style={{fontWeight: '600',   color: 'var(--ion-color-medium)' }}>Today</Typography>
               </div>
               <div>
                 < IonCardTitle style={{ margin: 0, }}>{countingStats.last_7_days}</ IonCardTitle>
-                <IonText style={{ margin: 0 ,color: 'var(--ion-color-dark)' }}>Last 7d</IonText>
+                <Typography variant="body2" style={{fontWeight: '600',   color: 'var(--ion-color-medium)' }}>Last 7d</Typography>
               </div>
               <div>
-                <p style={{ margin: 0,color: 'var(--ion-color-dark)' ,fontSize: '0.9rem'  }}>Last Session:</p> 
                 <strong>
-                <small style={{ margin: 0,color: 'var(--ion-color-dark)' }}>
+                <Typography style={{fontWeight: '600', margin: 0,color: 'var(--ion-color-dark)' }}>
                   {countingStats.last_session_date 
                     ? new Date(countingStats.last_session_date).toLocaleDateString() 
                     : 'N/A'}
-                </small>
+                </Typography>
                 </strong>
+                <Typography variant="body2" style={{fontWeight: '600',   color: 'var(--ion-color-medium)' }}>Last Session:</Typography> 
+
 
               </div>
             </div>
