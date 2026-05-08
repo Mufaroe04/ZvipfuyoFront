@@ -47,13 +47,11 @@ import React from 'react';
 import { IonPage, IonContent, IonHeader, IonToolbar, IonTitle, IonButtons, IonIcon } from '@ionic/react';
 import { Container, Box, Typography, IconButton } from '@mui/material';
 import { arrowBackOutline } from 'ionicons/icons';
-import { useHistory } from 'react-router-dom';
 import { useMilkYield } from './hooks/useMilkYield';
 import { MilkYieldForm } from './components/MilkYieldForm';
 
 const AddMilkYieldView: React.FC = () => {
-  const history = useHistory();
-  const { formData, setFormData, animals, loading, submitForm } = useMilkYield();
+  const { formData, setFormData, animals, loading, submitForm,history } = useMilkYield();
 
   return (
     <IonPage>

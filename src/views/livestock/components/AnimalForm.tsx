@@ -1,31 +1,42 @@
 // src/views/livestock/components/RegistrationForm.tsx
 import React from 'react';
 import { 
-  Box, TextField, MenuItem, Button, Typography, Stack, Alert, Autocomplete, Divider 
+  Box, TextField, MenuItem, Button, Typography, Stack, Alert, Autocomplete, Divider, 
+  CircularProgress
 } from '@mui/material';
 import { BREED_CHOICES } from '../../../constants/livestock';
 
-interface RegistrationFormProps {
+interface FormProps {
   formData: any;
   herds: any[];
   potentialMothers: any[];
+  potentialFathers:any[];
   herdId?: string;
+  isEditMode?: boolean; // New prop
+  isSubmitting?:boolean;
+  isFormValid?:boolean;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onMotherChange: (value: any) => void;
+  onFatherChange:(value: any) => void;
   onSubmit: (e: React.FormEvent) => void;
+  goBack:()=>void;
 }
 
-export const RegistrationForm: React.FC<RegistrationFormProps> = ({
-  formData, herds, potentialMothers, herdId, onChange, onMotherChange, onSubmit
+export const AnimalForm: React.FC<FormProps> = ({
+  formData, herds, potentialMothers, potentialFathers,
+   herdId, isEditMode, isSubmitting,onChange, onMotherChange,
+    onFatherChange, onSubmit,goBack,isFormValid
 }) => (
   <form onSubmit={onSubmit}>
     <Stack spacing={3}>
       <Box>
-        <Typography variant="h5" fontWeight="black">Identity & Herd</Typography>
+       <Typography variant="body1" fontWeight="black">
+          {isEditMode ? 'Update Identity' : 'Identity & Herd'}
+        </Typography>
         <Typography variant="body2" color="text.secondary">Basic details for the livestock registry.</Typography>
       </Box>
 
-      {!herdId && (
+      {!formData.herd && (
         <Alert severity="success" variant="outlined" sx={{ borderRadius: '12px', color: '#374151' }}>
           Assign this animal to a managed herd.
         </Alert>
@@ -36,7 +47,7 @@ export const RegistrationForm: React.FC<RegistrationFormProps> = ({
         value={formData.herd} onChange={onChange} required disabled={!!herdId}
       >
         {herdId ? (
-          <MenuItem value={Number(herdId)}>Current Herd (ID: {herdId})</MenuItem>
+          <MenuItem value={Number(herdId)}>Current Herd (ID: {formData.herd})</MenuItem>
         ) : (
           herds.map((h) => <MenuItem key={h.id} value={h.id}>{h.name}</MenuItem>)
         )}
@@ -74,28 +85,52 @@ export const RegistrationForm: React.FC<RegistrationFormProps> = ({
       <Divider sx={{ my: 1 }} />
 
       <Box>
-        <Typography variant="h6" fontWeight="bold">Lineage</Typography>
+        <Typography variant="body1" fontWeight="bold">Lineage</Typography>
         <Typography variant="caption" color="text.secondary">Optional: Link parents for pedigree tracking.</Typography>
       </Box>
 
       <Autocomplete
-        options={potentialMothers}
+        options={potentialMothers || []}
         getOptionLabel={(option) => `${option.tag_number} (${option.breed})`}
+        isOptionEqualToValue={(option, value) => option.id === value.id}
         onChange={(_, val) => onMotherChange(val)}
         renderInput={(params) => <TextField {...params} label="Mother (Dam) Tag" placeholder="Search cows..." />}
       />
-
-      <TextField 
-        fullWidth label="Father (Sire) Tag" name="father_tag" 
-        value={formData.father_tag} onChange={onChange} placeholder="e.g. Bull Tag or Straw ID"
+        <Autocomplete
+        options={potentialFathers|| []}
+        isOptionEqualToValue={(option, value) => option.id === value.id}
+        getOptionLabel={(option) => `${option.tag_number} (${option.breed})`}
+        onChange={(_, val) => onFatherChange(val)}
+        renderInput={(params) => <TextField {...params} label="Father (Sire) Tag" name="father_tag" placeholder="Search Bull..." />}
       />
 
-      <Button 
-        variant="contained" type="submit" fullWidth size="large" disableElevation
-        sx={{ py: 1.8, borderRadius: '12px', fontWeight: 'bold', fontSize: '1rem' }}
+     <Button 
+        variant="contained" 
+        type="submit"
+        fullWidth size="large"
+        disableElevation
+        disabled={!isFormValid || isSubmitting}
+
+        sx={{ py: 1.8, borderRadius: '4px', fontWeight: 'bold', fontSize: '1rem' }}
       >
-        Complete Registration
+      {isSubmitting ? (
+        <CircularProgress size={26} color="inherit" />
+      ) : (
+        isEditMode ? 'Save Changes' : 'Complete Registration'
+      )}
       </Button>
+      <Button 
+          fullWidth 
+          onClick={goBack} 
+          sx={{ 
+            mt: 1, 
+            textTransform: "none", 
+            fontWeight: 600, 
+            color: "text.secondary" 
+          }}
+        >
+          Cancel and Go Back
+        </Button>
     </Stack>
   </form>
 );

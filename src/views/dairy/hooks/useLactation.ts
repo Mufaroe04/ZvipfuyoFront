@@ -38,5 +38,5 @@ export const useLactation = () => {
     setLoading(false);
   };
 
-  return { formData, setFormData, animals, loading, submitForm };
+  return { formData, setFormData, animals, loading, submitForm ,history};
 };

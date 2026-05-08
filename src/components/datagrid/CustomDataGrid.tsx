@@ -22,7 +22,7 @@ export const CustomDataGrid: React.FC<CustomDataGridProps> = ({
         bgcolor: 'white',
         borderRadius: '4px',
         // boxShadow: '0 4px 12px rgba(0,0,0,0.05)',
-        overflow: 'hidden',
+        // overflow: 'hidden',
         border: '1px solid #f0f0f0',
       }}
     >

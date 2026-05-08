@@ -13,10 +13,10 @@ import Chat from '../pages/Chat';
 import InsightsPage from '../pages/InsightsPage';
 import HerdCreatePage from '../views/herd/HerdCreatePage';
 import HerdDetailView from '../views/herd/HerdDetailView';
-import MyAnimals from '../views/livestock/MyAnimals';
+import  AnimalListView  from '../views/livestock/AnimalListView';
 import RegisterAnimalView from '../views/livestock/RegisterAnimalView';
-import AnimalDetailView from '../views/livestock/AnimalListView';
-import DairyOperations from '../views/dairy/DairyOperationsView';
+import AnimalDetailView from '../views/livestock/AnimalDetailView';
+import DairyOperationsView from '../views/dairy/DairyOperationsView';
 import AddMilkYieldView from '../views/dairy/AddMilkYieldView';
 import AddMilkQualityView from '../views/dairy/AddMilkQualityView';
 import AddLactationView from '../views/dairy/AddLactationView';
@@ -44,6 +44,7 @@ import DashboardView from '../pages/DashboardView';
 import HerdEditPage from '../views/herd/HerdEditPage';
 import { RoleProtectedRoute } from './ProtectedRoute';
 import HerdListView from '../views/herd/HerdListView';
+import EditAnimalView from '../views/livestock/EditAnimalView';
 
 interface AppRoutesProps {
   userRole: UserRole | null; // Correctly typed to allow null values during initialization
@@ -85,15 +86,15 @@ export const AppRoutes: React.FC<AppRoutesProps> = ({
       <RoleProtectedRoute exact path="/herdsadd" component={HerdCreatePage} allowedRoles={['owner', 'manager']} userRole={userRole} isAuthenticated={isAuthenticated} />
       <RoleProtectedRoute exact path="/herds/:id" component={HerdDetailView} allowedRoles={['owner', 'manager', 'hand', 'vet']} userRole={userRole} isAuthenticated={isAuthenticated} />
       <RoleProtectedRoute exact path="/herds/edit/:id" component={HerdEditPage} allowedRoles={['owner', 'manager']} userRole={userRole} isAuthenticated={isAuthenticated} />
-      <RoleProtectedRoute exact path="/animals" component={MyAnimals} allowedRoles={['owner', 'manager', 'hand', 'vet']} userRole={userRole} isAuthenticated={isAuthenticated} />
+      <RoleProtectedRoute exact path="/animals" component={AnimalListView} allowedRoles={['owner', 'manager', 'hand', 'vet']} userRole={userRole} isAuthenticated={isAuthenticated} />
       <RoleProtectedRoute exact path="/animals/add" component={RegisterAnimalView} allowedRoles={['owner', 'manager', 'hand']} userRole={userRole} isAuthenticated={isAuthenticated} />
       <RoleProtectedRoute exact path="/herds/:herdId/add-animal" component={RegisterAnimalView} allowedRoles={['owner', 'manager', 'hand']} userRole={userRole} isAuthenticated={isAuthenticated} />
       <RoleProtectedRoute exact path="/animal/:id" component={AnimalDetailView} allowedRoles={['owner', 'manager', 'hand', 'vet']} userRole={userRole} isAuthenticated={isAuthenticated} />
-      <RoleProtectedRoute exact path="/animal/edit/:id" component={AnimalDetailView} allowedRoles={['owner', 'manager', 'hand', 'vet']} userRole={userRole} isAuthenticated={isAuthenticated} />
+      <RoleProtectedRoute exact path="/animal/edit/:id" component={EditAnimalView} allowedRoles={['owner', 'manager', 'hand', 'vet']} userRole={userRole} isAuthenticated={isAuthenticated} />
 
 
       {/* Specialized Production Operations */}
-      <RoleProtectedRoute exact path="/dairy" component={DairyOperations} allowedRoles={['owner', 'manager', 'hand']} userRole={userRole} isAuthenticated={isAuthenticated} />
+      <RoleProtectedRoute exact path="/dairy" component={DairyOperationsView} allowedRoles={['owner', 'manager', 'hand']} userRole={userRole} isAuthenticated={isAuthenticated} />
       <RoleProtectedRoute exact path="/dairy/milk-yield/add" component={AddMilkYieldView} allowedRoles={['owner', 'manager', 'hand']} userRole={userRole} isAuthenticated={isAuthenticated} />
       <RoleProtectedRoute exact path="/dairy/milk-quality/add" component={AddMilkQualityView} allowedRoles={['owner', 'manager', 'hand']} userRole={userRole} isAuthenticated={isAuthenticated} />
       <RoleProtectedRoute exact path="/dairy/milk-lactation/add" component={AddLactationView} allowedRoles={['owner', 'manager', 'hand']} userRole={userRole} isAuthenticated={isAuthenticated} />

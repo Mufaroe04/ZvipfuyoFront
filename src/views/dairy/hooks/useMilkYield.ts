@@ -35,5 +35,5 @@ export const useMilkYield = () => {
     setLoading(false);
   };
 
-  return { formData, setFormData, animals, animalsLoading, loading, submitForm };
+  return { formData, setFormData, animals, animalsLoading, loading, submitForm,history };
 };

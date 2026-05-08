@@ -1,70 +1,19 @@
-import React, { useEffect, useState, useMemo } from 'react';
-import { useAppDispatch, useAppSelector } from '../../../redux/hooks';
-import { useHistory } from "react-router-dom";
+import React from 'react';
 import { 
   Button, Box, Typography, Stack, TextField, InputAdornment, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions 
 } from '@mui/material';
-import { fetchAllHerds, deleteHerd } from '../../../redux/store/slices/livestockSlice';
 import { IonIcon } from '@ionic/react';
 import { addOutline, searchOutline } from 'ionicons/icons';
 import { LoadingSpinner } from '../../../components/feedback/LoadingSpinner';
 
 import { CustomDataGrid } from '../../../components/datagrid/CustomDataGrid';
-import { getHerdColumns } from './herdColumns';
+import { useHerdList } from '../hooks/useHerdList';
 
-const HerdList: React.FC = () => {
-  const dispatch = useAppDispatch();
-  const history = useHistory();
-  
-  const { herds, loading } = useAppSelector((state) => state.livestock);
-  
-  // DIRECT REDUX FIX: Read the user role directly from auth state
-  const { user } = useAppSelector((state) => state.auth);
-  const userRole = user?.profile?.role;
-
-  const [searchQuery, setSearchQuery] = useState('');
-  const [deleteTargetId, setDeleteTargetId] = useState<number | null>(null);
-
-  // Derive if the current user has privileged access
-  const isPrivileged = userRole === 'owner' || userRole === 'manager';
-
-  useEffect(() => {
-    dispatch(fetchAllHerds());
-  }, [dispatch]);
-
-  const handleDeleteConfirm = async () => {
-    if (deleteTargetId !== null) {
-      try {
-        await dispatch(deleteHerd(deleteTargetId)).unwrap();
-      } catch (error) {
-        console.error("Delete failed:", error);
-      } finally {
-        setDeleteTargetId(null);
-      }
-    }
-  };
-
-  // Memoize column definitions to prevent unnecessary table re-renders
-  const columns = useMemo(() => 
-    getHerdColumns(userRole, {
-      onView: (id) => history.push(`/herds/${id}`),
-      onEdit: (id) => history.push(`/herds/edit/${id}`),
-      onDelete: (id) => setDeleteTargetId(Number(id))
-    }), 
-    [history, userRole]
-  );
-
-  // Memoize data filtering logic
-  const filteredHerds = useMemo(() => {
-    const data = herds || [];
-    if (!searchQuery.trim()) return data;
-
-    const lowerQuery = searchQuery.toLowerCase();
-    return data.filter((herd) =>
-      herd.name.toLowerCase().includes(lowerQuery) ||
-      herd.location.toLowerCase().includes(lowerQuery)
-    );
-  }, [herds, searchQuery]);
+const HerdList: React.FC = () => { 
+ const { filteredHerds, loading,
+        searchQuery, setSearchQuery, 
+        deleteTargetId, setDeleteTargetId,
+         handlers, isPrivileged ,columns,history }=useHerdList()
 
   if (loading) {
     return <LoadingSpinner />;
@@ -144,7 +93,7 @@ const HerdList: React.FC = () => {
             Cancel
           </Button>
           <Button 
-            onClick={handleDeleteConfirm} 
+            onClick={handlers.confirmDelete} 
             color="error" 
             variant="contained" 
             sx={{ 

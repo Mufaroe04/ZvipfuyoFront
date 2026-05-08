@@ -49,13 +49,11 @@ import React from 'react';
 import { IonPage, IonContent, IonHeader, IonToolbar, IonTitle, IonButtons, IonIcon } from '@ionic/react';
 import { Container, Box, Typography, IconButton } from '@mui/material';
 import { arrowBackOutline } from 'ionicons/icons';
-import { useHistory } from 'react-router-dom';
 import { useMilkQuality } from './hooks/useMilkQuality';
 import { MilkQualityForm } from './components/MilkQualityForm';
 
 const AddMilkQualityView: React.FC = () => {
-  const history = useHistory();
-  const { formData, setFormData, animals, loading, submitForm } = useMilkQuality();
+  const { formData, setFormData, animals, loading, submitForm ,history } = useMilkQuality();
 
   return (
     <IonPage>

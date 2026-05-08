@@ -10,6 +10,11 @@ export const livestockService = {
   updateHerd: (id: number, data: HerdPayload) => api.patch<Herd>(`herds/${id}/`, data),
   deleteHerd: (id: number) => api.delete(`herds/${id}/`),
   getAnimals: (search?: string) => api.get<Animal[]>('animals/', { params: { search } }),
+  // src/services/livestockService.ts
+getAnimalById: async (id: number): Promise<Animal> => {
+  const response = await api.get<Animal>(`animals/${id}/`);
+  return response.data; // Crucial: Return the .data property
+},
   getAnimalDetail: (id: number) => api.get<Animal>(`animals/${id}/`),
   // Animal CRUD
   // createAnimal: async (data: AnimalPayload):Promise<Animal> => api.post('animals/', data),

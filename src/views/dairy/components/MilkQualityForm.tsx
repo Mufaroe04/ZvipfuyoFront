@@ -1,5 +1,5 @@
 import React from 'react';
-import { Paper, TextField, Stack, Autocomplete, Button, InputAdornment, Typography, Box } from '@mui/material';
+import { Paper, TextField, Stack, Autocomplete, Button, Typography, Box } from '@mui/material';
 
 interface Props {
   data: any;
@@ -8,7 +8,7 @@ interface Props {
   onChange: (newData: any) => void;
   onSubmit: (e: React.FormEvent) => void;
 }
-
+ 
 
 
 export const MilkQualityForm: React.FC<Props> = ({ data, animals, loading, onChange, onSubmit }) => (

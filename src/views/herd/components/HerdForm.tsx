@@ -37,7 +37,7 @@ const HerdForm: React.FC<HerdFormProps> = ({ title }) => {
           <Stack spacing={3}>
             {/* Header Section */}
             <Box>
-              <Typography variant="h5" fontWeight="black" sx={{ fontFamily: '"Plus Jakarta Sans", sans-serif' }}>
+              <Typography variant="body1" fontWeight="black" >
                 {title}
               </Typography>
               <Typography variant="body2" color="text.secondary">

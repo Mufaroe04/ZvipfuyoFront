@@ -1,11 +1,15 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../../redux/hooks';
 import { 
-  fetchMilkYields, fetchMilkQuality, fetchLactationPeriods 
+  fetchMilkYields, fetchMilkQuality, fetchLactationPeriods, 
+  updateLactationPeriodDryOff
 } from '../../../redux/store/slices/operationsSlice';
+import { useHistory } from 'react-router-dom';
 
 export const useDairyData = () => {
   const dispatch = useAppDispatch();
+  const history = useHistory();
+  const [tabValue, setTabValue] = useState(0);
   const [selectedBreed, setSelectedBreed] = useState('All');
   const { milkYields, milkQuality, lactations, loading } = useAppSelector((state) => state.operations);
 
@@ -64,9 +68,20 @@ export const useDairyData = () => {
     return Object.keys(stages).map(key => ({ x: key, y: (stages as any)[key] }));
   }, [lactations, selectedBreed]);
 
+  const handleDryOff = (id: number) => {
+    if (window.confirm("Mark this animal as Dry?")) {
+      dispatch(updateLactationPeriodDryOff({ id }));
+    }
+  };
+  
+  const filteredYields = milkYields.filter(r => selectedBreed === 'All' || r.breed === selectedBreed);
+  const filteredQuality = milkQuality.filter(r => selectedBreed === 'All' || r.breed === selectedBreed);
+  const filteredLactations = lactations.filter(r => selectedBreed === 'All' || r.breed === selectedBreed);
+
   return { 
-    yieldSeries, qualitySeries, lactationDistribution, 
-    milkYields, milkQuality, lactations, 
-    loading, selectedBreed, setSelectedBreed 
+    yieldSeries, qualitySeries, lactationDistribution,filteredQuality, 
+    milkYields, milkQuality, lactations,filteredYields,filteredLactations, 
+    loading, selectedBreed, setSelectedBreed,handleDryOff,history,tabValue,
+    setTabValue
   };
 };

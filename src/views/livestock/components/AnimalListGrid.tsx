@@ -1,6 +1,5 @@
 // src/views/livestock/components/AnimalListGrid.tsx
-import React, { useMemo } from 'react';
-import { useHistory } from "react-router-dom";
+import React from 'react';
 import { 
   Box, 
   Button, 
@@ -17,7 +16,6 @@ import { searchOutline } from 'ionicons/icons';
 
 // Domain-Specific imports
 import { useAnimalList } from '../hooks/useAnimalList';
-import { getAnimalColumns } from './animalColumns';
 import { CustomDataGrid } from '../../../components/datagrid/CustomDataGrid';
 import { Animal } from '../../../types/types';
 
@@ -32,7 +30,6 @@ interface AnimalListGridProps {
  * of livestock records using a refactored hook-based architecture.
  */
 export const AnimalListGrid: React.FC<AnimalListGridProps> = ({ animals, filterIds }) => {
-  const history = useHistory();
   
   // Logic is abstracted into the custom hook to keep this component "Thin"
   const { 
@@ -41,22 +38,15 @@ export const AnimalListGrid: React.FC<AnimalListGridProps> = ({ animals, filterI
     setSearchQuery, 
     deleteTargetId, 
     setDeleteTargetId, 
-    userRole, 
-    handleDelete 
+    handleDelete ,
+    columns
   } = useAnimalList(animals, filterIds);
 
   /**
    * Memoized Column Definitions
    * We inject the handlers directly from the history and hook state.
    */
-  const columns = useMemo(() => 
-    getAnimalColumns(userRole, {
-      onView: (id) => history.push(`/animal/${id}`),
-      onEdit: (id) => history.push(`/animal/edit/${id}`),
-      onDelete: (id) => setDeleteTargetId(Number(id))
-    }), 
-    [history, userRole, setDeleteTargetId]
-  );
+
 
   return (
     <Box>

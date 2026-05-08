@@ -48,13 +48,11 @@ import React from 'react';
 import { IonPage, IonContent, IonHeader, IonToolbar, IonTitle, IonButtons, IonIcon } from '@ionic/react';
 import { Container, Box, Typography, IconButton } from '@mui/material';
 import { arrowBackOutline } from 'ionicons/icons';
-import { useHistory } from 'react-router-dom';
 import { useLactation } from './hooks/useLactation';
 import { LactationForm } from './components/LactationForm';
 
 const AddLactationView: React.FC = () => {
-  const history = useHistory();
-  const { formData, setFormData, animals, loading, submitForm } = useLactation();
+  const { formData, setFormData, animals, loading, submitForm,history } = useLactation();
 
   return (
     <IonPage>

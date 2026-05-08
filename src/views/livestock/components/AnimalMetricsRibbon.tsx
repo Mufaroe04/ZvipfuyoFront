@@ -14,10 +14,10 @@ export const AnimalMetricsRibbon = ({ animal }: { animal: any }) => {
   ];
 
   return (
-    <Grid container spacing={2} sx={{ mb: 4 }}>
+    <Grid container spacing={2} sx={{ mb: 1 }}>
       {stats.map((stat, i) => (
         <Grid item xs={12} sm={6} md={3} key={i}>
-          <Paper elevation={0} sx={{ p: 2, bgcolor: '#f4f5f8', borderRadius: '12px', border: '1px solid #ececec' }}>
+          <Paper elevation={0} sx={{ p: 2, bgcolor: '#ffffff', borderRadius: '4px', border: '1px solid #ececec' }}>
             <Stack direction="row" spacing={2} alignItems="center">
               <Box sx={{ p: 1, bgcolor: 'white', borderRadius: '8px', display: 'flex' }}>
                 <IonIcon icon={stat.icon} style={{ fontSize: '1.5rem', color: stat.color }} />

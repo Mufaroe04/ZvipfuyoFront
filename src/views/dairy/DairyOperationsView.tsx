@@ -1,73 +1,24 @@
-// import { 
-//   IonButtons, 
-//   IonContent, 
-//   IonHeader, 
-//   IonMenuButton, 
-//   IonPage, 
-//   IonTitle, 
-//   IonToolbar 
-// } from '@ionic/react';
-// import DairyDashboard from '../../components/DairyDashboard';
-
-// const DairyOperationsView: React.FC = () => {
-//   return (
-//     <IonPage>
-//       <IonHeader className="ion-no-border">
-//         <IonToolbar>
-//           <IonButtons slot="start">
-//             <IonMenuButton />
-//           </IonButtons>
-//           <IonTitle>Dairy Operations</IonTitle>
-//         </IonToolbar>
-//       </IonHeader>
-
-//       <IonContent fullscreen>
-//         {/* Notice we don't use ion-padding here if the Dashboard 
-//           component already has its own padding (p: 3). 
-//         */}
-//         <DairyDashboard />
-//       </IonContent>
-//     </IonPage>
-//   );
-// };
-
-// export default DairyOperationsView;
-import React, { useState } from 'react';
+import React from 'react';
 import { IonPage, IonContent, IonHeader, IonToolbar, IonTitle, IonButtons, IonMenuButton, IonSpinner, IonIcon } from '@ionic/react';
 import { Box, Typography, Stack, Tabs, Tab, Paper, FormControl, InputLabel, Select, MenuItem, Container } from '@mui/material';
 import { waterOutline, statsChartOutline, calendarOutline } from 'ionicons/icons';
-import { useHistory } from 'react-router-dom';
 import { useDairyData } from './hooks/useDairyData';
-import { useAppDispatch } from '../../redux/hooks';
-import { updateLactationPeriodDryOff } from '../../redux/store/slices/operationsSlice';
 import { BREED_CHOICES } from '../../constants/livestock';
 import DairyTabContent from './components/DairyTabContent';
 import { getYieldColumns, getQualityColumns, getLactationColumns } from './components/dashboardConfig';
 
 const DairyOperationsView: React.FC = () => {
-  const history = useHistory();
-  const dispatch = useAppDispatch();
-  const [tabValue, setTabValue] = useState(0);
-  const { 
-    yieldSeries, qualitySeries, lactationDistribution, 
-    milkYields, milkQuality, lactations, 
-    loading, selectedBreed, setSelectedBreed 
-  } = useDairyData();
 
-  const handleDryOff = (id: number) => {
-    if (window.confirm("Mark this animal as Dry?")) {
-      dispatch(updateLactationPeriodDryOff({ id }));
-    }
-  };
+  const { 
+    yieldSeries, qualitySeries, lactationDistribution,filteredQuality, 
+    milkYields,filteredYields,filteredLactations, 
+    loading, selectedBreed, setSelectedBreed,handleDryOff,history,tabValue,
+    setTabValue
+  } = useDairyData();
 
   if (loading && milkYields.length === 0) {
     return <Box display="flex" justifyContent="center" py={10}><IonSpinner name="crescent" /></Box>;
   }
-
-  const filteredYields = milkYields.filter(r => selectedBreed === 'All' || r.breed === selectedBreed);
-  const filteredQuality = milkQuality.filter(r => selectedBreed === 'All' || r.breed === selectedBreed);
-  const filteredLactations = lactations.filter(r => selectedBreed === 'All' || r.breed === selectedBreed);
-
   return (
     <IonPage>
       <IonHeader className="ion-no-border">
@@ -78,18 +29,18 @@ const DairyOperationsView: React.FC = () => {
       </IonHeader>
       <IonContent fullscreen>
         <Container maxWidth="xl" sx={{ py: 3 }}>
-          <Stack direction={{ xs: 'column', md: 'row' }} justifyContent="space-between" spacing={2} mb={3}>
-            <Typography variant="h5" fontWeight="bold">Production Intelligence</Typography>
+          <Stack direction={{ xs: 'column', md: 'row' }} justifyContent="space-between" spacing={2} mb={1}>
+            <Typography variant="body1" fontWeight="bold">Production Intelligence</Typography>
             <FormControl size="small" sx={{ minWidth: 200 }}>
               <InputLabel>Filter Breed</InputLabel>
-              <Select value={selectedBreed} label="Filter Breed" onChange={(e) => setSelectedBreed(e.target.value)} sx={{ borderRadius: '12px', bgcolor: 'white' }}>
+              <Select value={selectedBreed} label="Filter Breed" onChange={(e) => setSelectedBreed(e.target.value)} sx={{ borderRadius: '4px', bgcolor: 'white' }}>
                 <MenuItem value="All">All Breeds</MenuItem>
-                {BREED_CHOICES.map((opt) => <MenuItem key={opt.value} value={opt.value}>{opt.label}</MenuItem>)}
+                {BREED_CHOICES.map((opt) => <MenuItem key={opt.value} value={opt.value}> <Typography variant='body2'> {opt.label} </Typography></MenuItem>)}
               </Select>
             </FormControl>
           </Stack>
 
-          <Paper sx={{ borderRadius: '16px', mb: 3, overflow: 'hidden', border: '1px solid #e0e0e0' }}>
+          <Paper elevation={0}  sx={{borderRadius: '4px', mb: 1, overflow: 'hidden',  }}>
             <Tabs value={tabValue} onChange={(_, val) => setTabValue(val)} variant="fullWidth">
               <Tab icon={<IonIcon icon={waterOutline} />} label="Yield" />
               <Tab icon={<IonIcon icon={statsChartOutline} />} label="Quality" />

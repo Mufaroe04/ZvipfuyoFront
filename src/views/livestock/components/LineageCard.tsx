@@ -15,10 +15,10 @@ export const LineageCard: React.FC<LineageCardProps> = ({ animal }) => {
     <Paper 
       elevation={0} 
       sx={{ 
-        p: 2, 
-        mb: 4, 
-        bgcolor: '#f8f9fa', 
-        borderRadius: '12px', 
+        p: 1, 
+        mb: 1, 
+        bgcolor: '#ffffff', 
+        borderRadius: '4px', 
         border: '1px dotted #ccc' 
       }}
     >
@@ -34,7 +34,6 @@ export const LineageCard: React.FC<LineageCardProps> = ({ animal }) => {
           <Typography 
             variant="subtitle2" 
             fontWeight="bold" 
-            sx={{ fontFamily: '"Plus Jakarta Sans", sans-serif' }}
           >
             LINEAGE:
           </Typography>
@@ -42,7 +41,7 @@ export const LineageCard: React.FC<LineageCardProps> = ({ animal }) => {
         
         {/* Sire Info */}
         <Box>
-          <Typography variant="caption" color="text.secondary" display="block">
+          <Typography variant="body2" color="text.secondary" display="block">
             FATHER (SIRE)
           </Typography>
           <Typography variant="body1" fontWeight="medium">
@@ -52,7 +51,7 @@ export const LineageCard: React.FC<LineageCardProps> = ({ animal }) => {
 
         {/* Dam Info */}
         <Box>
-          <Typography variant="caption" color="text.secondary" display="block">
+          <Typography variant="body2" color="text.secondary" display="block">
             MOTHER (DAM)
           </Typography>
           <Typography variant="body1" fontWeight="medium">
