@@ -6,10 +6,10 @@ import {
   IonNote
 } from '@ionic/react';
 import { sendOutline, sparklesOutline } from 'ionicons/icons';
-import { useAppDispatch, useAppSelector } from '../redux/hooks';
+import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 // Fix: Import addLocalMessage and the new Thunk
-import { addLocalMessage, sendMessageToAI } from '../redux/store/slices/chatSlice'; 
-import '../components/Chat.css';
+import { addLocalMessage, sendMessageToAI } from '../../redux/store/slices/chatSlice'; 
+import '../../theme/Chat.css';
 import ReactMarkdown from 'react-markdown';
 
 const Chat: React.FC = () => {
@@ -49,7 +49,7 @@ const Chat: React.FC = () => {
         <IonToolbar>
           <IonButtons slot="start"><IonMenuButton /></IonButtons>
           <IonTitle style={{ display: 'flex', alignItems: 'center' }}>
-            <IonIcon icon={sparklesOutline} color="secondary" style={{ marginRight: '8px' }} />
+            <IonIcon icon={sparklesOutline} color="#18774c" style={{ marginRight: '8px' ,'--color':'#18774c' }} />
             Zvipfuyo AI Consultant
           </IonTitle>
         </IonToolbar>
@@ -71,7 +71,7 @@ const Chat: React.FC = () => {
           {isLoading && (
             <div className="message-wrapper ai">
               <div className="message-bubble thinking">
-                <IonSpinner name="dots" color="secondary" />
+                <IonSpinner name="dots"  style={{ '--color':'#18774c' }}  />
               </div>
             </div>
           )}
@@ -79,7 +79,7 @@ const Chat: React.FC = () => {
   <div className="suggestion-chips ion-padding-top">
     <IonNote className="ion-margin-bottom">Try asking about:</IonNote>
     <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '8px' }}>
-      {['Herd Health Summary', 'Low Stock Alerts', 'Weather Risks'].map(hint => (
+      {['Herd Health Summary', 'Low Stock Alerts', 'Weather Risks','Beef Summary','Dairy Summary'].map(hint => (
         <IonButton 
           key={hint} 
           size="small" 
@@ -102,6 +102,7 @@ const Chat: React.FC = () => {
 
       <IonFooter className="ion-no-border">
         <IonToolbar className="ion-padding-horizontal">
+          <br></br>
           <IonItem lines="none" className="chat-input-item">
             <IonInput 
               placeholder="Hello! I'm your Zvipfuyo AI Consultant. Ask me anything about your herd's health, ROI, or the current weather risks." 

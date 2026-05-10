@@ -4,7 +4,7 @@ import {
   Box, TextField, MenuItem, Button, Typography, Stack, Alert, Autocomplete, Divider, 
   CircularProgress
 } from '@mui/material';
-import { BREED_CHOICES } from '../../../constants/livestock';
+import { ANIMALSTATUS, BREED_CHOICES } from '../../../constants/livestock';
 
 interface FormProps {
   formData: any;
@@ -31,14 +31,14 @@ export const AnimalForm: React.FC<FormProps> = ({
     <Stack spacing={3}>
       <Box>
        <Typography variant="body1" fontWeight="black">
-          {isEditMode ? 'Update Identity' : 'Identity & Herd'}
+          {isEditMode ? 'Update Animal' : 'Identity & Herd'}
         </Typography>
         <Typography variant="body2" color="text.secondary">Basic details for the livestock registry.</Typography>
       </Box>
 
       {!formData.herd && (
         <Alert severity="success" variant="outlined" sx={{ borderRadius: '12px', color: '#374151' }}>
-          Assign this animal to a managed herd.
+          Assign this animal to a  herd.
         </Alert>
       )}
 
@@ -82,27 +82,43 @@ export const AnimalForm: React.FC<FormProps> = ({
         InputProps={{ endAdornment: <Typography variant="caption" sx={{ ml: 1, fontWeight: 'bold' }}>KG</Typography> }}
       />
 
+      
+      <TextField select fullWidth label="Status" name="status" value={formData.status} onChange={onChange}>
+        {ANIMALSTATUS.map((opt) => (
+          <MenuItem key={opt.value} value={opt.value}>{opt.label}</MenuItem>
+        ))}
+      </TextField>
+
       <Divider sx={{ my: 1 }} />
 
       <Box>
         <Typography variant="body1" fontWeight="bold">Lineage</Typography>
-        <Typography variant="caption" color="text.secondary">Optional: Link parents for pedigree tracking.</Typography>
+        <Typography variant="body2" color="text.secondary">Optional: Link parents for pedigree tracking.</Typography>
       </Box>
 
-      <Autocomplete
-        options={potentialMothers || []}
-        getOptionLabel={(option) => `${option.tag_number} (${option.breed})`}
-        isOptionEqualToValue={(option, value) => option.id === value.id}
-        onChange={(_, val) => onMotherChange(val)}
-        renderInput={(params) => <TextField {...params} label="Mother (Dam) Tag" placeholder="Search cows..." />}
-      />
         <Autocomplete
-        options={potentialFathers|| []}
-        isOptionEqualToValue={(option, value) => option.id === value.id}
-        getOptionLabel={(option) => `${option.tag_number} (${option.breed})`}
-        onChange={(_, val) => onFatherChange(val)}
-        renderInput={(params) => <TextField {...params} label="Father (Sire) Tag" name="father_tag" placeholder="Search Bull..." />}
-      />
+      options={potentialMothers || []}
+      // This ensures the correct animal is visually selected in Edit mode
+      value={potentialMothers?.find(m => m.tag_number === formData.mother_tag) || null}
+      getOptionLabel={(option) => `${option.tag_number} (${option.breed})`}
+      isOptionEqualToValue={(option, value) => option.tag_number === value.tag_number}
+      onChange={(_, val) => onMotherChange(val)}
+      renderInput={(params) => <TextField {...params} label="Mother (Dam) Tag" />}
+    />
+
+    <Autocomplete
+    options={potentialFathers || []}
+    // This ensures the correct animal is visually selected in Edit mode
+    value={potentialFathers?.find(m => m.tag_number === formData.father_tag) || null}
+    getOptionLabel={(option) => `${option.tag_number} (${option.breed})`}
+    isOptionEqualToValue={(option, value) => option.tag_number === value.tag_number}
+    onChange={(_, val) => onFatherChange(val)}
+    renderInput={(params) => <TextField {...params} label="Father (Sire) Tag" />}
+  />
+
+{/* <Typography variant="caption" color="error">
+  Debug: Valid: {isFormValid ? "YES" : "NO"} | Submitting: {isSubmitting ? "YES" : "NO"}
+</Typography> */}
 
      <Button 
         variant="contained" 

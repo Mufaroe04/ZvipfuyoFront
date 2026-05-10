@@ -72,6 +72,20 @@ export const updateMarketPrice = createAsyncThunk(
     return response.data;
   }
 );
+export const addMarketPrice = createAsyncThunk(
+  'operations/addMarketPrice',
+  async (data: Partial<MarketPrice>, { rejectWithValue }) => {
+    try {
+      // Note: Ensure your operationsService has this method (defined in step 2 below)
+      const response = await operationsService.addMarketPrice(data);
+      return response.data;
+    } catch (err: any) {
+      return rejectWithValue(err.response.data);
+    }
+  }
+);
+
+
 
 export const fetchHealthRecords = createAsyncThunk('ops/fetchHealth', async () => {
   const response = await operationsService.getHealthRecords();
@@ -232,6 +246,7 @@ export const initiateTransfer = createAsyncThunk('ops/addTransfer', async (data:
   const response = await operationsService.addTransfer(data);
   return response.data;
 });
+
 
 // Helper to filter and count transfers by type for the current month
 export const selectMonthlyTransferStats = (state: RootState) => {
@@ -455,6 +470,9 @@ const operationsSlice = createSlice({
       .addCase(fetchMarketPrices.fulfilled, (state, action) => {
         state.marketPrices = action.payload;
       })
+      .addCase(addMarketPrice.fulfilled, (state, action) => {
+      state.marketPrices.push(action.payload);
+    })
     .addCase(updateMarketPrice.fulfilled, (state, action) => {
       const index = state.marketPrices.findIndex(p => p.id === action.payload.id);
       if (index !== -1) {

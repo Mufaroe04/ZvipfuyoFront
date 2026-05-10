@@ -135,7 +135,7 @@ const HerdDetailView: React.FC = () => {
         
         <HerdMetricsRibbon data={selectedHerd} />
         
-        {selectedHerd.sick_count > 0 && <Alert severity="warning" sx={{ mb: 1 }}>Health checks required.</Alert>}
+        {selectedHerd.sick_count > 0 && <Alert severity="warning" sx={{ mb: 1 }}>Health checks required you have {selectedHerd.sick_count} cattle that needs attention</Alert>}
         
         <AnimalListGrid animals={selectedHerd?.animals || []} />
       </IonContent>

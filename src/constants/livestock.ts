@@ -43,6 +43,13 @@ export const SESSION_CHOICES =[
     {value:'MID', label:'Midday'}
 ]
 
+export const ANIMALSTATUS = [
+  { value: 'active', label: 'active' },
+  { value: 'sold', label: 'sold' },
+  { value: 'bred', label: 'Bred' },
+  { value: 'deceased', label: 'deceased' },
+  { value: 'quarantine', label: 'quarantine' },
+] as const
 
 /**
  * Helper to get the Label from a Value (e.g., 'ANG' -> 'Angus')

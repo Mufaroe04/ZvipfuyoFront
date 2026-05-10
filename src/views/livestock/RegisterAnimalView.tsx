@@ -11,7 +11,7 @@ import { LoadingSpinner } from '../../components/feedback/LoadingSpinner';
 
 const RegisterAnimalView: React.FC = () => {
   const {
-    formData, herds, potentialMothers, potentialFathers,loading, toastMsg, handleFatherChange,
+    formData, herds, potentialMothers, potentialFathers,loading, toastMsg, handleFatherChange,isFormValid,
     setToastMsg, herdId, handleChange, handleMotherChange, handleSubmit,isEditMode,goBack,isSubmitting
   } = useAnimalForm();
 
@@ -45,6 +45,7 @@ const RegisterAnimalView: React.FC = () => {
               onSubmit={handleSubmit}
               isEditMode={isEditMode}
               isSubmitting={isSubmitting}
+              isFormValid={isFormValid}
               goBack={goBack}
             />
           </Paper>

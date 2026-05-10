@@ -12,7 +12,7 @@ const EditAnimalView: React.FC = () => {
   const {
     formData, herds, potentialMothers, loading,
      fetching, isEditMode,potentialFathers,isSubmitting,
-    toastMsg, setToastMsg, herdId, handleChange,goBack,
+    toastMsg, setToastMsg, herdId, handleChange,goBack,isFormValid,
      handleMotherChange, handleSubmit,handleFatherChange,
 
   } = useAnimalForm();
@@ -45,6 +45,7 @@ const EditAnimalView: React.FC = () => {
               onFatherChange={handleFatherChange}
               onSubmit={handleSubmit}
               isEditMode={isEditMode}
+              isFormValid={isFormValid}
               isSubmitting={isSubmitting}
               goBack={goBack}
             />

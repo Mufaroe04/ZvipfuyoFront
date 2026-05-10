@@ -9,7 +9,7 @@ import { LoadingSpinner } from '../components/feedback/LoadingSpinner';
 import Login from '../pages/authentication/Login';
 import Profile from '../pages/Profile';
 import Notifications from '../pages/Notifications';
-import Chat from '../pages/Chat';
+import Chat from '../views/chat/Chat';
 import InsightsPage from '../pages/InsightsPage';
 import HerdCreatePage from '../views/herd/HerdCreatePage';
 import HerdDetailView from '../views/herd/HerdDetailView';
@@ -20,7 +20,7 @@ import DairyOperationsView from '../views/dairy/DairyOperationsView';
 import AddMilkYieldView from '../views/dairy/AddMilkYieldView';
 import AddMilkQualityView from '../views/dairy/AddMilkQualityView';
 import AddLactationView from '../views/dairy/AddLactationView';
-import BeefDashboard from '../pages/BeefDashboard';
+import BeefOperations from '../views/beef/BeefOperations';
 import HealthAndTreatments from '../pages/healthy&treatments/HealthAndTreatments';
 import AddHealthRecord from '../pages/healthy&treatments/AddHealthRecord';
 import Reproduction from '../pages/reproduction/Reproduction';
@@ -98,7 +98,7 @@ export const AppRoutes: React.FC<AppRoutesProps> = ({
       <RoleProtectedRoute exact path="/dairy/milk-yield/add" component={AddMilkYieldView} allowedRoles={['owner', 'manager', 'hand']} userRole={userRole} isAuthenticated={isAuthenticated} />
       <RoleProtectedRoute exact path="/dairy/milk-quality/add" component={AddMilkQualityView} allowedRoles={['owner', 'manager', 'hand']} userRole={userRole} isAuthenticated={isAuthenticated} />
       <RoleProtectedRoute exact path="/dairy/milk-lactation/add" component={AddLactationView} allowedRoles={['owner', 'manager', 'hand']} userRole={userRole} isAuthenticated={isAuthenticated} />
-      <RoleProtectedRoute exact path="/beef" component={BeefDashboard} allowedRoles={['owner', 'manager', 'hand']} userRole={userRole} isAuthenticated={isAuthenticated} />
+      <RoleProtectedRoute exact path="/beef" component={BeefOperations} allowedRoles={['owner', 'manager', 'hand']} userRole={userRole} isAuthenticated={isAuthenticated} />
 
       {/* Health, Breeding & Records */}
       <RoleProtectedRoute exact path="/health" component={HealthAndTreatments} allowedRoles={['owner', 'manager', 'vet', 'hand']} userRole={userRole} isAuthenticated={isAuthenticated} />

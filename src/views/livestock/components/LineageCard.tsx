@@ -5,8 +5,8 @@ import { gitBranchOutline } from 'ionicons/icons';
 
 interface LineageCardProps {
   animal: {
-    father_tag?: string | null;
-    mother_tag?: string | null;
+    father_tag_display?: string | null;
+    mother_tag_display?: string | null;
   };
 }
 
@@ -45,7 +45,7 @@ export const LineageCard: React.FC<LineageCardProps> = ({ animal }) => {
             FATHER (SIRE)
           </Typography>
           <Typography variant="body1" fontWeight="medium">
-            {animal.father_tag ? `Tag: ${animal.father_tag}` : 'Unknown'}
+            {animal.father_tag_display ? `Tag: ${animal.father_tag_display}` : 'Unknown'}
           </Typography>
         </Box>
 
@@ -55,7 +55,7 @@ export const LineageCard: React.FC<LineageCardProps> = ({ animal }) => {
             MOTHER (DAM)
           </Typography>
           <Typography variant="body1" fontWeight="medium">
-            {animal.mother_tag ? `Tag: ${animal.mother_tag}` : 'Unknown'}
+            {animal.mother_tag_display ? `Tag: ${animal.mother_tag_display}` : 'Unknown'}
           </Typography>
         </Box>
       </Stack>

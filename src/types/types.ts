@@ -209,6 +209,8 @@ export interface Animal {
   father_tag: string;
   mother?: number;
   mother_tag: string;
+  mother_tag_display:string;
+  father_tag_display:string;
   latest_weight?: number;
   weights: WeightEntry[];
   birth_weight?:string;

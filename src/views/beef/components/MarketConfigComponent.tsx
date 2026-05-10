@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, Typography, Paper, TextField, Grid, InputAdornment } from '@mui/material';
 import Chart from 'react-apexcharts';
-import { MarketPrice } from '../types/types';
+import { MarketPrice } from '../../../types/types';
 
 interface MarketConfigProps {
   prices: MarketPrice[];

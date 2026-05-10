@@ -10,7 +10,7 @@ import { addOutline, searchOutline, eyeOutline, trendingUpOutline, filterOutline
 import { IonIcon } from '@ionic/react';
 
 // Import your constants
-import { BREED_CHOICES, getBreedLabel } from '../constants/livestock';
+import { BREED_CHOICES, getBreedLabel } from '../../../constants/livestock';
 
 const BeefDashboardComponent: React.FC<{ weights: any[] }> = ({ weights }) => {
   const theme = useTheme();

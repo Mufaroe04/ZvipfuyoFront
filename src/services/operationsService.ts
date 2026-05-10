@@ -1,5 +1,5 @@
 import api from './api';
-import { HealthRecord, Task, CountingSession, Transfer, WeightEntry, MilkYield, MilkQuality, LactationPeriod, MilkYieldPayload } from '../types/types';
+import { HealthRecord, Task, CountingSession, Transfer, WeightEntry, MilkYield, MilkQuality, LactationPeriod, MilkYieldPayload, MarketPrice } from '../types/types';
 
 export const operationsService = {
   // --- Health Records ---
@@ -55,4 +55,5 @@ deleteLactationPeriod:(id: number) => api.delete(`lactations/${id}/`),
 getMarketPrices: () => api.get<MarketPrice[]>('market-prices/'),
   updateMarketPrice: (id: number, price: number) => 
     api.patch<MarketPrice>(`market-prices/${id}/`, { price_per_kg: price }),
+  addMarketPrice: (data: Partial<MarketPrice>) => api.post<MarketPrice>('market-prices/', data),
 };
