@@ -11,9 +11,10 @@ import {
 import { useHistory } from "react-router-dom";
 import { arrowBackOutline } from 'ionicons/icons';
 import { IconButton } from '@mui/material';
-import AddHealthRecordComponent from '../../components/healthy&treatments/AddHealthRecordComponent';
+import AddHealthRecord from './components/AddHealthRecord';
 
-const AddHealthRecord: React.FC = () => {
+
+const AddHealthRecordView: React.FC = () => {
   const history = useHistory();
 
   return (
@@ -25,17 +26,17 @@ const AddHealthRecord: React.FC = () => {
               <IonIcon icon={arrowBackOutline} />
             </IconButton>
           </IonButtons>
-          <IonTitle >
+          <IonTitle style={{ fontWeight: 700 }} >
             Log Treatment
           </IonTitle>
         </IonToolbar>
       </IonHeader>
 
       <IonContent fullscreen className="ion-padding">
-        <AddHealthRecordComponent />
+        <AddHealthRecord />
       </IonContent>
     </IonPage>
   );
 };
 
-export default AddHealthRecord;
+export default AddHealthRecordView;

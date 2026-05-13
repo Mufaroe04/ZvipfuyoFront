@@ -24,7 +24,7 @@ const HerdListView: React.FC <MyHerdsProps> = () => {
             {/* The missing piece of the puzzle! */}
             <IonMenuButton />
           </IonButtons>
-          <IonTitle>My Herds</IonTitle>
+          <IonTitle style={{ fontWeight: 700 }}>My Herds</IonTitle>
         </IonToolbar>
       </IonHeader>
 

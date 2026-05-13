@@ -27,7 +27,7 @@ const MarketConfigTable: React.FC<Props> = ({ prices, onUpdate, onAdd }) => {
   return (
     <Box>
       <Stack direction="row" justifyContent="space-between" alignItems="center" mb={2}>
-        <Typography variant="h6" fontWeight="bold">Live Market Prices</Typography>
+        <Typography variant="body1" fontWeight="bold">Live Market Prices</Typography>
         <Button 
           variant="contained" 
           startIcon={<IonIcon icon={addOutline} />} 

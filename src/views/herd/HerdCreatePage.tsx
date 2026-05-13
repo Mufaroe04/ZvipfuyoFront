@@ -28,7 +28,7 @@ const HerdCreatePage: React.FC = () => {
         </IconButton>
           </IonButtons>
   
-          <IonTitle>Create New Herd</IonTitle>
+          <IonTitle style={{ fontWeight: 700 }}>Create New Herd</IonTitle>
         
         </IonToolbar>
       </IonHeader>

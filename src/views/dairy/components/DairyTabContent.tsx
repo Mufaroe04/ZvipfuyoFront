@@ -19,7 +19,7 @@ interface Props {
 }
 
 const DairyTabContent: React.FC<Props> = ({ 
-  title, series, type = "area", colors, yLabel, rows, columns, actionLabel, onAction 
+  title, series, type = "area", colors, yLabel, rows, columns, actionLabel, onAction ,
 }) => (
   <Stack spacing={3}>
     <Paper sx={{ p: 1, borderRadius: '4px', }}>

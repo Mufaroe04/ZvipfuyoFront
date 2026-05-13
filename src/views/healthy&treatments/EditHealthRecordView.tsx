@@ -11,9 +11,9 @@ import {
 import { useHistory } from "react-router-dom";
 import { arrowBackOutline } from 'ionicons/icons';
 import { IconButton } from '@mui/material';
-import AddBreedingEventComponent from '../../components/reproduction/AddBreedingEventComponent';
+import EditHealthRecord from './components/EditHealthRecord';
 
-const AddBreedingEvent: React.FC = () => {
+const EditHealthRecordView: React.FC = () => {
   const history = useHistory();
 
   return (
@@ -25,15 +25,17 @@ const AddBreedingEvent: React.FC = () => {
               <IonIcon icon={arrowBackOutline} />
             </IconButton>
           </IonButtons>
-          <IonTitle style={{ fontWeight: 700 }}>Log Breeding</IonTitle>
+          <IonTitle style={{ fontWeight: 700 }}>
+            Edit Log Treatment
+          </IonTitle>
         </IonToolbar>
       </IonHeader>
 
       <IonContent fullscreen className="ion-padding">
-        <AddBreedingEventComponent />
+        <EditHealthRecord />
       </IonContent>
     </IonPage>
   );
 };
 
-export default AddBreedingEvent;
+export default EditHealthRecordView;

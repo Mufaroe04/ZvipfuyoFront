@@ -19,7 +19,7 @@ export const DairyProductionCard: React.FC = () => {
     fill: { type: 'solid', opacity: 1 },
     xaxis: {
       categories: dairyStats.milk_trend?.map(t => new Date(t.date).toLocaleDateString('en-GB', { day: 'numeric', month: 'short' })) || [],
-      labels: { show: true, style: { fontSize: '10px', fontWeight: 600 } },
+      labels: { show: true, style: { fontSize: '8.5px', fontWeight: 600 , } },
       axisBorder: { show: false },
       axisTicks: { show: false }
     },
@@ -56,7 +56,7 @@ export const DairyProductionCard: React.FC = () => {
             <IonText style={{ fontSize: '0.8rem', color:'#374151' }}>Avg/Cow</IonText>
           </div>
         </div>
-        <Box sx={{ mt: 2, height: '150px' }}>
+        <Box sx={{ mt: 2, height: '150px',p:1 }}>
           <Typography variant="caption" sx={{ fontWeight: 'bold', ml: 1, color: '#000' }}>
             7-DAY YIELD TREND (Liters)
           </Typography>

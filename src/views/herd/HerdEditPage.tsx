@@ -29,7 +29,7 @@ const MyHerds: React.FC <MyHerdsProps> = () => {
           <IonIcon icon={arrowBackOutline} />
         </IconButton>
           </IonButtons>
-          <IonTitle>Edit Herd </IonTitle>
+          <IonTitle style={{ fontWeight: 700 }}>Edit Herd </IonTitle>
         </IonToolbar>
       </IonHeader>
 

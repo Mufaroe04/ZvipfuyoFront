@@ -97,6 +97,20 @@ export const addHealthRecord = createAsyncThunk('ops/addHealth', async (data: Pa
   return response.data;
 });
 
+export const updateHealthRecord=createAsyncThunk<HealthRecord,{id:number,data:Partial<HealthRecord>},{ rejectValue: string }>(
+  'ops/updateHealth',
+  async({ id, data }, { rejectWithValue })=>{
+    try {
+      const response = await  operationsService.updateHealthRecord(id,data)
+      return response.data;
+
+    } catch (err:any) {
+      return rejectWithValue(err.response?.data?.message || 'Update failed');
+
+      
+    }
+  });
+
 export const fetchMilkYields = createAsyncThunk<
       MilkYield[],             // Success return type
       void,                    // Input arguments (none, so void)
@@ -324,6 +338,23 @@ const operationsSlice = createSlice({
       })
       .addCase(addHealthRecord.fulfilled, (state, action) => {
         state.healthRecords.unshift(action.payload); // Add new treatment to top
+      })
+      .addCase(updateHealthRecord.pending,(state)=>{
+        state.loading=true;
+        state.error=null;
+      })
+      .addCase(updateHealthRecord.fulfilled,(state,action:PayloadAction<HealthRecord>)=>{
+        const index = state.healthRecords.findIndex(a => a.id === action.payload.id);
+        if (index !== -1) {
+          state.healthRecords[index] = action.payload;
+        }
+        state.loading=false;
+        state.error=null;
+      })
+      .addCase(updateHealthRecord.rejected,(state,action)=>{
+        state.loading=true;
+        state.error= action.payload as string;
+
       })
       .addCase(fetchMilkYields.pending,(state)=>{
         state.loading=true;

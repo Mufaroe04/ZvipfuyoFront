@@ -2,7 +2,7 @@ import { GridColDef } from '@mui/x-data-grid';
 import { Button, Stack, IconButton, Tooltip } from '@mui/material';
 import { IonIcon } from '@ionic/react';
 import { pencilOutline, trashOutline } from 'ionicons/icons';
-import { ActionHandlers, UserRole } from '../../types/types';
+import { ActionHandlers, UserRole } from '../../../types/types';
 
 export const getReproductionColumns = (
   role: UserRole | null | undefined,
@@ -29,13 +29,13 @@ export const getReproductionColumns = (
     { 
       field: 'method', 
       headerName: 'Method', 
-      width: 80,
+      width: 120,
 
     },
     { 
       field: 'status', 
       headerName: 'Status', 
-      width: 100,
+      width: 120,
 
     },
     { 
@@ -53,7 +53,7 @@ export const getReproductionColumns = (
         { 
       field: 'days_to_calving', 
       headerName: 'Days to calving', 
-      width: 120,
+      width: 150,
     },
     {
       field: 'actions',

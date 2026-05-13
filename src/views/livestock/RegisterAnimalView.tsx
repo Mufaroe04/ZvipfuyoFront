@@ -26,7 +26,7 @@ const RegisterAnimalView: React.FC = () => {
           <IonButtons slot="start">
             <IonBackButton defaultHref={herdId ? `/herds/${herdId}` : "/animals"} />
           </IonButtons>
-          <IonTitle>Register Animal</IonTitle>
+          <IonTitle style={{ fontWeight: 700 }}>Register Animal</IonTitle>
         </IonToolbar>
       </IonHeader>
 

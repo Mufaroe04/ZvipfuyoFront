@@ -16,7 +16,7 @@ import { AreaMonitoringCard } from './modules/AreaMonitoringCard';
 import { OperationsSummary } from './modules/OperationsSummary';
 import { HealthBreedingModule } from './modules/HealthBreedingModule';
 import { SupplyChainProcurement } from './modules/SupplyChainProcurement';
-import WeatherCard from '../../components/WeatherCard';
+import WeatherCard from './modules/WeatherCard';
 import { LoadingSpinner } from '../../components/feedback/LoadingSpinner';
 import { FinancialPulse } from './modules/FinancialPulse';
 

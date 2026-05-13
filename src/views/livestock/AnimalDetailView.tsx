@@ -9,7 +9,7 @@ const AnimalDetailView: React.FC = () => {
       <IonHeader className="ion-no-border">
         <IonToolbar>
           <IonButtons slot="start"><IonBackButton defaultHref="/animals" /></IonButtons>
-          <IonTitle>Animal Profile</IonTitle>
+          <IonTitle style={{ fontWeight: 700 }}>Animal Profile</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent className="ion-padding">

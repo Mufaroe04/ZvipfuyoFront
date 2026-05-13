@@ -51,7 +51,7 @@ const BeefOperationsView: React.FC = () => {
       <IonHeader className="ion-no-border">
         <IonToolbar style={{ '--background': '#ffffff' }}>
           <IonButtons slot="start"><IonMenuButton /></IonButtons>
-          <IonTitle style={{ fontWeight: 900 }}>Beef Operations</IonTitle>
+          <IonTitle style={{ fontWeight: 700 }}>Beef Operations</IonTitle>
         </IonToolbar>
       </IonHeader>
 

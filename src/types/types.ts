@@ -10,14 +10,6 @@ export type Condition='Dry'|'Good'|'Muddy/Wet'| 'Overgrazed'
 export type UserRole = 'owner' | 'manager' | 'hand' | 'vet';
 
 
-// --- MODELS ---
-
-// export interface User {
-//   id: number;
-//   username: string;
-//   email: string;
-// }
-
 export interface ActionHandlers {
   onView: (id: string | number) => void;
   onEdit: (id: string | number) => void;
@@ -77,6 +69,8 @@ export interface WeightEntry {
   date: string; 
   weight_kg: number;
   change_kg: number;
+  adg:string;
+  breed:string
 }
 export interface MarketPrice {
   id: number;
@@ -170,6 +164,7 @@ export interface ConsoleDataProps {
 export interface HealthRecord {
   id: number;
   animal: number; // Animal ID
+  animal_tag:string;
   treatment_date: string;
   condition: string;
   treatment: string;
@@ -512,7 +507,6 @@ export interface RoleRouteProps {
   path: string;
 }
 export interface Props {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   component: React.ComponentType<any>;
   path: string;
   exact?: boolean;

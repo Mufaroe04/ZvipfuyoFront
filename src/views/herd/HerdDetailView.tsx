@@ -120,7 +120,7 @@ const HerdDetailView: React.FC = () => {
   return (
     <IonPage>
       <IonHeader className="ion-no-border">
-        <IonToolbar><IonButtons slot="start"><IonBackButton defaultHref="/herds" /></IonButtons><IonTitle>Herd Info</IonTitle></IonToolbar>
+        <IonToolbar><IonButtons slot="start"><IonBackButton defaultHref="/herds" /></IonButtons><IonTitle style={{ fontWeight: 700 }}>Herd Info</IonTitle></IonToolbar>
       </IonHeader>
       <IonContent className="ion-padding">
         <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 2 }}>

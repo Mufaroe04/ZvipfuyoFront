@@ -48,7 +48,7 @@ const Chat: React.FC = () => {
       <IonHeader className="ion-no-border">
         <IonToolbar>
           <IonButtons slot="start"><IonMenuButton /></IonButtons>
-          <IonTitle style={{ display: 'flex', alignItems: 'center' }}>
+          <IonTitle style={{ display: 'flex', alignItems: 'center',fontWeight: 700 }}>
             <IonIcon icon={sparklesOutline} color="#18774c" style={{ marginRight: '8px' ,'--color':'#18774c' }} />
             Zvipfuyo AI Consultant
           </IonTitle>

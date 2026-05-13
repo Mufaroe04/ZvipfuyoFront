@@ -7,8 +7,8 @@ import { AnimalMetricsRibbon } from './AnimalMetricsRibbon';
 import { LineageCard } from './LineageCard';
 import WeightGrowthChart from '../../../components/WeightGrowthChart';
 import { LoadingSpinner } from '../../../components/feedback/LoadingSpinner';
-import { HealthListGrid } from '../../../components/healthy&treatments/HealthListGrid';
-import { ReproductionListGrid } from '../../../components/reproduction/ReproductionListGrid';
+import { HealthListGrid } from '../../healthy&treatments/components/HealthListGrid';
+import { ReproductionListGrid } from '../../reproduction/components/ReproductionListGrid';
 import { useAnimalView } from '../hooks/useAnimalView';
 
 const AnimalContainer : React.FC = () => {

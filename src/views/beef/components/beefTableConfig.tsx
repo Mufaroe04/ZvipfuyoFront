@@ -1,5 +1,6 @@
 import { GridColDef } from '@mui/x-data-grid';
 import { getBreedLabel } from '../../../constants/livestock';
+import { Button } from '@mui/material';
 
 export const getBeefTableColumns = (onView: (id: number) => void): GridColDef[] => [
   { field: 'date', headerName: 'Date', width: 120 },
@@ -11,7 +12,6 @@ export const getBeefTableColumns = (onView: (id: number) => void): GridColDef[] 
     renderCell: (p) => getBreedLabel(p.value) 
   },
   
-   { field: 'date', headerName: 'Date', width: 110, },
   { field: 'weight_kg', headerName: 'Weight (kg)', width: 110, type: 'number' },
   { 
     field: 'adg', 

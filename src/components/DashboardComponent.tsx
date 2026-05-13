@@ -20,7 +20,7 @@ import {
 } from 'ionicons/icons';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
 import { fetchDashboardData } from '../redux/store/slices/dashboardSlice';
-import WeatherCard from './WeatherCard';
+import WeatherCard from '../views/dashboards/modules/WeatherCard';
 import { useHistory } from 'react-router-dom';
 import { fetchLiveInsights } from '../redux/store/slices/insightsSlice';
 import { Geolocation } from '@capacitor/geolocation';

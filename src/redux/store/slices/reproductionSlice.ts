@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { BreedingEvent } from '../../../types/types';
 import { reproductionService } from '../../../services/reproductionService';
 
@@ -54,6 +54,20 @@ export const logBreedingEvent = createAsyncThunk(
   }
 );
 
+export const updateBreedingEvent=createAsyncThunk<BreedingEvent,{id:number,data:Partial<BreedingEvent>},{ rejectValue: string }>(
+  'reproduction/update',
+  async({ id, data }, { rejectWithValue })=>{
+    try {
+      const response = await  reproductionService.updateBreedingEvent(id,data)
+      return response.data;
+
+    } catch (err:any) {
+      return rejectWithValue(err.response?.data?.message || 'Update failed');
+
+      
+    }
+  });
+
 // --- SLICE ---
 
 const reproductionSlice = createSlice({
@@ -69,24 +83,49 @@ const reproductionSlice = createSlice({
       .addCase(fetchBreedingHistory.fulfilled, (state, action) => {
         state.events = action.payload;
         state.loading = false;
+        state.error= null;
+
       })
-      
+      .addCase(fetchBreedingHistory.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload as string;
+      })
       // Upcoming Calvings (Dashboard)
       .addCase(fetchUpcomingCalvings.fulfilled, (state, action) => {
         state.upcomingCalvings = action.payload;
       })
 
       // Add New Event
+        .addCase(logBreedingEvent.pending, (state) => {
+        state.loading = true;
+      })
       .addCase(logBreedingEvent.fulfilled, (state, action) => {
         state.events.unshift(action.payload);
-        // Note: If the status is 'confirmed', usually we'd re-fetch upcoming
-        // but for now, we'll keep it simple.
+        state.loading = false;
+        state.error= null;
+
+      })
+      .addCase(logBreedingEvent.rejected, (state,action) => {
+        state.loading = true;
+        state.error= action.payload as unknown as string;
+
+      })
+      // update  Event
+          .addCase(updateBreedingEvent.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(updateBreedingEvent.fulfilled, (state, action) => {
+        state.events.unshift(action.payload);
+        state.loading = false;
+        state.error= null;
+
+      })
+        .addCase(updateBreedingEvent.rejected, (state,action) => {
+        state.loading = true;
+        state.error= action.payload as unknown as string;
+
       })
 
-      .addCase(fetchBreedingHistory.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.payload as string;
-      });
   },
 });
 

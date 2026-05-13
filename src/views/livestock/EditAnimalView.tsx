@@ -24,7 +24,7 @@ const EditAnimalView: React.FC = () => {
           <IonButtons slot="start">
             <IonBackButton defaultHref="/animals" />
           </IonButtons>
-          <IonTitle>Edit Animal</IonTitle>
+          <IonTitle style={{ fontWeight: 700 }}>Edit Animal</IonTitle>
         </IonToolbar>
       </IonHeader>
 

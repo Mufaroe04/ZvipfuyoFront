@@ -6,9 +6,9 @@ import {
 import { useHistory } from 'react-router-dom';
 // import { IonIcon } from '@ionic/react';
 // import { saveOutline } from 'ionicons/icons';
-import { useAppDispatch, useAppSelector } from '../../redux/hooks';
-import { fetchAllAnimals } from '../../redux/store/slices/livestockSlice';
-import { logBreedingEvent } from '../../redux/store/slices/reproductionSlice';
+import { useAppDispatch, useAppSelector } from '../../../redux/hooks';
+import { fetchAllAnimals } from '../../../redux/store/slices/livestockSlice';
+import { logBreedingEvent } from '../../../redux/store/slices/reproductionSlice';
 
 const AddBreedingEventComponent: React.FC = () => {
   const history = useHistory();

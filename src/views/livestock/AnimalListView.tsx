@@ -32,7 +32,7 @@ export const AnimalListView: React.FC = () => {
           <IonButtons slot="start">
             <IonMenuButton />
           </IonButtons>
-          <IonTitle>{location.state?.title || 'My Animals'}</IonTitle>
+          <IonTitle style={{ fontWeight: 700 }}>{location.state?.title || 'My Animals'}</IonTitle>
         </IonToolbar>
       </IonHeader>
 

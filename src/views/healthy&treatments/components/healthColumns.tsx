@@ -1,6 +1,6 @@
 import { GridColDef } from '@mui/x-data-grid';
-import {  Stack, Button, Tooltip, IconButton } from '@mui/material';
-import { ActionHandlers, UserRole } from '../../types/types';
+import {  Stack, Tooltip, IconButton } from '@mui/material';
+import { ActionHandlers, UserRole } from '../../../types/types';
 import { IonIcon } from '@ionic/react';
 import { pencilOutline, trashOutline } from 'ionicons/icons';
 
@@ -38,27 +38,7 @@ export const getHealthColumns = ( role: UserRole | null | undefined,
       sortable: false,
       renderCell: (params) => (
         <Stack direction="row" spacing={1} alignItems="center" sx={{ height: '100%' }}>
-          <Button 
-            variant="outlined" 
-            size="small" 
-            onClick={() => handlers.onView(params.id)}
-            sx={{ 
-              textTransform: 'none', 
-              borderRadius: '6px', 
-              color: "#18774c", 
-              borderColor: "#18774c", 
-              fontFamily: '"Plus Jakarta Sans", sans-serif',
-              fontWeight: 600,
-              minWidth: '60px',
-              height: '32px',
-              '&:hover': {
-                borderColor: "#18774c",
-                backgroundColor: 'rgba(24, 119, 76, 0.04)', 
-              }
-            }}
-          >
-            View
-          </Button>
+       
 
           {isPrivileged && (
             <>

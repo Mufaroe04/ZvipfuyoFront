@@ -1,6 +1,8 @@
 import React from 'react';
 import Chart from 'react-apexcharts';
-import { Box } from '@mui/material';
+import { Box, FormControl, InputLabel, MenuItem, Select, Stack, Typography } from '@mui/material';
+import { BREED_CHOICES } from '../../../constants/livestock';
+import { useDairyData } from '../hooks/useDairyData';
 
 interface DairyChartProps {
   series: any[];
@@ -10,6 +12,9 @@ interface DairyChartProps {
 }
 
 const DairyChart: React.FC<DairyChartProps> = ({ series, type, colors, yLabel }) => {
+    const { 
+       selectedBreed, setSelectedBreed
+    } = useDairyData();
   const options: any = {
     chart: { toolbar: { show: false }, zoom: { enabled: false } },
     colors: colors,
@@ -24,8 +29,18 @@ const DairyChart: React.FC<DairyChartProps> = ({ series, type, colors, yLabel })
   };
 
   return (
-    <Box sx={{ height: 300 }}>
-      <Chart options={options} series={series} type={type} height="100%" />
+    <Box >
+          <Stack direction={{ xs: 'column', sm: 'row' }} justifyContent="space-between" alignItems={{ sm: 'center' }} spacing={2} mb={3}>
+          <Typography variant="body1" fontWeight="bold"></Typography>
+          <FormControl size="small" sx={{ minWidth: 200 }}>
+            <InputLabel>Filter Breed</InputLabel>
+            <Select value={selectedBreed} label="Filter Breed" onChange={(e) => setSelectedBreed(e.target.value)} sx={{ borderRadius: '4px', bgcolor: 'white' }}>
+              <MenuItem value="All">All Breeds</MenuItem>
+              {BREED_CHOICES.map((opt) => <MenuItem key={opt.value} value={opt.value}> <Typography variant='body2'> {opt.label} </Typography></MenuItem>)}
+            </Select>
+          </FormControl>
+        </Stack>
+      <Chart options={options} series={series} type={type} height="100%" elevation={0}/>
     </Box>
   );
 };

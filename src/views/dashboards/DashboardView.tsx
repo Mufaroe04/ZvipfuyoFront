@@ -1,7 +1,7 @@
 import React from 'react';
-import { IonButtons, IonContent, IonHeader, IonMenuButton, IonPage, IonTitle, IonToolbar, IonText } from '@ionic/react';
-import { MainDashboard } from '../views/dashboards/MainDashboard';
-import NotificationBell from '../layout/NotificationBell';
+import { IonButtons, IonContent, IonHeader, IonMenuButton, IonPage, IonTitle, IonToolbar } from '@ionic/react';
+import { MainDashboard } from './MainDashboard';
+import NotificationBell from '../../layout/NotificationBell';
 
 interface DashboardViewProps {
   userRole: 'owner' | 'manager' | 'hand' | 'vet';
@@ -18,7 +18,7 @@ const DashboardView: React.FC<DashboardViewProps> = () => {
           <IonButtons slot="end">
             <NotificationBell />
           </IonButtons>
-          <IonTitle>Zvipfuyo Dashboard</IonTitle>
+          <IonTitle style={{ fontWeight: 700 }}>Zvipfuyo Dashboard</IonTitle>
         </IonToolbar>
       </IonHeader>
 
