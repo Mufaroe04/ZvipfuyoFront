@@ -1,23 +1,25 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { 
   IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonButtons, IonMenuButton, IonIcon 
 } from '@ionic/react';
 import { addOutline } from 'ionicons/icons';
-import { useSelector, useDispatch } from 'react-redux';
-import { fetchWeights } from '../../redux/store/slices/operationsSlice';
-import { RootState, AppDispatch } from '../../redux/store';
 import { Typography, Box, Stack, Button, Container } from '@mui/material';
 import { useHistory } from 'react-router-dom';
-import WeightListingComponent from '../../components/WeightListingComponent';
+import { useBeefOperations } from '../beef/hooks/useBeefOperations';
+import { LoadingSpinner } from '../../components/feedback/LoadingSpinner';
+import BeefHerdGrid from '../beef/components/BeefHerdGrid';
 
-const WeightListing: React.FC = () => {
-  const dispatch = useDispatch<AppDispatch>();
+const WeightListingView: React.FC = () => {
   const history = useHistory();
-  const { weights, loading } = useSelector((state: RootState) => state.operations);
+const { 
+    weights, rowCount, columns, loading, 
+    searchTerm, setSearchTerm,
+    paginationModel, setPaginationModel
+  } = useBeefOperations();
 
-  useEffect(() => {
-    dispatch(fetchWeights());
-  }, [dispatch]);
+  if (loading && (!weights || weights.length === 0)) {
+    return <LoadingSpinner />;
+  }
 
   return (
     <IonPage>
@@ -28,11 +30,10 @@ const WeightListing: React.FC = () => {
         </IonToolbar>
       </IonHeader>
 
-      <IonContent className="ion-padding">
-        <Container maxWidth="lg">
+      <IonContent fullscreen className="ion-padding">
           <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ mb: 4, mt: 2 }}>
             <Box>
-              <Typography variant="h5" fontWeight="bold">Growth Monitor</Typography>
+              <Typography variant="body1" fontWeight="bold">Growth Monitor</Typography>
               <Typography variant="body2" color="text.secondary">Digital Kraal weight gain records</Typography>
             </Box>
 
@@ -53,11 +54,19 @@ const WeightListing: React.FC = () => {
             </Button>
           </Stack>
 
-          <WeightListingComponent weights={weights} loading={loading} />
-        </Container>
+         <BeefHerdGrid 
+            rows={weights} 
+            rowCount={rowCount}
+            columns={columns}
+            loading={loading}
+            search={searchTerm} 
+            onSearch={setSearchTerm} 
+            paginationModel={paginationModel}
+            onPaginationModelChange={setPaginationModel}
+          />
       </IonContent>
     </IonPage>
   );
 };
 
-export default WeightListing;
+export default WeightListingView;

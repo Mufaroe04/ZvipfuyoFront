@@ -511,3 +511,10 @@ export interface Props {
   path: string;
   exact?: boolean;
 }
+
+export interface PaginatedResponse<T> {
+  results: T[];
+  next: string | null;
+  previous: string | null;
+  count: number;
+}

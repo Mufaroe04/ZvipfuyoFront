@@ -24,6 +24,7 @@
 // };
 
 // export default BeefOperations;
+
 import React from 'react';
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonButtons, IonMenuButton } from '@ionic/react';
 import { Container, Stack, Paper, Tab, Tabs,} from '@mui/material';
@@ -38,13 +39,14 @@ import MarketPriceChart from './components/MarketPriceChart';
 import { LoadingSpinner } from '../../components/feedback/LoadingSpinner';
 
 const BeefOperationsView: React.FC = () => {
-  const { 
-    weights, marketPrices, growthSeries, marketSeries, loading, 
+const { 
+    weights, rowCount, columns, marketPrices, growthSeries, marketSeries, loading, 
     tabValue, setTabValue, searchTerm, setSearchTerm, 
-    selectedBreed, setSelectedBreed, actions 
+    selectedBreed, setSelectedBreed, actions,
+    paginationModel, setPaginationModel ,isChartLoading
   } = useBeefOperations();
 
-  if (loading && weights.length === 0) return <LoadingSpinner />;
+ if (loading && (!weights || weights.length === 0)) return <LoadingSpinner />;
 
   return (
     <IonPage>
@@ -70,11 +72,17 @@ const BeefOperationsView: React.FC = () => {
                 series={growthSeries} 
                 breed={selectedBreed} 
                 onBreedChange={setSelectedBreed} 
+                isLoading={isChartLoading}
               />
-              <BeefHerdGrid 
-                rows={weights} 
+             <BeefHerdGrid 
+                rows={weights}
+                rowCount={rowCount}
+                columns={columns}
+                loading={loading}
                 search={searchTerm} 
                 onSearch={setSearchTerm} 
+                paginationModel={paginationModel}
+                onPaginationModelChange={setPaginationModel}
               />
             </Stack>
           ) : (

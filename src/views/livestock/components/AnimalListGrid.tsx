@@ -56,7 +56,7 @@ export const AnimalListGrid: React.FC<AnimalListGridProps> = ({ animals, filterI
         placeholder="Search animals by tag or breed..."
         value={searchQuery}
         onChange={(e) => setSearchQuery(e.target.value)}
-        sx={{ mb: 2, bgcolor: 'white', borderRadius: '4px' }}
+        sx={{ mb: 1, bgcolor: 'white', borderRadius: '4px' }}
         InputProps={{
           startAdornment: (
             <InputAdornment position="start">

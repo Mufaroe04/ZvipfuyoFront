@@ -196,7 +196,7 @@ const financeSlice = createSlice({
         state.summary = action.payload.summary;
         state.milkSales = action.payload.milkSales;
         state.cattleSales = action.payload.cattleSales;
-        state.expenses = action.payload.transactions.filter((t: Transaction) => !t.is_income);
+        state.expenses = action.payload.transactions?.filter((t: Transaction) => !t.is_income);
         state.allTransactions = action.payload.transactions;
       })
       .addCase(fetchFinanceData.rejected, (state, action) => {

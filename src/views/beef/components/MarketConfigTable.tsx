@@ -8,9 +8,10 @@ import {
 import { addOutline } from 'ionicons/icons';
 import { IonIcon } from '@ionic/react';
 import { BREED_CHOICES } from '../../../constants/livestock';
+import { MarketPrice, PaginatedResponse } from '../../../types/types';
 
 interface Props {
-  prices: any[];
+  prices: PaginatedResponse<MarketPrice>;
   onUpdate: (id: number, price: number) => void;
   onAdd: (data: any) => void;
 }
@@ -38,7 +39,7 @@ const MarketConfigTable: React.FC<Props> = ({ prices, onUpdate, onAdd }) => {
       </Stack>
 
       <Grid container spacing={2}>
-        {prices.map((p) => (
+        {prices.results.map((p) => (
           <Grid item xs={12} sm={6} md={4} key={p.id}>
             <Paper variant="outlined" sx={{ p: 1, borderRadius: '12px' }}>
               <Typography variant="caption" fontWeight="bold" color="primary">{p.breed}</Typography>

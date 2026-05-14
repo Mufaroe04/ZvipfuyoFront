@@ -1,53 +1,24 @@
-import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
-import { addWeight } from '../redux/store/slices/operationsSlice';
-import { AppDispatch, RootState } from '../redux/store';
-import { Box, TextField, MenuItem, Typography, Paper, Stack, Button, InputAdornment } from '@mui/material';
+import React from 'react';
+import { Box, TextField, MenuItem, Typography, Paper, Stack, Button, InputAdornment, Container } from '@mui/material';
 import { IonIcon } from '@ionic/react';
 import { saveOutline } from 'ionicons/icons';
+import { useWeightForm } from '../hooks/useWeightForm';
 
-const AddWeightComponent: React.FC = () => {
-  const dispatch = useDispatch<AppDispatch>();
-  const history = useHistory();
-  const { animals } = useSelector((state: RootState) => state.livestock);
-  const [loading, setLoading] = useState(false);
+interface WeightFormProps {
+  title: string;
+  initialData?: any;
+}
 
-  const [formData, setFormData] = useState({
-    animal: '',
-    weight_kg: '',
-    date: new Date().toISOString().split('T')[0]
-  });
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!formData.animal || !formData.weight_kg) return;
-
-    setLoading(true);
-    try {
-      await dispatch(addWeight({
-        animal: Number(formData.animal),
-        weight_kg: Number(formData.weight_kg),
-        date: formData.date
-      })).unwrap();
-      history.push('/weights');
-    } catch (err) {
-      console.error("Failed to save weight", err);
-    } finally {
-      setLoading(false);
-    }
-  };
+const WeightForm: React.FC<WeightFormProps> = ({ title, initialData }) => {
+  const { formData, setFormData, isSubmitting, handleSubmit, isFormValid, animals } = useWeightForm(initialData);
 
   return (
-    <Box sx={{ maxWidth: 500, margin: 'auto', mt: 2 }}>
-      <Box sx={{ mb: 3 }}>
-        <Typography variant="h5" fontWeight="bold">New Measurement</Typography>
-        <Typography variant="body2" color="text.secondary">Capture current animal weight</Typography>
-      </Box>
-      
-      <Paper sx={{ p: 4, borderRadius: '16px', border: '1px solid #ececec' }} elevation={0}>
+    <Container maxWidth="sm">
+      <Paper sx={{ p: 4, borderRadius: '4px', border: '1px solid #ececec' }} elevation={0}>
         <form onSubmit={handleSubmit}>
           <Stack spacing={3}>
+            <Typography variant="body1" fontWeight="bold">{title}</Typography>
+            <Typography variant="body2" color="text.secondary">Capture current animal weight</Typography>
             <TextField
               select
               fullWidth
@@ -89,7 +60,7 @@ const AddWeightComponent: React.FC = () => {
             <Button 
               variant="contained" 
               type="submit" 
-              disabled={loading}
+              disabled={!isFormValid || isSubmitting}
               fullWidth 
               startIcon={<IonIcon icon={saveOutline} />}
               sx={{ 
@@ -101,13 +72,13 @@ const AddWeightComponent: React.FC = () => {
                 '&:hover': { bgcolor: '#14633f' }
               }}
             >
-              {loading ? 'Saving to Records...' : 'Save weight record'}
+              {isSubmitting ? 'Saving...' : 'Save weight record'}
             </Button>
           </Stack>
         </form>
       </Paper>
-    </Box>
+    </Container>
   );
 };
 
-export default AddWeightComponent;
+export default WeightForm;

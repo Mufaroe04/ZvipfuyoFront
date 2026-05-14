@@ -1,15 +1,12 @@
 import React from 'react';
-import { 
-  IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonButtons, IonIcon, IconButton 
-} from '@ionic/react';
+import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonButtons, IonIcon } from '@ionic/react';
 import { useHistory } from 'react-router-dom';
 import { arrowBackOutline } from 'ionicons/icons';
 import { IconButton as MuiIconButton } from '@mui/material';
-import AddWeightComponent from '../../components/AddWeightComponent';
+import EditWeightForm from './components/EditWeightForm';
 
-const AddWeight: React.FC = () => {
+const EditWeightView: React.FC = () => {
   const history = useHistory();
-  
   return (
     <IonPage>
       <IonHeader className="ion-no-border">
@@ -22,12 +19,10 @@ const AddWeight: React.FC = () => {
           <IonTitle style={{ fontWeight: 700 }}>Log Weight</IonTitle>
         </IonToolbar>
       </IonHeader>
-
       <IonContent className="ion-padding">
-        <AddWeightComponent />
+        <EditWeightForm />
       </IonContent>
     </IonPage>
   );
 };
-
-export default AddWeight;
+export default EditWeightView;

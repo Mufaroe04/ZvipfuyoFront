@@ -18,15 +18,14 @@ export const ReproductionListGrid: React.FC= () => {
         placeholder="Search by Tag or Status..."
         value={searchQuery}
         onChange={(e) => setSearchQuery(e.target.value)}
-        // sx={{ mb: 3, bgcolor: 'white', '& .MuiOutlinedInput-root': { borderRadius: '4px' } }}
-        sx={{ mb: 1, bgcolor: 'white',borderRadius: '4px'}}
-        InputProps={{
-          startAdornment: (
-            <InputAdornment position="start">
-              <IonIcon icon={searchOutline} style={{ color: '#18774c' }} />
-            </InputAdornment>
-          ),
-        }}
+        sx={{ mb: 2, bgcolor: 'white', borderRadius: '4px' }}
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <IonIcon icon={searchOutline} style={{ color: '#666' }} />
+                    </InputAdornment>
+                  ),
+                }}
       />
       <CustomDataGrid
         rows={filteredEvents}

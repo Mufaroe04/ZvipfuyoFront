@@ -22,8 +22,7 @@ import AddMilkQualityView from '../views/dairy/AddMilkQualityView';
 import AddLactationView from '../views/dairy/AddLactationView';
 import BeefOperations from '../views/beef/BeefOperations';
 import AddBreedingEvent from '../views/reproduction/AddBreedingEventView';
-import WeightListing from '../pages/weight/WeightListing';
-import AddWeight from '../pages/weight/AddWeight';
+import WeightListingView from '../views/weight/WeightListingView';
 import CountingSession from '../pages/CountingSession';
 import Tasks from '../pages/task/Tasks';
 import AddTask from '../pages/task/AddTask';
@@ -47,6 +46,8 @@ import AddHealthRecordView from '../views/healthy&treatments/AddHealthRecordView
 import EditHealthRecordView from '../views/healthy&treatments/EditHealthRecordView';
 import ReproductionView from '../views/reproduction/ReproductionView';
 import EditBreedingEventView from '../views/reproduction/EditBreedingEventView';
+import AddWeightView from '../views/weight/AddWeightView';
+import EditWeightView from '../views/weight/EditWeightView';
 
 interface AppRoutesProps {
   userRole: UserRole | null; // Correctly typed to allow null values during initialization
@@ -109,8 +110,10 @@ export const AppRoutes: React.FC<AppRoutesProps> = ({
       <RoleProtectedRoute exact path="/reproduction" component={ReproductionView} allowedRoles={['owner', 'manager', 'vet']} userRole={userRole} isAuthenticated={isAuthenticated} />
       <RoleProtectedRoute exact path="/reproduction/add" component={AddBreedingEvent} allowedRoles={['owner', 'manager', 'vet']} userRole={userRole} isAuthenticated={isAuthenticated} />
       <RoleProtectedRoute exact path="/reproduction/edit/:id" component={EditBreedingEventView} allowedRoles={['owner', 'manager', 'vet']} userRole={userRole} isAuthenticated={isAuthenticated} />
-      <RoleProtectedRoute exact path="/weights" component={WeightListing} allowedRoles={['owner', 'manager', 'hand']} userRole={userRole} isAuthenticated={isAuthenticated} />
-      <RoleProtectedRoute exact path="/weights/add" component={AddWeight} allowedRoles={['owner', 'manager', 'hand']} userRole={userRole} isAuthenticated={isAuthenticated} />
+      <RoleProtectedRoute exact path="/weights" component={WeightListingView} allowedRoles={['owner', 'manager', 'hand']} userRole={userRole} isAuthenticated={isAuthenticated} />
+      <RoleProtectedRoute exact path="/weights/add" component={AddWeightView} allowedRoles={['owner', 'manager', 'hand']} userRole={userRole} isAuthenticated={isAuthenticated} />
+      <RoleProtectedRoute exact path="/weights/edit/:id" component={EditWeightView} allowedRoles={['owner', 'manager', 'hand']} userRole={userRole} isAuthenticated={isAuthenticated} />
+
       <RoleProtectedRoute exact path="/counting" component={CountingSession} allowedRoles={['owner', 'manager', 'hand']} userRole={userRole} isAuthenticated={isAuthenticated} />
 
       {/* Operations & Tasks */}

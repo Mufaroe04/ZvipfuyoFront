@@ -1,17 +1,19 @@
 import React from 'react';
-import { Paper, Stack, Typography, FormControl, InputLabel, Select, MenuItem, useTheme } from '@mui/material';
+import { Paper, Stack, Typography, FormControl, InputLabel, Select, MenuItem, useTheme, Box } from '@mui/material';
 import Chart from 'react-apexcharts';
 import { IonIcon } from '@ionic/react';
 import { filterOutline } from 'ionicons/icons';
 import { BREED_CHOICES } from '../../../constants/livestock';
+import { LoadingSpinner } from '../../../components/feedback/LoadingSpinner';
 
 interface Props {
   series: any[];
   breed: string;
+  isLoading?: boolean;
   onBreedChange: (val: string) => void;
 }
 
-const BeefGrowthChart: React.FC<Props> = ({ series, breed, onBreedChange }) => {
+const BeefGrowthChart: React.FC<Props> = ({ series, breed, onBreedChange,isLoading }) => {
   const theme = useTheme();
 
   const options: ApexCharts.ApexOptions = {
@@ -49,7 +51,13 @@ const BeefGrowthChart: React.FC<Props> = ({ series, breed, onBreedChange }) => {
           </Select>
         </FormControl>
       </Stack>
-      <Chart options={options} series={series} type="area" height={350} />
+      {isLoading ? (
+        <Box sx={{ height: 350, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          <LoadingSpinner  />
+        </Box>
+      ) : (
+        <Chart options={options} series={series} type="area" height={350} />
+      )}
     </Paper>
   );
 };
