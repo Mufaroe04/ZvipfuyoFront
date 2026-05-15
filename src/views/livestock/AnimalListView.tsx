@@ -1,16 +1,14 @@
-import React, { useEffect } from 'react';
-import { useAppDispatch, useAppSelector } from '../../redux/hooks';
+import React from 'react';
+import {  useAppSelector } from '../../redux/hooks';
 import { useHistory, useLocation } from "react-router-dom";
 import { Button, Box, Typography, Stack} from '@mui/material';
 import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonButtons, IonMenuButton, IonIcon } from '@ionic/react';
 import { addOutline, closeCircleOutline } from 'ionicons/icons';
-import { fetchAllAnimals } from '../../redux/store/slices/livestockSlice';
 import { LoadingSpinner } from '../../components/feedback/LoadingSpinner';
 import { AnimalListGrid } from './components/AnimalListGrid';
 import { useAnimalList } from './hooks/useAnimalList';
 
 export const AnimalListView: React.FC = () => {
-  const dispatch = useAppDispatch();
   const history = useHistory();
   const location = useLocation<{ filterIds?: number[], title?: string }>();
 
@@ -19,9 +17,6 @@ export const AnimalListView: React.FC = () => {
   const isPrivileged = user?.profile?.role === 'owner' || user?.profile?.role === 'manager';
   const animalHookData = useAnimalList([], location.state?.filterIds, 'server');
 
-  useEffect(() => {
-    dispatch(fetchAllAnimals());
-  }, [dispatch]);
 
   if (loading||!animals) {
     return <LoadingSpinner />;
@@ -69,7 +64,7 @@ export const AnimalListView: React.FC = () => {
                 {location.state?.filterIds ? "FILTERED RESULT" : "FARM TOTAL"}
               </Typography>
               <Typography variant="h5" sx={{ fontWeight: 'bold' }}>
-                {animals?.length || 0} <small style={{ fontSize: '0.9rem', fontWeight: 'normal' }}>Cattles</small>
+                {animals?.count || 0} <small style={{ fontSize: '0.9rem', fontWeight: 'normal' }}>Cattles</small>
               </Typography>
             </Box>
                  {isPrivileged && (

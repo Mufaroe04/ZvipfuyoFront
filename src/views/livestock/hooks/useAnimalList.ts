@@ -60,6 +60,7 @@
 //     columns
 //   };
 // };
+
 import { useState, useMemo, useEffect } from 'react';
 import { useHistory, useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from '../../../redux/hooks';
@@ -77,7 +78,7 @@ export const useAnimalList = (
   const history = useHistory();
   
   // Connect cleanly to global slice state
-  const { animals: storeAnimals, totalCount, loading } = useAppSelector((state) => state.livestock);
+  const { animals: storeAnimals,  loading } = useAppSelector((state) => state.livestock);
   const { user } = useAppSelector((state) => state.auth);
   const userRole = user?.profile?.role;
 
@@ -96,15 +97,17 @@ export const useAnimalList = (
     if (paginationMode === 'server') {
       dispatch(fetchAllAnimals({ 
         page: paginationModel.page + 1,
-        page_size: paginationModel.pageSize 
       }));
     }
-  }, [dispatch, paginationModel.page, paginationModel.pageSize, paginationMode]);
+  }, [dispatch, paginationModel.page, paginationMode]);
 
   // SOURCE SELECTION
   // Determines whether to filter the array passed into props or the array inside Redux
-  const activeAnimalsSource = useMemo(() => {
-    return paginationMode === 'server' ? (storeAnimals || []) : initialAnimals;
+  const activeAnimalsSource = useMemo((): Animal[] => {
+    if (paginationMode === 'server') {
+      return storeAnimals?.results || [];
+    }
+    return initialAnimals || [];
   }, [paginationMode, storeAnimals, initialAnimals]);
 
   // MEMOIZED FILTER LOGIC
@@ -145,6 +148,7 @@ export const useAnimalList = (
     id,
     filteredAnimals,
     searchQuery,
+    storeAnimals,
     setSearchQuery,
     deleteTargetId,
     setDeleteTargetId,
@@ -156,6 +160,6 @@ export const useAnimalList = (
     // Add pagination attributes to prevent layout code modifications later
     paginationModel,
     onPaginationModelChange: setPaginationModel,
-    rowCount: paginationMode === 'server' ? (totalCount || 0) : filteredAnimals.length
+    rowCount: paginationMode === 'server' ? (storeAnimals.count || 0) : filteredAnimals.length
   };
 };

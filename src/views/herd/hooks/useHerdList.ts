@@ -162,6 +162,7 @@ export const useHerdList = () => {
     isPrivileged, 
     columns, 
     paginationModel,
+    setPaginationModel,
     onPaginationModelChange: setPaginationModel,
     rowCount: herds?.count || 0,
   };
