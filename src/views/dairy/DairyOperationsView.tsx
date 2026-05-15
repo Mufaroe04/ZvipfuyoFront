@@ -1,3 +1,145 @@
+// import React from 'react';
+// import { IonPage, IonContent, IonHeader, IonToolbar, IonTitle, IonButtons, IonMenuButton, IonSpinner, IonIcon } from '@ionic/react';
+// import { Box, Tabs, Tab, Paper, Container } from '@mui/material';
+// import { waterOutline, statsChartOutline, calendarOutline } from 'ionicons/icons';
+// import { useDairyData } from './hooks/useDairyData';
+// import DairyTabContent from './components/DairyTabContent';
+// import { getYieldColumns, getQualityColumns, getLactationColumns } from './components/dashboardConfig';
+
+// const DairyOperationsView: React.FC = () => {
+
+//   const { 
+//     yieldSeries, qualitySeries, lactationDistribution,filteredQuality, 
+//     milkYields,filteredYields,filteredLactations, 
+//     loading, handleDryOff,history,tabValue,
+//     setTabValue
+//   } = useDairyData();
+
+//   if (loading && milkYields.results.length === 0) {
+//     return <Box display="flex" justifyContent="center" py={10}><IonSpinner name="crescent" /></Box>;
+//   }
+//   return (
+//     <IonPage>
+//       <IonHeader className="ion-no-border">
+//         <IonToolbar>
+//           <IonButtons slot="start"><IonMenuButton /></IonButtons>
+//           <IonTitle>Dairy Operations</IonTitle>
+//         </IonToolbar>
+//       </IonHeader>
+//       <IonContent fullscreen>
+//         <Container maxWidth="xl" sx={{ py: 3 }}>
+
+
+//           <Paper elevation={0}  sx={{borderRadius: '4px', mb: 1, overflow: 'hidden',  }}>
+//             <Tabs value={tabValue} onChange={(_, val) => setTabValue(val)} variant="fullWidth">
+//               <Tab icon={<IonIcon icon={waterOutline} />} label="Yield" />
+//               <Tab icon={<IonIcon icon={statsChartOutline} />} label="Quality" />
+//               <Tab icon={<IonIcon icon={calendarOutline} />} label="Lactation" />
+//             </Tabs>
+//           </Paper>
+
+//           {tabValue === 0 && (
+//             <DairyTabContent 
+//               title="Yield Trends" series={yieldSeries} colors={['#3880ff']} yLabel="Liters"
+//               rows={filteredYields} columns={getYieldColumns()}
+//               actionLabel="Add Yield" onAction={() => history.push("/dairy/milk-yield/add")}
+//             />
+//           )}
+//           {tabValue === 1 && (
+//             <DairyTabContent 
+//               title="Quality Trends" series={qualitySeries} colors={['#2dd36f', '#3880ff']} yLabel="%"
+//               rows={filteredQuality} columns={getQualityColumns()} 
+//               actionLabel="Add Quality" onAction={() => history.push("/dairy/milk-quality/add")}
+//             />
+//           )}
+//           {tabValue === 2 && (
+//             <DairyTabContent 
+//               title="Herd Distribution" series={[{ name: 'Head Count', data: lactationDistribution }]} 
+//               type="bar" colors={['#2dd36f', '#3880ff', '#ffc409', '#eb445a']} yLabel="Heads"
+//               rows={filteredLactations} columns={getLactationColumns(handleDryOff)} 
+//               actionLabel="Add Lactation" onAction={() => history.push("/dairy/milk-lactation/add")}
+//             />
+//           )}
+//         </Container>
+//       </IonContent>
+//     </IonPage>
+//   );
+// };
+
+// export default DairyOperationsView;
+
+// import React from 'react';
+// import { IonPage, IonContent, IonHeader, IonToolbar, IonTitle, IonButtons, IonMenuButton, IonSpinner, IonIcon } from '@ionic/react';
+// import { Box, Tabs, Tab, Paper, Container } from '@mui/material';
+// import { waterOutline, statsChartOutline, calendarOutline } from 'ionicons/icons';
+// import { useDairyData } from './hooks/useDairyData';
+// import DairyTabContent from './components/DairyTabContent';
+// import { getYieldColumns, getQualityColumns, getLactationColumns } from './components/dashboardConfig';
+
+// const DairyOperationsView: React.FC = () => {
+
+//   const { 
+//     yieldSeries, qualitySeries, lactationDistribution, filteredQuality, 
+//     milkYields, filteredYields, filteredLactations, 
+//     loading, handleDryOff, history, tabValue, setTabValue,
+//     selectedBreed, setSelectedBreed // --- NOW EXTRACTION SOURCE IS UNIFIED ---
+//   } = useDairyData();
+
+//   if (loading && milkYields.results.length === 0) {
+//     return <Box display="flex" justifyContent="center" py={10}><IonSpinner name="crescent" /></Box>;
+//   }
+
+//   return (
+//     <IonPage>
+//       <IonHeader className="ion-no-border">
+//         <IonToolbar>
+//           <IonButtons slot="start"><IonMenuButton /></IonButtons>
+//           <IonTitle>Dairy Operations</IonTitle>
+//         </IonToolbar>
+//       </IonHeader>
+//       <IonContent fullscreen>
+//         <Container maxWidth="xl" sx={{ py: 3 }}>
+
+//           <Paper elevation={0} sx={{ borderRadius: '4px', mb: 1, overflow: 'hidden' }}>
+//             <Tabs value={tabValue} onChange={(_, val) => setTabValue(val)} variant="fullWidth">
+//               <Tab icon={<IonIcon icon={waterOutline} />} label="Yield" />
+//               <Tab icon={<IonIcon icon={statsChartOutline} />} label="Quality" />
+//               <Tab icon={<IonIcon icon={calendarOutline} />} label="Lactation" />
+//             </Tabs>
+//           </Paper>
+
+//           {tabValue === 0 && (
+//             <DairyTabContent 
+//               title="Yield Trends" series={yieldSeries} colors={['#3880ff']} yLabel="Liters"
+//               rows={filteredYields} columns={getYieldColumns()}
+//               actionLabel="Add Yield" onAction={() => history.push("/dairy/milk-yield/add")}
+//               selectedBreed={selectedBreed} setSelectedBreed={setSelectedBreed}
+//             />
+//           )}
+//           {tabValue === 1 && (
+//             <DairyTabContent 
+//               title="Quality Trends" series={qualitySeries} colors={['#2dd36f', '#3880ff']} yLabel="%"
+//               rows={filteredQuality} columns={getQualityColumns()} 
+//               actionLabel="Add Quality" onAction={() => history.push("/dairy/milk-quality/add")}
+//               selectedBreed={selectedBreed} setSelectedBreed={setSelectedBreed}
+//             />
+//           )}
+//           {tabValue === 2 && (
+//             <DairyTabContent 
+//               title="Herd Distribution" series={[{ name: 'Head Count', data: lactationDistribution }]} 
+//               type="bar" colors={['#2dd36f', '#3880ff', '#ffc409', '#eb445a']} yLabel="Heads"
+//               rows={filteredLactations} columns={getLactationColumns(handleDryOff)} 
+//               actionLabel="Add Lactation" onAction={() => history.push("/dairy/milk-lactation/add")}
+//               selectedBreed={selectedBreed} setSelectedBreed={setSelectedBreed}
+//             />
+//           )}
+//         </Container>
+//       </IonContent>
+//     </IonPage>
+//   );
+// };
+
+// export default DairyOperationsView;
 import React from 'react';
 import { IonPage, IonContent, IonHeader, IonToolbar, IonTitle, IonButtons, IonMenuButton, IonSpinner, IonIcon } from '@ionic/react';
 import { Box, Tabs, Tab, Paper, Container } from '@mui/material';
@@ -9,15 +151,17 @@ import { getYieldColumns, getQualityColumns, getLactationColumns } from './compo
 const DairyOperationsView: React.FC = () => {
 
   const { 
-    yieldSeries, qualitySeries, lactationDistribution,filteredQuality, 
-    milkYields,filteredYields,filteredLactations, 
-    loading, handleDryOff,history,tabValue,
-    setTabValue
+    yieldSeries, qualitySeries, lactationDistribution, filteredQuality, 
+    milkYields, filteredYields, filteredLactations, 
+    loading, handleDryOff, history, tabValue, setTabValue,
+    selectedBreed, setSelectedBreed,
+    pagination // --- HOOK ELEMENT BROUGHT OUT FOR DIRECT CONTEXT OVERLAYS ---
   } = useDairyData();
 
-  if (loading && milkYields.length === 0) {
+  if (loading && milkYields.results.length === 0) {
     return <Box display="flex" justifyContent="center" py={10}><IonSpinner name="crescent" /></Box>;
   }
+
   return (
     <IonPage>
       <IonHeader className="ion-no-border">
@@ -29,8 +173,7 @@ const DairyOperationsView: React.FC = () => {
       <IonContent fullscreen>
         <Container maxWidth="xl" sx={{ py: 3 }}>
 
-
-          <Paper elevation={0}  sx={{borderRadius: '4px', mb: 1, overflow: 'hidden',  }}>
+          <Paper elevation={0} sx={{ borderRadius: '4px', mb: 1, overflow: 'hidden' }}>
             <Tabs value={tabValue} onChange={(_, val) => setTabValue(val)} variant="fullWidth">
               <Tab icon={<IonIcon icon={waterOutline} />} label="Yield" />
               <Tab icon={<IonIcon icon={statsChartOutline} />} label="Quality" />
@@ -43,6 +186,12 @@ const DairyOperationsView: React.FC = () => {
               title="Yield Trends" series={yieldSeries} colors={['#3880ff']} yLabel="Liters"
               rows={filteredYields} columns={getYieldColumns()}
               actionLabel="Add Yield" onAction={() => history.push("/dairy/milk-yield/add")}
+              selectedBreed={selectedBreed} setSelectedBreed={setSelectedBreed}
+              
+              // Bind individual state management elements for Yield
+              paginationModel={pagination.yields.model}
+              onPaginationModelChange={pagination.yields.onChange}
+              rowCount={pagination.yields.rowCount}
             />
           )}
           {tabValue === 1 && (
@@ -50,6 +199,12 @@ const DairyOperationsView: React.FC = () => {
               title="Quality Trends" series={qualitySeries} colors={['#2dd36f', '#3880ff']} yLabel="%"
               rows={filteredQuality} columns={getQualityColumns()} 
               actionLabel="Add Quality" onAction={() => history.push("/dairy/milk-quality/add")}
+              selectedBreed={selectedBreed} setSelectedBreed={setSelectedBreed}
+
+              // Bind individual state management elements for Quality
+              paginationModel={pagination.quality.model}
+              onPaginationModelChange={pagination.quality.onChange}
+              rowCount={pagination.quality.rowCount}
             />
           )}
           {tabValue === 2 && (
@@ -58,6 +213,12 @@ const DairyOperationsView: React.FC = () => {
               type="bar" colors={['#2dd36f', '#3880ff', '#ffc409', '#eb445a']} yLabel="Heads"
               rows={filteredLactations} columns={getLactationColumns(handleDryOff)} 
               actionLabel="Add Lactation" onAction={() => history.push("/dairy/milk-lactation/add")}
+              selectedBreed={selectedBreed} setSelectedBreed={setSelectedBreed}
+
+              // Bind individual state management elements for Lactation
+              paginationModel={pagination.lactations.model}
+              onPaginationModelChange={pagination.lactations.onChange}
+              rowCount={pagination.lactations.rowCount}
             />
           )}
         </Container>
