@@ -9,13 +9,14 @@ import {
 } from '@ionic/react';
 import HerdList from './components/HerdListGrid';
 import { UserRole } from '../../types/types';
+import { useHerdList } from './hooks/useHerdList';
 // import './MyHerds.css';
 
 interface MyHerdsProps {
   userRole?: UserRole | null;
 }
 const HerdListView: React.FC <MyHerdsProps> = () => {
-
+const herdListData = useHerdList();
   return (
     <IonPage>
       <IonHeader className="ion-no-border">
@@ -29,7 +30,7 @@ const HerdListView: React.FC <MyHerdsProps> = () => {
       </IonHeader>
 
       <IonContent fullscreen className="ion-padding">
-        <HerdList />
+        <HerdList {...herdListData} />
       </IonContent>
     </IonPage>
   );

@@ -1,52 +1,37 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
-import { Animal, AnimalPayload, Herd, HerdDetail, HerdPayload } from '../../../types/types';
+import { Animal, AnimalPayload, Herd, HerdDetail, HerdPayload, PaginatedResponse } from '../../../types/types';
 import { livestockService } from '../../../services/livestockService';
 import { operationsService } from '../../../services/operationsService';
-import { RootState } from "../store";
 
 
 interface LivestockState {
-  animals: Animal[];
-  herds: Herd[];
+  animals: PaginatedResponse<Animal>;
+  herds: PaginatedResponse<Herd>;
   selectedAnimal:Animal| null,
-  loading: boolean;
   selectedHerd: HerdDetail | null;
-  selectedHerdError: string | null;
-  createHerderror: string | null;
-  createHerdStatus:"idle" | "loading" | "succeeded" | "failed";
-  getHerdsStatus:"idle" | "loading" | "succeeded" | "failed";
-  getHerdsError:string | null;
-  getAnimalsStatus:"idle" | "loading" | "succeeded" | "failed";
-  getAnimalsError:string | null;
-  deleteStatus: 'idle' | 'loading' | 'succeeded' | 'failed';
-  animalActionStatus: 'idle' | 'loading' | 'succeeded' | 'failed';
+  loading: boolean;
   error:string | null;
 
 }
+const initialPaginatedState = { results: [], next: null, previous: null, count: 0 };
+
  const initialState:LivestockState = {
-   animals: [],
-   herds: [], 
+   animals: initialPaginatedState,
+   herds: initialPaginatedState, 
    selectedAnimal: null,
    loading: false ,
    selectedHerd: null,
-   selectedHerdError: null,
-   createHerderror:null ,
-   createHerdStatus:'idle',
-   getHerdsStatus:"idle" ,
-   getHerdsError:null,
-   getAnimalsStatus:"idle",
-   getAnimalsError: null,
-   deleteStatus: 'idle' ,
-   animalActionStatus: 'idle' ,
    error:null
   }
 
 export const fetchAllHerds = createAsyncThunk(
   'livestock/fetchHerds',
-  async (_, { rejectWithValue }) => {
+  async ({ page, url }: { page?: number, url?: string } = {}, { rejectWithValue }) => {
     try {
-      const response = await livestockService.getHerds();
-      return response.data;
+    const response = url 
+      ? await livestockService.getByUrl<Herd>(url) 
+      : await livestockService.getHerds({ page });
+    return response.data;
     } catch (err: any) {
       return rejectWithValue(err.response?.data?.message || 'Failed to fetch Herds');
     }
@@ -55,29 +40,46 @@ export const fetchAllHerds = createAsyncThunk(
 
 export const fetchAllAnimals = createAsyncThunk(
   'livestock/fetchAnimals',
-  async (_, { rejectWithValue }) => {
+  async ({ page, url }: { page?: number, url?: string } = {}, { rejectWithValue }) => {
     try {
-      const response = await livestockService.getAnimals();
-      return response.data;
+      const response = url 
+      ? await livestockService.getByUrl<Animal>(url) 
+      : await livestockService.getAnimals({ page });
+    return response.data;
     } catch (err: any) {
       return rejectWithValue(err.response?.data?.message || 'Failed to fetch Animals');
     }
   }
 );
 
-// Unified Thunk to get all Animal Data + Health History
 export const fetchFullAnimalProfile = createAsyncThunk(
   'livestock/fetchFullProfile',
-  async (animalId: number) => {
-    const [profile, health] = await Promise.all([
-      livestockService.getAnimalDetail(animalId),
-      operationsService.getAnimalHealthHistory(animalId)
-    ]);
-    
-    return {
-      ...profile.data,
-      health_records: health.data // Merge health history into the profile object
-    };
+  async ({ page, url, animalId }: { page?: number; url?: string; animalId?: number } = {}, { rejectWithValue }) => {
+    try {
+      const [profileRes, healthRes] = await Promise.all([
+        livestockService.getAnimals({ animal_id: animalId, page }),
+        operationsService.getHealthRecords({ animal_id: animalId, page })
+      ]);
+
+      // 1. Extract the specific animal from the paginated results
+      const animal = profileRes.data.results[0];
+
+      if (!animal) {
+        return rejectWithValue("Animal not found");
+      }
+
+      // 2. Return a unified object where health_records is a property of the animal
+      return {
+        ...animal,
+        health_history: healthRes.data.results, // Use the array directly for easier mapping
+        health_pagination: {
+          count: healthRes.data.count,
+          next: healthRes.data.next
+        }
+      };
+    } catch (err: any) {
+      return rejectWithValue(err.response?.data || "Failed to fetch profile");
+    }
   }
 );
 
@@ -94,12 +96,12 @@ export const createHerd = createAsyncThunk<
     return rejectWithValue(error.message || "Failed to create Herd.");
   }
 });
-export const fetchHerdById = createAsyncThunk<HerdDetail, number, { rejectValue: string }>(
+export const fetchHerdById = createAsyncThunk(
   'livestock/fetchHerdById',
-  async (id, { rejectWithValue }) => {
+  async ( herdId:number ,{ rejectWithValue }) => {
     try {
-      const response = await livestockService.getHerdDetail(id);
-      return response.data; // This must return the full HerdDetail object
+      const response = await livestockService.getHerdDetail( herdId);
+    return response.data;
     } catch (error: any) {
       return rejectWithValue(error.response?.data || 'Failed to fetch herd details');
     }
@@ -167,152 +169,62 @@ export const deleteAnimal = createAsyncThunk<number, number, { rejectValue: stri
 const livestockSlice = createSlice({
   name: 'livestock',
   initialState,
-  reducers: { resetHerds: (state) => {
-      state.herds = [];
-      // state.herdListPaginationMeta = null;
-      state.createHerdStatus = "idle";
-      state.createHerderror = null;
-    },
-    clearSelectedHerd: (state) => {
-      state.selectedHerd = null;
-    },
-      resetCreateHerdStatus: (state) => {
-      state.createHerdStatus = "idle";
-      state.createHerderror = null;
-    },
-      resetGetHerdsStatus: (state) => {
-      state.getHerdsStatus = "idle";
-      state.getHerdsError = null;
-    },
-      resetGetAnimalsStatus: (state) => {
-      state.getAnimalsStatus = "idle";
-      state.getAnimalsError = null;
-    },
-  },
+  reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(fetchAllHerds.fulfilled, (state, action) => {
-      state.herds = action.payload;
-      state.loading=false
-    })
-    .addCase(fetchAllHerds.pending, (state) => {
-      state.getHerdsStatus = "loading";
-      state.getHerdsError = null;
-      state.loading=true
-
-    })
-    .addCase(fetchAllHerds.rejected, (state,action) => {
-      state.getHerdsStatus = "failed";
-      state.getHerdsError = action.payload as string;
-      state.loading=true
-
-    })
-// fetchHerdById
-    .addCase(fetchHerdById.pending, (state) => {
-        state.loading = true;
-        state.selectedHerdError = null;
-    })
-    .addCase(fetchHerdById.fulfilled, (state, action) => {
-        state.loading = false;
-        // action.payload is now correctly typed as HerdDetail
+  builder
+      .addCase(fetchAllHerds.fulfilled, (state, action) => {
+        state.herds = action.payload;
+      })
+      .addCase(fetchHerdById.fulfilled, (state, action) => {
+        // Since getHerdDetail returns PaginatedResponse<HerdDetail>, 
+        // and selectedHerd is HerdDetail | null, take the first result
         state.selectedHerd = action.payload; 
-    })
-    .addCase(fetchHerdById.rejected, (state, action) => {
-        state.loading = false;
-        state.selectedHerdError = action.payload as string;
-    })
-   .addCase(createHerd.pending, (state) => {
-        state.createHerdStatus = "loading";
-        state.loading=true;
-        state.createHerderror = null;
       })
-    .addCase(
-        createHerd.fulfilled,
-        (state,action:PayloadAction<Herd>) => {
-        const index = state.herds.findIndex(a => a.id === action.payload.id);
-        if (index !== -1) {
-          state.herds[index] = action.payload;
-        }
-          state.createHerdStatus = "succeeded";
-          state.loading=false;
-          state.createHerderror = null;
-        }
-      )
-    .addCase(createHerd.rejected, (state,action) => {
-        state.createHerdStatus = "failed";
-        state.loading=true;
-        state.createHerderror = action.payload as string;
+      .addCase(createHerd.fulfilled, (state, action) => {
+        state.herds.results.unshift(action.payload);
+        state.herds.count += 1;
       })
-    .addCase(fetchAllAnimals.pending, (state) => {
-        state.getAnimalsStatus = "loading";
-        state.getAnimalsError = null;
+      .addCase(fetchAllAnimals.fulfilled, (state, action) => {
+        state.animals = action.payload;
       })
-    .addCase(
-        fetchAllAnimals.fulfilled,(state,action) => {
-          state.getAnimalsStatus = "succeeded";
-          state.animals=action.payload
-          state.getAnimalsError = null;
-        }
-      )
-    .addCase(fetchAllAnimals.rejected, (state,action) => {
-        state.getAnimalsStatus = "failed";
-        state.getAnimalsError = action.payload as string;
+      .addCase(deleteHerd.fulfilled, (state, action) => {
+        // FIXED: Filter the results array, not the state object
+        state.herds.results = state.herds.results.filter(h => h.id !== action.payload);
+        state.herds.count -= 1;
       })
-    // Delete Herd logic
-  .addCase(deleteHerd.fulfilled, (state, action) => {
-    state.herds = state.herds.filter(h => h.id !== action.payload);
-  })
-  // Update Herd logic
-    .addCase(updateHerd.fulfilled, (state, action) => {
-      const index = state.herds.findIndex(h => h.id === action.payload.id);
-      if (index !== -1) state.herds[index] = action.payload;
-    })
-    // Create Animal logic
-    .addCase(createAnimal.fulfilled, (state, action) => {
-      state.animals.unshift(action.payload); // Add new animal to the top of the list
-      state.getAnimalsStatus = 'succeeded';
-    })
-    // Delete Animal logic (Add a deleteAnimal thunk similar to deleteHerd)
-    .addCase(deleteAnimal.fulfilled, (state, action: PayloadAction<number>) => {
-    state.animals = state.animals.filter(a => a.id !== action.payload);
-    state.getAnimalsStatus = 'succeeded';
-  })
-  .addCase(deleteAnimal.rejected, (state, action) => {
-    state.getAnimalsError = action.payload as string;
-  })
-
-  // 2. Update Animal Logic
-  .addCase(updateAnimal.fulfilled, (state, action: PayloadAction<Animal>) => {
-    const index = state.animals.findIndex(a => a.id === action.payload.id);
-    if (index !== -1) {
-      state.animals[index] = action.payload;
-    }
-    state.getAnimalsStatus = 'succeeded';
-  })
-  .addCase(updateAnimal.pending, (state) => {
-    state.getAnimalsStatus = 'loading';
-  })
-  .addCase(fetchFullAnimalProfile.pending, (state) => {
+      .addCase(updateHerd.fulfilled, (state, action) => {
+        const index = state.herds.results.findIndex(h => h.id === action.payload.id);
+        if (index !== -1) state.herds.results[index] = action.payload;
+      })
+      .addCase(createAnimal.fulfilled, (state, action) => {
+        state.animals.results.unshift(action.payload);
+        state.animals.count += 1;
+      })
+      .addCase(deleteAnimal.fulfilled, (state, action) => {
+        // FIXED: Filter the results array
+        state.animals.results = state.animals.results.filter(a => a.id !== action.payload);
+        state.animals.count -= 1;
+      })
+      .addCase(updateAnimal.fulfilled, (state, action) => {
+        const index = state.animals.results.findIndex(a => a.id === action.payload.id);
+        if (index !== -1) state.animals.results[index] = action.payload;
+      })
+      .addCase(fetchFullAnimalProfile.fulfilled, (state, action) => {
+        state.selectedAnimal = action.payload; 
+      })
+      // Matchers for Loading/Error states
+      .addMatcher((action) => action.type.endsWith('/pending'), (state) => {
         state.loading = true;
+        state.error = null;
       })
-  .addCase(fetchFullAnimalProfile.fulfilled, (state, action) => {
-    state.loading = false;
-    state.selectedAnimal = action.payload;
-  })
-  .addCase(fetchFullAnimalProfile.rejected, (state, action) => {
-    state.loading = false;
-    state.error =action.payload as string;
-  });
+      .addMatcher((action):action is PayloadAction<string>  => action.type.endsWith('/rejected'), (state, action) => {
+        state.loading = false;
+        state.error = (action.payload as string) || 'An operation failed';
+      })
+      .addMatcher((action) => action.type.endsWith('/fulfilled'), (state) => {
+        state.loading = false;
+      });
   }
 });
-export const {
-  resetCreateHerdStatus,
-  resetGetHerdsStatus,
-  resetGetAnimalsStatus,
-  clearSelectedHerd
-  
-} = livestockSlice.actions;
-export const selectCreateHerdError = (state: RootState) =>
-  state.livestock.createHerderror;
-export const selectGetHerdsError = (state: RootState) =>
-  state.livestock.getHerdsError;
+
 export default livestockSlice.reducer;

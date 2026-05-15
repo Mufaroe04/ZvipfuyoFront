@@ -7,6 +7,7 @@ import { addOutline, closeCircleOutline } from 'ionicons/icons';
 import { fetchAllAnimals } from '../../redux/store/slices/livestockSlice';
 import { LoadingSpinner } from '../../components/feedback/LoadingSpinner';
 import { AnimalListGrid } from './components/AnimalListGrid';
+import { useAnimalList } from './hooks/useAnimalList';
 
 export const AnimalListView: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -16,6 +17,7 @@ export const AnimalListView: React.FC = () => {
   const { animals, loading } = useAppSelector((state) => state.livestock);
   const { user } = useAppSelector((state) => state.auth);
   const isPrivileged = user?.profile?.role === 'owner' || user?.profile?.role === 'manager';
+  const animalHookData = useAnimalList([], location.state?.filterIds, 'server');
 
   useEffect(() => {
     dispatch(fetchAllAnimals());
@@ -89,7 +91,11 @@ export const AnimalListView: React.FC = () => {
           </Stack>
         </Box>
 
-        <AnimalListGrid animals={animals || []} filterIds={location.state?.filterIds} />
+        {/* <AnimalListGrid animals={animals || []} filterIds={location.state?.filterIds} /> */}
+        <AnimalListGrid 
+        {...animalHookData} 
+        paginationMode="server" 
+      />
       </IonContent>
     </IonPage>
   );
