@@ -43,15 +43,16 @@
 
 
 // export default AddMilkYieldView;
+
 import React from 'react';
 import { IonPage, IonContent, IonHeader, IonToolbar, IonTitle, IonButtons, IonIcon } from '@ionic/react';
-import { Container, Box, Typography, IconButton } from '@mui/material';
+import { Container, IconButton } from '@mui/material';
 import { arrowBackOutline } from 'ionicons/icons';
 import { useMilkYield } from './hooks/useMilkYield';
 import { MilkYieldForm } from './components/MilkYieldForm';
 
 const AddMilkYieldView: React.FC = () => {
-  const { formData, setFormData, animals, loading, submitForm,history } = useMilkYield();
+  const { formData, setFormData, loading, submitForm,history } = useMilkYield();
 
   return (
     <IonPage>
@@ -60,13 +61,12 @@ const AddMilkYieldView: React.FC = () => {
           <IonButtons slot="start">
             <IconButton onClick={() => history.goBack()}><IonIcon icon={arrowBackOutline} /></IconButton>
           </IonButtons>
-          <IonTitle>Milk Yield</IonTitle>
-        </IonToolbar>
+          <IonTitle style={{ fontWeight: 700 }}>Milk Yield</IonTitle>
+        </IonToolbar> 
       </IonHeader>
       <IonContent fullscreen className="ion-padding">
         <Container maxWidth="sm">
-          <Box sx={{ mb: 4, mt: 4 }}><Typography variant="h5" fontWeight="bold">New Yield Entry</Typography></Box>
-          <MilkYieldForm data={formData} animals={animals} loading={loading} onChange={setFormData} onSubmit={(e) => { e.preventDefault(); submitForm(); }} />
+          <MilkYieldForm data={formData}  loading={loading} onChange={setFormData} onSubmit={(e) => { e.preventDefault(); submitForm(); }} />
         </Container>
       </IonContent>
     </IonPage>

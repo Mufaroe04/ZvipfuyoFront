@@ -26,11 +26,11 @@ const initialPaginatedState = { results: [], next: null, previous: null, count: 
 
 export const fetchAllHerds = createAsyncThunk(
   'livestock/fetchHerds',
-  async ({ page, url }: { page?: number, url?: string } = {}, { rejectWithValue }) => {
+  async ({ page, url ,pageSize }: { page?: number, url?: string ,pageSize?:number } = {}, { rejectWithValue }) => {
     try {
     const response = url 
       ? await livestockService.getByUrl<Herd>(url) 
-      : await livestockService.getHerds({ page });
+      : await livestockService.getHerds({ page ,pageSize });
     return response.data;
     } catch (err: any) {
       return rejectWithValue(err.response?.data?.message || 'Failed to fetch Herds');
@@ -54,15 +54,15 @@ export const fetchAllAnimals = createAsyncThunk(
 
 export const fetchFullAnimalProfile = createAsyncThunk(
   'livestock/fetchFullProfile',
-  async ({ page, url, animalId }: { page?: number; url?: string; animalId?: number } = {}, { rejectWithValue }) => {
+  async ( id:number, { rejectWithValue }) => {
     try {
       const [profileRes, healthRes] = await Promise.all([
-        livestockService.getAnimals({ animal_id: animalId, page }),
-        operationsService.getHealthRecords({ animal_id: animalId, page })
+        livestockService.getAnimalDetail(id),
+        operationsService.getAnimalHealthHistory(id)
       ]);
 
       // 1. Extract the specific animal from the paginated results
-      const animal = profileRes.data.results[0];
+      const animal = profileRes.data;
 
       if (!animal) {
         return rejectWithValue("Animal not found");
@@ -71,11 +71,8 @@ export const fetchFullAnimalProfile = createAsyncThunk(
       // 2. Return a unified object where health_records is a property of the animal
       return {
         ...animal,
-        health_history: healthRes.data.results, // Use the array directly for easier mapping
-        health_pagination: {
-          count: healthRes.data.count,
-          next: healthRes.data.next
-        }
+        health_history: healthRes.data, // Use the array directly for easier mapping
+  
       };
     } catch (err: any) {
       return rejectWithValue(err.response?.data || "Failed to fetch profile");

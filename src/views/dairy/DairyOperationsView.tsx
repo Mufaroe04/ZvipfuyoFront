@@ -140,6 +140,7 @@
 // };
 
 // export default DairyOperationsView;
+
 import React from 'react';
 import { IonPage, IonContent, IonHeader, IonToolbar, IonTitle, IonButtons, IonMenuButton, IonSpinner, IonIcon } from '@ionic/react';
 import { Box, Tabs, Tab, Paper, Container } from '@mui/material';
@@ -167,7 +168,7 @@ const DairyOperationsView: React.FC = () => {
       <IonHeader className="ion-no-border">
         <IonToolbar>
           <IonButtons slot="start"><IonMenuButton /></IonButtons>
-          <IonTitle>Dairy Operations</IonTitle>
+          <IonTitle style={{ fontWeight: 700 }}>Dairy Operations</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>

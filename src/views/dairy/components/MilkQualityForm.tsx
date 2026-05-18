@@ -1,9 +1,9 @@
 import React from 'react';
 import { Paper, TextField, Stack, Autocomplete, Button, Typography, Box } from '@mui/material';
+import { AsyncAnimalSelect } from '../../../components/search/AsyncAnimalSelect';
 
 interface Props {
   data: any;
-  animals: any[];
   loading: boolean;
   onChange: (newData: any) => void;
   onSubmit: (e: React.FormEvent) => void;
@@ -11,22 +11,27 @@ interface Props {
  
 
 
-export const MilkQualityForm: React.FC<Props> = ({ data, animals, loading, onChange, onSubmit }) => (
+export const MilkQualityForm: React.FC<Props> = ({ data, loading, onChange, onSubmit }) => (
   <Paper elevation={0} sx={{ p: 3, borderRadius: '16px', border: '1px solid #ececec' }}>
     <form onSubmit={onSubmit}>
       <Stack spacing={3}>
         <Box>
-          <Typography variant="h5" fontWeight="black">Quality Analysis</Typography>
+          <Typography variant="body1" fontWeight="black">Quality Analysis</Typography>
           <Typography variant="body2" color="text.secondary">Record laboratory results and nutrient levels.</Typography>
         </Box>
 
-        <Autocomplete
+        {/* <Autocomplete
           options={animals}
           getOptionLabel={(opt) => opt.tag_number || ""}
           onChange={(_, val) => onChange({ ...data, animal: val ? val.id.toString() : '' })}
           renderInput={(params) => <TextField {...params} label="Animal (Optional for Bulk)" />}
-        />
-
+        /> */}
+                <AsyncAnimalSelect
+                  value={data.animal}
+                  onChange={(id) => onChange({ ...data, animal: id })}
+                  label="Search Animal Tag"
+                  required
+                />
         <TextField fullWidth type="date" label="Test Date" InputLabelProps={{ shrink: true }} value={data.date} onChange={(e) => onChange({...data, date: e.target.value})} required />
 
         <Stack direction="row" spacing={2}>

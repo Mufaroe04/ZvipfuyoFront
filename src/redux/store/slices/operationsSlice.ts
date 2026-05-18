@@ -944,7 +944,7 @@ interface OpsState {
   error: string | null;
 }
 
-const initialPaginatedState = { results: [], next: null, previous: null, count: 0 };
+const initialPaginatedState = { results: [], next: null, previous: null, count: 0,total_spend:0 };
 
 const initialState: OpsState = {
   tasks: initialPaginatedState,
@@ -1090,6 +1090,19 @@ export const addWeight = createAsyncThunk('ops/addWeight', async (data: { animal
   return response.data;
 });
 
+
+
+export const deleteHealthRecord = createAsyncThunk<number, number, { rejectValue: string }>(
+  'ops/deleteHealthRecord',
+  async (id, { rejectWithValue }) => {
+    try {
+      await operationsService.deleteHealthRecord(id);
+      return id;
+    } catch (err: any) {
+      return rejectWithValue(err.response?.data?.message || 'Delete failed');
+    }
+  } 
+);
 export const updateWeight = createAsyncThunk<WeightEntry, { id: number, data: Partial<WeightEntry> }, { rejectValue: string }>(
   'ops/editWeight',
   async ({ id, data }, { rejectWithValue }) => {
@@ -1198,7 +1211,22 @@ const operationsSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(fetchActiveTasks.fulfilled, (state, action) => { state.tasks = action.payload; })
+      // .addCase(fetchActiveTasks.fulfilled, (state, action) => { state.tasks = action.payload; })
+      // Inside your operationsSlice.ts extraReducers:
+      .addCase(fetchActiveTasks.fulfilled, (state, action) => {
+        // If no meta arguments were passed, or page/url specifies the initial load/reset
+        const isFirstPage = !action.meta.arg || action.meta.arg.page === 1 || !action.meta.arg.url;
+        
+        if (isFirstPage) {
+          state.tasks = action.payload;
+        } else {
+          state.tasks = {
+            ...action.payload,
+            // Append new results to existing cache array
+            results: [...state.tasks.results, ...action.payload.results]
+          };
+        }
+      })
       .addCase(toggleTaskOptimistic.pending, (state, action) => {
         const task = state.tasks.results.find(t => t.id === action.meta.arg.id);
         if (task) task.is_completed = !action.meta.arg.currentStatus;
@@ -1218,7 +1246,11 @@ const operationsSlice = createSlice({
       .addCase(updateHealthRecord.fulfilled, (state, action) => {
         const index = state.healthRecords.results.findIndex(a => a.id === action.payload.id);
         if (index !== -1) state.healthRecords.results[index] = action.payload;
-      })
+      }).addCase(deleteHealthRecord.fulfilled, (state, action) => {
+              // FIXED: Filter the results array, not the state object
+              state.healthRecords.results = state.healthRecords.results.filter(h => h.id !== action.payload);
+              state.healthRecords.count -= 1;
+            })
       .addCase(fetchMilkYields.fulfilled, (state, action) => { state.milkYields = action.payload; })
       .addCase(addMilkYields.fulfilled, (state, action) => { state.milkYields.results.unshift(action.payload); })
       .addCase(fetchMilkQuality.fulfilled, (state, action) => { state.milkQuality = action.payload; })

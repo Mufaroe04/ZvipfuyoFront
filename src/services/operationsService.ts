@@ -6,7 +6,7 @@
 //   getHealthRecords: () => api.get<HealthRecord[]>('health/'),
 //   addHealthRecord: (data: Partial<HealthRecord>) => api.post<HealthRecord>('health/', data),
 //   updateHealthRecord: (id: number, data: Partial<HealthRecord>) => api.patch<HealthRecord>(`health/${id}/`, data),
-//   deleteHealthRecord: (id: number) => api.delete(`health/${id}/`),
+  // deleteHealthRecord: (id: number) => api.delete(`health/${id}/`),
   
 //   // NEW: Fetch health records for a specific animal
 //   getAnimalHealthHistory: (animalId: number) => 
@@ -145,8 +145,8 @@ export const operationsService = {
   addHealthRecord: (data: Partial<HealthRecord>) => api.post<HealthRecord>('health/', data),
   updateHealthRecord: (id: number, data: Partial<HealthRecord>) => api.patch<HealthRecord>(`health/${id}/`, data),
   deleteHealthRecord: (id: number) => api.delete(`health/${id}/`),
-  // getAnimalHealthHistory: (animalId: number) => 
-  //   api.get<HealthRecord[]>(`health/`, { params: { animal_id: animalId } }),
+  getAnimalHealthHistory: (animalId: number) => 
+    api.get<HealthRecord[]>(`health/`, { params: { animal_id: animalId } }),
 
   // --- Tasks ---
   getTasks: (params: { completed?: boolean; page?: number } = {}) => 

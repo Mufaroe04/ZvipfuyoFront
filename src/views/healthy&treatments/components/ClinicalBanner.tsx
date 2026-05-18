@@ -4,9 +4,12 @@ import { Box, Button, Grid, Paper, Stack, Typography } from '@mui/material';
 import { IonIcon } from '@ionic/react';
 import { addOutline, cashOutline } from 'ionicons/icons';
 
-const ClinicalBanner:React.FC=()=>{
+interface Props{
+  totalSpend:number
+}
+const ClinicalBanner:React.FC<Props>=({totalSpend})=>{
 
-    const { history,totalSpend}=useHealthyRecordsList()
+    const { history}=useHealthyRecordsList()
     return(
         <Box maxWidth="lg">
           <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ mb: 1, mt: 1 }}>

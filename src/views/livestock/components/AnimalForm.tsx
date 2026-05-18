@@ -1,31 +1,29 @@
 // src/views/livestock/components/RegistrationForm.tsx
 import React from 'react';
 import { 
-  Box, TextField, MenuItem, Button, Typography, Stack, Alert, Autocomplete, Divider, 
+  Box, TextField, MenuItem, Button, Typography, Stack, Alert, Divider, 
   CircularProgress
 } from '@mui/material';
 import { ANIMALSTATUS, BREED_CHOICES } from '../../../constants/livestock';
+import { AsyncAnimalSelect } from '../../../components/search/AsyncAnimalSelect';
 
 interface FormProps {
   formData: any;
   herds: any[];
-  potentialMothers: any[];
-  potentialFathers:any[];
   herdId?: string;
   isEditMode?: boolean; // New prop
   isSubmitting?:boolean;
   isFormValid?:boolean;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  onMotherChange: (value: any) => void;
-  onFatherChange:(value: any) => void;
+  onTagChange: (field: 'mother_tag' | 'father_tag', value: string) => void;
   onSubmit: (e: React.FormEvent) => void;
   goBack:()=>void;
 }
 
 export const AnimalForm: React.FC<FormProps> = ({
-  formData, herds, potentialMothers, potentialFathers,
-   herdId, isEditMode, isSubmitting,onChange, onMotherChange,
-    onFatherChange, onSubmit,goBack,isFormValid
+  formData, herds,
+   herdId, isEditMode, isSubmitting,onChange,
+   onSubmit,goBack,isFormValid,onTagChange
 }) => (
   <form onSubmit={onSubmit}>
     <Stack spacing={3}>
@@ -95,26 +93,21 @@ export const AnimalForm: React.FC<FormProps> = ({
         <Typography variant="body1" fontWeight="bold">Lineage</Typography>
         <Typography variant="body2" color="text.secondary">Optional: Link parents for pedigree tracking.</Typography>
       </Box>
+      <AsyncAnimalSelect
+            value={formData.mother_tag}
+            onChange={(val) => onTagChange('mother_tag', val)}
+            gender="female"
+            label="Mother (Dam) Tag"
+            valueType="tag_number"
+          />
 
-        <Autocomplete
-      options={potentialMothers || []}
-      // This ensures the correct animal is visually selected in Edit mode
-      value={potentialMothers?.find(m => m.tag_number === formData.mother_tag) || null}
-      getOptionLabel={(option) => `${option.tag_number} (${option.breed})`}
-      isOptionEqualToValue={(option, value) => option.tag_number === value.tag_number}
-      onChange={(_, val) => onMotherChange(val)}
-      renderInput={(params) => <TextField {...params} label="Mother (Dam) Tag" />}
-    />
-
-    <Autocomplete
-    options={potentialFathers || []}
-    // This ensures the correct animal is visually selected in Edit mode
-    value={potentialFathers?.find(m => m.tag_number === formData.father_tag) || null}
-    getOptionLabel={(option) => `${option.tag_number} (${option.breed})`}
-    isOptionEqualToValue={(option, value) => option.tag_number === value.tag_number}
-    onChange={(_, val) => onFatherChange(val)}
-    renderInput={(params) => <TextField {...params} label="Father (Sire) Tag" />}
-  />
+      <AsyncAnimalSelect
+        value={formData.father_tag}
+        onChange={(val) => onTagChange('father_tag', val)}
+        gender="male"
+        label="Father (Sire) Tag"
+        valueType="tag_number"
+      />
 
 {/* <Typography variant="caption" color="error">
   Debug: Valid: {isFormValid ? "YES" : "NO"} | Submitting: {isSubmitting ? "YES" : "NO"}

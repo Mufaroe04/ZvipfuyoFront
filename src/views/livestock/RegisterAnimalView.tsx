@@ -11,11 +11,11 @@ import { LoadingSpinner } from '../../components/feedback/LoadingSpinner';
 
 const RegisterAnimalView: React.FC = () => {
   const {
-    formData, herds, potentialMothers, potentialFathers,loading, toastMsg, handleFatherChange,isFormValid,
-    setToastMsg, herdId, handleChange, handleMotherChange, handleSubmit,isEditMode,goBack,isSubmitting
+    formData, herds,loading, toastMsg,isFormValid,
+    setToastMsg, herdId, handleChange, handleCustomTagChange, handleSubmit,isEditMode,goBack,isSubmitting
   } = useAnimalForm();
 
-  if (loading||!potentialMothers||!potentialFathers) {
+  if (loading||!herds) {
      return <LoadingSpinner />;
    } 
 
@@ -33,7 +33,7 @@ const RegisterAnimalView: React.FC = () => {
       <IonContent className="ion-padding">
         <Box sx={{ maxWidth: 500, mx: 'auto', mt: 2, mb: 4 }}>
           <Paper elevation={0} sx={{ p: 3, borderRadius: '16px', border: '1px solid #e0e0e0' }}>
-            <AnimalForm 
+            {/* <AnimalForm 
               formData={formData}
               herds={herds}
               potentialMothers={potentialMothers}
@@ -46,6 +46,18 @@ const RegisterAnimalView: React.FC = () => {
               isEditMode={isEditMode}
               isSubmitting={isSubmitting}
               isFormValid={isFormValid}
+              goBack={goBack}
+            /> */}
+            <AnimalForm
+              formData={formData}
+              herds={herds.results}
+              herdId={herdId}
+              isEditMode={isEditMode}
+              isSubmitting={isSubmitting}
+              isFormValid={isFormValid}
+              onChange={handleChange}
+              onTagChange={handleCustomTagChange} // Ensure this maps to handleCustomTagChange from useAnimalForm
+              onSubmit={handleSubmit}
               goBack={goBack}
             />
           </Paper>

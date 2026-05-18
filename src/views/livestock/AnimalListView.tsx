@@ -90,7 +90,7 @@ export const AnimalListView: React.FC = () => {
         <AnimalListGrid 
         {...animalHookData} 
         paginationMode="server" 
-      />
+         />
       </IonContent>
     </IonPage>
   );

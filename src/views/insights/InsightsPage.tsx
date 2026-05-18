@@ -3,18 +3,18 @@ import { IonContent, IonPage, IonGrid, IonRow, IonCol, IonHeader, IonToolbar, Io
 import { Box, Divider } from '@mui/material';
 import { Geolocation } from '@capacitor/geolocation';
 
-import { useAppDispatch, useAppSelector } from '../redux/hooks';
-import { fetchLiveInsights } from '../redux/store/slices/insightsSlice';
-import { LoadingSpinner } from '../components/feedback/LoadingSpinner';
+import { useAppDispatch, useAppSelector } from '../../redux/hooks';
+import { fetchLiveInsights } from '../../redux/store/slices/insightsSlice';
+import { LoadingSpinner } from '../../components/feedback/LoadingSpinner';
 
 // Refactored Domain Components (Direct state consumers)
-import { ActionPlanCard } from '../components/insights/ActionPlanCard';
-import { SummaryHeader } from '../components/insights/SummaryHeader';
-import { SnapshotTable } from '../components/insights/SnapshotTable';
-import { BeefTimeline } from '../components/insights/BeefTimeline';
-import { DairyTable } from '../components/insights/DairyTable';
-import { BioclimaticTable } from '../components/insights/BioclimaticTable';
-import { LogisticsInventory } from '../components/insights/LogisticsInventory';
+import { ActionPlanCard } from './ActionPlanCard';
+import { SummaryHeader } from './SummaryHeader';
+import { SnapshotTable } from './SnapshotTable';
+import { BeefTimeline } from './BeefTimeline';
+import { DairyTable } from './DairyTable';
+import { BioclimaticTable } from './BioclimaticTable';
+import { LogisticsInventory } from './LogisticsInventory';
 
 export const InsightsPage: React.FC = () => {
   const dispatch = useAppDispatch();

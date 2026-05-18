@@ -62,7 +62,7 @@ export const getReproductionColumns = (
       sortable: false,
       renderCell: (params) => (
         <Stack direction="row" spacing={1} alignItems="center" sx={{ height: '100%' }}>
-          <Button 
+          {/* <Button 
             variant="outlined" 
             size="small" 
             onClick={() => handlers.onView(params.id)}
@@ -82,7 +82,7 @@ export const getReproductionColumns = (
             }}
           >
             View
-          </Button>
+          </Button> */}
 
           {isPrivileged && (
             <>

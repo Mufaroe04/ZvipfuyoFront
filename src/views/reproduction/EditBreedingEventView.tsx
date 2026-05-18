@@ -14,7 +14,7 @@ const EditBreedingEventView: React.FC = () => {
           <IonButtons slot="start">
             <IconButton onClick={() => history.goBack()}><IonIcon icon={arrowBackOutline} /></IconButton>
           </IonButtons>
-          <IonTitle>Edit Event</IonTitle>
+          <IonTitle style={{ fontWeight: 700 }}>Edit Event</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent className="ion-padding">

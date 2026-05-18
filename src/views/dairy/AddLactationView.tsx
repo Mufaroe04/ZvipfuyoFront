@@ -44,15 +44,16 @@
 
 
 // export default AddLactationView;
+
 import React from 'react';
 import { IonPage, IonContent, IonHeader, IonToolbar, IonTitle, IonButtons, IonIcon } from '@ionic/react';
-import { Container, Box, Typography, IconButton } from '@mui/material';
+import { Container, IconButton } from '@mui/material';
 import { arrowBackOutline } from 'ionicons/icons';
 import { useLactation } from './hooks/useLactation';
 import { LactationForm } from './components/LactationForm';
 
 const AddLactationView: React.FC = () => {
-  const { formData, setFormData, animals, loading, submitForm,history } = useLactation();
+  const { formData, setFormData, loading, submitForm,history } = useLactation();
 
   return (
     <IonPage>
@@ -63,20 +64,14 @@ const AddLactationView: React.FC = () => {
               <IonIcon icon={arrowBackOutline} />
             </IconButton>
           </IonButtons>
-          <IonTitle>Milk Lactation Cycles</IonTitle>
+          <IonTitle style={{ fontWeight: 700 }}>Milk Lactation Cycles</IonTitle>
         </IonToolbar>
       </IonHeader>
 
       <IonContent fullscreen className="ion-padding">
         <Container maxWidth="sm">
-          <Box sx={{ mb: 4, mt: 4 }}>
-            <Typography variant="h5" fontWeight="bold">New Lactation Period</Typography>
-            <Typography color="text.secondary">Start a new production cycle (Calving)</Typography>
-          </Box>
-          
           <LactationForm 
             data={formData} 
-            animals={animals} 
             loading={loading} 
             onChange={setFormData}
             onSubmit={(e) => { e.preventDefault(); submitForm(); }}

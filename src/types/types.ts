@@ -517,4 +517,5 @@ export interface PaginatedResponse<T> {
   next: string | null;
   previous: string | null;
   count: number;
+  total_spend?:number
 }

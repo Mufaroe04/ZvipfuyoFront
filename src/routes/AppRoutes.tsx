@@ -10,7 +10,7 @@ import Login from '../pages/authentication/Login';
 import Profile from '../pages/Profile';
 import Notifications from '../pages/Notifications';
 import Chat from '../views/chat/Chat';
-import InsightsPage from '../pages/InsightsPage';
+import InsightsPage from '../views/insights/InsightsPage';
 import HerdCreatePage from '../views/herd/HerdCreatePage';
 import HerdDetailView from '../views/herd/HerdDetailView';
 import  AnimalListView  from '../views/livestock/AnimalListView';
@@ -23,18 +23,18 @@ import AddLactationView from '../views/dairy/AddLactationView';
 import BeefOperations from '../views/beef/BeefOperations';
 import AddBreedingEvent from '../views/reproduction/AddBreedingEventView';
 import WeightListingView from '../views/weight/WeightListingView';
-import CountingSession from '../pages/CountingSession';
-import Tasks from '../pages/task/Tasks';
-import AddTask from '../pages/task/AddTask';
-import Transfer from '../pages/transfer/Transfer';
-import AddTransfer from '../pages/transfer/AddTransfer';
-import Inventory from '../pages/inventory/Inventory';
-import AddInventoryItem from '../pages/inventory/AddInventoryItem';
-import StockHistory from '../pages/inventory/StockHistory';
-import FinancePage from '../pages/finance/FinancePage';
-import NewEntryPage from '../pages/finance/NewEntryPage';
-import Procurement from '../pages/inventory/Procurement';
-import Suppliers from '../pages/inventory/Suppliers';
+import CountingSessionView from '../views/counting/CountingSessionView';
+import TasksView from '../views/tasks/TasksView';
+import AddTaskView from '../views/tasks/AddTaskView';
+import Transfer from '../views/transfer/Transfer';
+import AddTransfer from '../views/transfer/AddTransfer';
+import Inventory from '../views/inventory/Inventory';
+import AddInventoryItem from '../views/inventory/AddInventoryItem';
+import StockHistory from '../views/inventory/StockHistory';
+import FinancePage from '../views/finance/FinancePage';
+import NewEntryPage from '../views/finance/NewEntryPage';
+import Procurement from '../views/inventory/Procurement';
+import Suppliers from '../views/inventory/Suppliers';
 import StaffPage from '../pages/StaffPage';
 import DashboardView from '../views/dashboards/DashboardView';
 import HerdEditPage from '../views/herd/HerdEditPage';
@@ -48,6 +48,7 @@ import ReproductionView from '../views/reproduction/ReproductionView';
 import EditBreedingEventView from '../views/reproduction/EditBreedingEventView';
 import AddWeightView from '../views/weight/AddWeightView';
 import EditWeightView from '../views/weight/EditWeightView';
+import EditTaskView from '../views/tasks/EditTaskView';
 
 interface AppRoutesProps {
   userRole: UserRole | null; // Correctly typed to allow null values during initialization
@@ -114,11 +115,12 @@ export const AppRoutes: React.FC<AppRoutesProps> = ({
       <RoleProtectedRoute exact path="/weights/add" component={AddWeightView} allowedRoles={['owner', 'manager', 'hand']} userRole={userRole} isAuthenticated={isAuthenticated} />
       <RoleProtectedRoute exact path="/weights/edit/:id" component={EditWeightView} allowedRoles={['owner', 'manager', 'hand']} userRole={userRole} isAuthenticated={isAuthenticated} />
 
-      <RoleProtectedRoute exact path="/counting" component={CountingSession} allowedRoles={['owner', 'manager', 'hand']} userRole={userRole} isAuthenticated={isAuthenticated} />
+      <RoleProtectedRoute exact path="/counting" component={CountingSessionView} allowedRoles={['owner', 'manager', 'hand']} userRole={userRole} isAuthenticated={isAuthenticated} />
 
       {/* Operations & Tasks */}
-      <RoleProtectedRoute exact path="/tasks" component={Tasks} allowedRoles={['owner', 'manager', 'hand', 'vet']} userRole={userRole} isAuthenticated={isAuthenticated} />
-      <RoleProtectedRoute exact path="/tasks/add" component={AddTask} allowedRoles={['owner', 'manager']} userRole={userRole} isAuthenticated={isAuthenticated} />
+      <RoleProtectedRoute exact path="/tasks" component={TasksView} allowedRoles={['owner', 'manager', 'hand', 'vet']} userRole={userRole} isAuthenticated={isAuthenticated} />
+      <RoleProtectedRoute exact path="/tasks/add" component={AddTaskView} allowedRoles={['owner', 'manager']} userRole={userRole} isAuthenticated={isAuthenticated} />
+      <RoleProtectedRoute exact path="/tasks/edit/:id" component={EditTaskView} allowedRoles={['owner', 'manager', 'hand']} userRole={userRole} isAuthenticated={isAuthenticated} />
       <RoleProtectedRoute exact path="/transfer" component={Transfer} allowedRoles={['owner', 'manager']} userRole={userRole} isAuthenticated={isAuthenticated} />
       <RoleProtectedRoute exact path="/operations/add-transfer" component={AddTransfer} allowedRoles={['owner', 'manager']} userRole={userRole} isAuthenticated={isAuthenticated} />
 
