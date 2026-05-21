@@ -27,6 +27,7 @@ export const MilkQualityForm: React.FC<Props> = ({ data, loading, onChange, onSu
           renderInput={(params) => <TextField {...params} label="Animal (Optional for Bulk)" />}
         /> */}
                 <AsyncAnimalSelect
+                  multiple={false}
                   value={data.animal}
                   onChange={(id) => onChange({ ...data, animal: id })}
                   label="Search Animal Tag"

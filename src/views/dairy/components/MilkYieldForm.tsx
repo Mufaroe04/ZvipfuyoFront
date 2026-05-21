@@ -78,6 +78,7 @@ export const MilkYieldForm: React.FC<Props> = ({ data, loading, onChange, onSubm
 
         {/* REPLACED OLD AUTOCOMPLETE WITH SCALABLE ASYNC FILTER ENGINE */}
         <AsyncAnimalSelect
+          multiple={false}
           value={data.animal}
           onChange={(id) => onChange({ ...data, animal: id })}
           label="Search Animal Tag"

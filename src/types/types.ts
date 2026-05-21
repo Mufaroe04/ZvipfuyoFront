@@ -4,12 +4,15 @@ export type Gender = 'male' | 'female';
 export type AnimalStatus = 'active' | 'sold' | 'deceased' | 'quarantine';
 export type ReproStatus = 'none' | 'open' | 'bred' | 'pregnant' | 'lactating' | 'dry';
 export type TransferStatus = 'pending' | 'approved' | 'incoming' | 'outgoing' | 'intransit' | 'completed' | 'cancelled';
+export type TransferType='internal' | 'external' | 'sale' | 'inheritance' | 'gift' | 'lobola' | 'feasting'
 export type Priority = 'low' | 'medium' | 'high';
 export type NotificationLevel = 'info' | 'success' | 'warning' | 'danger';
 export type Condition='Dry'|'Good'|'Muddy/Wet'| 'Overgrazed'
 export type UserRole = 'owner' | 'manager' | 'hand' | 'vet';
-
-
+export type Category= 'feed' | 'med' | 'equip' | 'tag';
+export type PaymentMethods='cash_usd'|'cash_zig' |'bank_transfer' | 'ecocash' ;
+export type OrderStatus ='draft'|'sent'|'received';
+export type Currency='USD'|'ZiG';
 export interface ActionHandlers {
   onView: (id: string | number) => void;
   onEdit: (id: string | number) => void;
@@ -236,7 +239,7 @@ export interface Transfer {
   animals: number[];
   animal_tags: string[];
   // Expanded types for Zimbabwe local contexts
-  transfer_type: 'internal' | 'external' | 'sale' | 'inheritance' | 'gift' | 'lobola' | 'feasting';
+  transfer_type: TransferType;
   from_herd: number;
   from_herd_name: string;
   to_herd?: number;
@@ -259,13 +262,14 @@ export interface Transfer {
 export interface InventoryItem {
   id: number;
   name: string;
-  category: 'feed' | 'med' | 'equip' | 'tag';
+  category:Category;
   quantity_on_hand: number;
   unit: string;
   reorder_level: number;
   is_low_stock: boolean;
   cost_per_unit?: number;
-  notes?:string
+  notes?:string;
+  preferred_supplier?:Supplier
 }
 
 export interface Task {
@@ -287,6 +291,17 @@ export interface Supplier {
   email?: string;
   location: string;
 } 
+export interface Procurement{
+    id:number;
+    supplier:Supplier;
+    item :InventoryItem;
+    order_quantity :number;
+    estimated_cost?: number;
+    actual_cost?:number;
+    payment_method:PaymentMethods;
+    currency : Currency;
+    status:OrderStatus;
+}
 export interface Notification {
   id: number;
   title: string;
@@ -518,4 +533,8 @@ export interface PaginatedResponse<T> {
   previous: string | null;
   count: number;
   total_spend?:number
+  stats?: {
+    totalSpent: number;
+    pendingValue: number;
+  };
 }

@@ -1,15 +1,15 @@
 import api from './api';
-import { InventoryItem } from '../types/types';
+import { InventoryItem, PaginatedResponse, Procurement } from '../types/types';
 
 export const inventoryService = {
+  getByUrl: <T>(url: string) => api.get<PaginatedResponse<T>>(url),
+
   /**
    * Fetch inventory items. 
    * Pass true to get only low stock alerts (Dashboard), or false/undefined for the full list (Inventory Page).
    */
-  getInventory: (lowStockOnly?: boolean) => 
-    api.get<InventoryItem[]>('inventory/', { 
-      params: { low_stock: lowStockOnly } 
-    }),
+  getInventory: (params:{low_stock?: boolean,page?: number,pageSize?: number}={}) => 
+    api.get<InventoryItem[]>('inventory/', { params}),
 
   /**
    * Get a single item's details
@@ -34,4 +34,9 @@ export const inventoryService = {
    */
   deleteInventoryItem: (id: number) => 
     api.delete(`inventory/${id}/`),
+
+  getProcurements: (params:{page?: number,pageSize?: number}={}) => 
+    api.get<PaginatedResponse<Procurement>>('procurement/', { params}),
+  getProcurementById: (id: number) => 
+    api.get<Procurement>(`procurement/${id}/`, ),
 };

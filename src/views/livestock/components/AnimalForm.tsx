@@ -94,6 +94,7 @@ export const AnimalForm: React.FC<FormProps> = ({
         <Typography variant="body2" color="text.secondary">Optional: Link parents for pedigree tracking.</Typography>
       </Box>
       <AsyncAnimalSelect
+            multiple={false}
             value={formData.mother_tag}
             onChange={(val) => onTagChange('mother_tag', val)}
             gender="female"
@@ -102,6 +103,7 @@ export const AnimalForm: React.FC<FormProps> = ({
           />
 
       <AsyncAnimalSelect
+        multiple={false}
         value={formData.father_tag}
         onChange={(val) => onTagChange('father_tag', val)}
         gender="male"

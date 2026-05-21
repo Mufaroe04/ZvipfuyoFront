@@ -110,6 +110,7 @@ const BreedingEventForm: React.FC<FormProps> = ({ title, initialData }) => {
 
             {/* TRACKS DAM VIA UNIQUE ID WRAPPERS */}
             <AsyncAnimalSelect
+              multiple={false}
               value={formData.animal}
               onChange={(val) => setFormData({ ...formData, animal: val })}
               gender="female"

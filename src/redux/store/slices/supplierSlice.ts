@@ -1,31 +1,56 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { Supplier } from '../../../types/types';
+import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
+import { PaginatedResponse, Supplier } from '../../../types/types';
 import { supplierService } from '../../../services/supplierService';
 
 interface SupplierState {
-  suppliers: Supplier[];
+  suppliers: PaginatedResponse<Supplier>;
   loading: boolean;
-  error: string | null;
+  error: string | null; 
 }
 
+const initialPaginatedState = { 
+  results: [], 
+  next: null, 
+  previous: null, 
+  count: 0 
+};
 const initialState: SupplierState = {
-  suppliers: [],
+  suppliers: initialPaginatedState,
   loading: false,
   error: null,
 };
 
+// export const fetchSuppliers = createAsyncThunk(
+//   'suppliers/fetchAll',
+//   async (_, { rejectWithValue }) => {
+//     try {
+//       const response = await supplierService.getSuppliers();
+//       return response.data;
+//     } catch (err: any) {
+//       return rejectWithValue('Failed to load suppliers');
+//     }
+//   }
+// );
+
 export const fetchSuppliers = createAsyncThunk(
   'suppliers/fetchAll',
-  async (_, { rejectWithValue }) => {
+  async ({ page, url, pageSize }: { page?: number, url?: string, pageSize?: number } = {}, { rejectWithValue }) => {
     try {
-      const response = await supplierService.getSuppliers();
-      return response.data;
+      const response = url 
+        ? await supplierService.getByUrl<Supplier>(url) 
+        : await supplierService.getSuppliers({ page, pageSize });
+      
+      // Ensure we extract a structured PaginatedResponse
+      const data = response.data;
+      if (Array.isArray(data)) {
+        return { results: data, next: null, previous: null, count: data.length } as PaginatedResponse<InventoryItem>;
+      }
+      return data as PaginatedResponse<Supplier>;
     } catch (err: any) {
-      return rejectWithValue('Failed to load suppliers');
+      return rejectWithValue(err.response?.data?.message || 'Failed to load inventory');
     }
   }
 );
-
 export const addSupplier = createAsyncThunk(
   'suppliers/add',
   async (data: Partial<Supplier>, { rejectWithValue }) => {
@@ -44,7 +69,6 @@ const supplierSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(fetchSuppliers.pending, (state) => { state.loading = true; })
       .addCase(fetchSuppliers.fulfilled, (state, action) => {
         state.suppliers = action.payload;
         state.loading = false;
@@ -54,7 +78,19 @@ const supplierSlice = createSlice({
         state.error = action.payload as string;
       })
       .addCase(addSupplier.fulfilled, (state, action) => {
-        state.suppliers.unshift(action.payload);
+        state.suppliers.results.unshift(action.payload);
+      })
+      // Matchers for Loading/Error states
+      .addMatcher((action) => action.type.endsWith('/pending'), (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addMatcher((action):action is PayloadAction<string>  => action.type.endsWith('/rejected'), (state, action) => {
+        state.loading = false;
+        state.error = (action.payload as string) || 'An operation failed';
+      })
+      .addMatcher((action) => action.type.endsWith('/fulfilled'), (state) => {
+        state.loading = false;
       });
   },
 });

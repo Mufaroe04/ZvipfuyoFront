@@ -26,6 +26,7 @@ export const LactationForm: React.FC<Props> = ({ data, loading, onChange, onSubm
           renderInput={(params) => <TextField {...params} label="Select Animal" required />}
         /> */}
           <AsyncAnimalSelect
+            multiple={false}
             value={data.animal}
             onChange={(id) => onChange({ ...data, animal: id })}
             label="Search Animal Tag"

@@ -3,7 +3,7 @@ import { Typography, Paper, Chip, Button, IconButton } from '@mui/material';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import { IonIcon } from '@ionic/react';
 import { busOutline, documentTextOutline } from 'ionicons/icons';
-import { generateMovementPermit } from '../utils/printUtils';
+import { generateMovementPermit } from '../../../utils/printUtils';
 
 interface TransferTableProps {
   transfers: any[];

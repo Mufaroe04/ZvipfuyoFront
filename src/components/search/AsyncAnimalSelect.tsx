@@ -1,19 +1,170 @@
+// import React, { useState, useEffect, useMemo } from 'react';
+// import { Autocomplete, TextField, CircularProgress } from '@mui/material';
+// import { livestockService } from '../../services/livestockService'; // Verify exact relative path
+// import { Animal, Gender } from '../../types/types';
+
+// interface AsyncAnimalSelectProps {
+//   value: string | number;
+//   onChange: (value: string) => void;
+//   label?: string;
+//   required?: boolean;
+//   gender?: Gender | 'male' | 'female';
+//   excludeId?: string | number; // Useful to prevent an animal being its own parent
+//   valueType?: 'id' | 'tag_number'; // Controls what value string is emitted and tracked
+// }
+
+// export const AsyncAnimalSelect: React.FC<AsyncAnimalSelectProps> = ({
+//   value,
+//   onChange,
+//   label = "Search Animal Tag",
+//   required = false,
+//   gender,
+//   excludeId,
+//   valueType = 'id'
+// }) => {
+//   const [open, setOpen] = useState(false);
+//   const [options, setOptions] = useState<Animal[]>([]);
+//   const [inputValue, setInputValue] = useState('');
+//   const [loading, setLoading] = useState(false);
+
+//   useEffect(() => {
+//     let active = true;
+
+//     const fetchDropdownData = async () => {
+//       setLoading(true);
+//       try {
+//         let responseData;
+        
+//         // If there's a selected value but no input typed yet, hydrate that specific option context
+//         if (value && inputValue === '') {
+//           const searchParams: any = valueType === 'id' 
+//             ? { animal_id: Number(value) } 
+//             : { search: String(value) }; // Fallback lookup rule for tags
+//           const res = await livestockService.getAnimals(searchParams);
+//           responseData = res.data;
+//         } else {
+//           // Normal interactive user query operations
+//           const queryParams: any = { search: inputValue, page: 1 };
+//           if (gender) queryParams.gender = gender.toLowerCase();
+          
+//           const res = await livestockService.getAnimals(queryParams);
+//           responseData = res.data;
+//         }
+
+//         if (active) {
+//           const results = responseData.results || responseData;
+//           let collection: Animal[] = Array.isArray(results) ? results : [];
+          
+//           if (excludeId) {
+//             collection = collection.filter(a => a.id.toString() !== excludeId.toString());
+//           }
+//           setOptions(collection);
+//         }
+//       } catch (err) {
+//         console.error("AsyncAnimalSelect engine failure:", err);
+//       } finally {
+//         setLoading(false);
+//       }
+//     };
+
+//     const delayTimer = setTimeout(() => {
+//       fetchDropdownData();
+//     }, 350);
+
+//     return () => {
+//       active = false;
+//       clearTimeout(delayTimer);
+//     };
+//   }, [inputValue, value, open, gender, excludeId, valueType]);
+
+//   const selectedValue = useMemo(() => {
+//     if (!value) return null;
+//     const match = options.find((opt) => {
+//       return valueType === 'id' 
+//         ? opt.id.toString() === value.toString()
+//         : opt.tag_number.toLowerCase() === value.toString().toLowerCase();
+//     });
+    
+//     if (!match) {
+//       if (valueType === 'id') {
+//         return { id: Number(value), tag_number: `ID: ${value}` } as Animal;
+//       } else {
+//         return { id: 0, tag_number: String(value) } as Animal;
+//       }
+//     }
+//     return match;
+//   }, [options, value, valueType]);
+
+//   return (
+//     <Autocomplete
+//       open={open}
+//       onOpen={() => setOpen(true)}
+//       onClose={() => setOpen(false)}
+//       options={options}
+//       loading={loading}
+//       value={selectedValue}
+//       inputValue={inputValue}
+//       onInputChange={(_, newInputValue) => setInputValue(newInputValue)}
+//       onChange={(_, selectedItem) => {
+//         if (!selectedItem) {
+//           onChange('');
+//           return;
+//         }
+//         onChange(valueType === 'id' ? selectedItem.id.toString() : selectedItem.tag_number);
+//       }}
+//       isOptionEqualToValue={(option, val) => option.id === val.id}
+//       getOptionLabel={(option) => option.tag_number || ""}
+//       filterOptions={(x) => x} // Disable client filtering since backend manages pagination windows
+//       renderInput={(params) => (
+//         <TextField
+//           {...params}
+//           label={label}
+//           required={required}
+//           InputProps={{
+//             ...params.InputProps,
+//             endAdornment: (
+//               <>
+//                 {loading ? <CircularProgress color="inherit" size={20} /> : null}
+//                 {params.InputProps.endAdornment}
+//               </>
+//             ),
+//           }}
+//         />
+//       )}
+//     />
+//   );
+// };
+
 import React, { useState, useEffect, useMemo } from 'react';
 import { Autocomplete, TextField, CircularProgress } from '@mui/material';
-import { livestockService } from '../../services/livestockService'; // Verify exact relative path
+import { livestockService } from '../../services/livestockService';
 import { Animal, Gender } from '../../types/types';
 
-interface AsyncAnimalSelectProps {
-  value: string | number;
-  onChange: (value: string) => void;
+interface BaseAsyncProps {
   label?: string;
   required?: boolean;
   gender?: Gender | 'male' | 'female';
-  excludeId?: string | number; // Useful to prevent an animal being its own parent
-  valueType?: 'id' | 'tag_number'; // Controls what value string is emitted and tracked
+  excludeId?: string | number;
+  valueType?: 'id' | 'tag_number';
 }
 
+// Employs discriminated structural definitions for safe type emission
+interface SingleSelectProps extends BaseAsyncProps {
+  multiple?: false;
+  value: string | number | null;
+  onChange: (value: string) => void;
+}
+
+interface MultipleSelectProps extends BaseAsyncProps {
+  multiple: true;
+  value: (string | number)[];
+  onChange: (value: string[]) => void;
+}
+
+type AsyncAnimalSelectProps = SingleSelectProps | MultipleSelectProps;
+
 export const AsyncAnimalSelect: React.FC<AsyncAnimalSelectProps> = ({
+  multiple = false,
   value,
   onChange,
   label = "Search Animal Tag",
@@ -27,6 +178,7 @@ export const AsyncAnimalSelect: React.FC<AsyncAnimalSelectProps> = ({
   const [inputValue, setInputValue] = useState('');
   const [loading, setLoading] = useState(false);
 
+  // Unified API Hydration Loop
   useEffect(() => {
     let active = true;
 
@@ -34,19 +186,19 @@ export const AsyncAnimalSelect: React.FC<AsyncAnimalSelectProps> = ({
       setLoading(true);
       try {
         let responseData;
-        
-        // If there's a selected value but no input typed yet, hydrate that specific option context
-        if (value && inputValue === '') {
+        const hasValue = multiple ? Array.isArray(value) && value.length > 0 : Boolean(value);
+
+        if (hasValue && inputValue === '') {
+          // Hydrate specific active selected items on initial load
+          const lookupVal = multiple ? (value as (string | number)[])[0] : value;
           const searchParams: any = valueType === 'id' 
-            ? { animal_id: Number(value) } 
-            : { search: String(value) }; // Fallback lookup rule for tags
+            ? { animal_id: Number(lookupVal) } 
+            : { search: String(lookupVal) };
           const res = await livestockService.getAnimals(searchParams);
           responseData = res.data;
         } else {
-          // Normal interactive user query operations
           const queryParams: any = { search: inputValue, page: 1 };
           if (gender) queryParams.gender = gender.toLowerCase();
-          
           const res = await livestockService.getAnimals(queryParams);
           responseData = res.data;
         }
@@ -54,7 +206,6 @@ export const AsyncAnimalSelect: React.FC<AsyncAnimalSelectProps> = ({
         if (active) {
           const results = responseData.results || responseData;
           let collection: Animal[] = Array.isArray(results) ? results : [];
-          
           if (excludeId) {
             collection = collection.filter(a => a.id.toString() !== excludeId.toString());
           }
@@ -75,28 +226,33 @@ export const AsyncAnimalSelect: React.FC<AsyncAnimalSelectProps> = ({
       active = false;
       clearTimeout(delayTimer);
     };
-  }, [inputValue, value, open, gender, excludeId, valueType]);
+  }, [inputValue, value, open, gender, excludeId, valueType, multiple]);
 
+  // Resolves backend entity option records matching the component value
   const selectedValue = useMemo(() => {
-    if (!value) return null;
-    const match = options.find((opt) => {
-      return valueType === 'id' 
-        ? opt.id.toString() === value.toString()
-        : opt.tag_number.toLowerCase() === value.toString().toLowerCase();
-    });
-    
-    if (!match) {
-      if (valueType === 'id') {
-        return { id: Number(value), tag_number: `ID: ${value}` } as Animal;
-      } else {
-        return { id: 0, tag_number: String(value) } as Animal;
+    const findMatch = (val: string | number) => {
+      const match = options.find((opt) => 
+        valueType === 'id' 
+          ? opt.id.toString() === val.toString()
+          : opt.tag_number.toLowerCase() === val.toString().toLowerCase()
+      );
+      if (!match) {
+        return valueType === 'id'
+          ? ({ id: Number(val), tag_number: `ID: ${val}` } as Animal)
+          : ({ id: 0, tag_number: String(val) } as Animal);
       }
+      return match;
+    };
+
+    if (multiple) {
+      return Array.isArray(value) ? value.map(findMatch) : [];
     }
-    return match;
-  }, [options, value, valueType]);
+    return value ? findMatch(value as string | number) : null;
+  }, [options, value, valueType, multiple]);
 
   return (
     <Autocomplete
+      multiple={multiple}
       open={open}
       onOpen={() => setOpen(true)}
       onClose={() => setOpen(false)}
@@ -106,15 +262,23 @@ export const AsyncAnimalSelect: React.FC<AsyncAnimalSelectProps> = ({
       inputValue={inputValue}
       onInputChange={(_, newInputValue) => setInputValue(newInputValue)}
       onChange={(_, selectedItem) => {
-        if (!selectedItem) {
-          onChange('');
-          return;
+        if (multiple) {
+          const list = (selectedItem as Animal[]) || [];
+          const output = list.map(item => valueType === 'id' ? item.id.toString() : item.tag_number);
+          (onChange as (value: string[]) => void)(output);
+        } else {
+          const single = selectedItem as Animal | null;
+          if (!single) {
+            (onChange as (value: string) => void)('');
+            return;
+          }
+          const output = valueType === 'id' ? single.id.toString() : single.tag_number;
+          (onChange as (value: string) => void)(output);
         }
-        onChange(valueType === 'id' ? selectedItem.id.toString() : selectedItem.tag_number);
       }}
       isOptionEqualToValue={(option, val) => option.id === val.id}
       getOptionLabel={(option) => option.tag_number || ""}
-      filterOptions={(x) => x} // Disable client filtering since backend manages pagination windows
+      filterOptions={(x) => x}
       renderInput={(params) => (
         <TextField
           {...params}

@@ -26,15 +26,15 @@ import WeightListingView from '../views/weight/WeightListingView';
 import CountingSessionView from '../views/counting/CountingSessionView';
 import TasksView from '../views/tasks/TasksView';
 import AddTaskView from '../views/tasks/AddTaskView';
-import Transfer from '../views/transfer/Transfer';
-import AddTransfer from '../views/transfer/AddTransfer';
-import Inventory from '../views/inventory/Inventory';
-import AddInventoryItem from '../views/inventory/AddInventoryItem';
+import TransferView from '../views/transfer/TransferView';
+// import AddTransfer from '../views/transfer/AddTransfer';
+import Inventory from '../views/inventory/InventoryView';
+import AddInventoryItem from '../views/inventory/AddInventoryItemView';
 import StockHistory from '../views/inventory/StockHistory';
-import FinancePage from '../views/finance/FinancePage';
-import NewEntryPage from '../views/finance/NewEntryPage';
-import Procurement from '../views/inventory/Procurement';
-import Suppliers from '../views/inventory/Suppliers';
+import FinanceView from '../views/finance/FinanceView';
+import AddSaleView from '../views/finance/AddSaleView';
+import ProcurementView from '../views/inventory/ProcurementView';
+import SuppliersView from '../views/inventory/SuppliersView';
 import StaffPage from '../pages/StaffPage';
 import DashboardView from '../views/dashboards/DashboardView';
 import HerdEditPage from '../views/herd/HerdEditPage';
@@ -49,6 +49,7 @@ import EditBreedingEventView from '../views/reproduction/EditBreedingEventView';
 import AddWeightView from '../views/weight/AddWeightView';
 import EditWeightView from '../views/weight/EditWeightView';
 import EditTaskView from '../views/tasks/EditTaskView';
+import AddEditTransferView from '../views/transfer/AddEditTransferView';
 
 interface AppRoutesProps {
   userRole: UserRole | null; // Correctly typed to allow null values during initialization
@@ -121,17 +122,19 @@ export const AppRoutes: React.FC<AppRoutesProps> = ({
       <RoleProtectedRoute exact path="/tasks" component={TasksView} allowedRoles={['owner', 'manager', 'hand', 'vet']} userRole={userRole} isAuthenticated={isAuthenticated} />
       <RoleProtectedRoute exact path="/tasks/add" component={AddTaskView} allowedRoles={['owner', 'manager']} userRole={userRole} isAuthenticated={isAuthenticated} />
       <RoleProtectedRoute exact path="/tasks/edit/:id" component={EditTaskView} allowedRoles={['owner', 'manager', 'hand']} userRole={userRole} isAuthenticated={isAuthenticated} />
-      <RoleProtectedRoute exact path="/transfer" component={Transfer} allowedRoles={['owner', 'manager']} userRole={userRole} isAuthenticated={isAuthenticated} />
-      <RoleProtectedRoute exact path="/operations/add-transfer" component={AddTransfer} allowedRoles={['owner', 'manager']} userRole={userRole} isAuthenticated={isAuthenticated} />
+      <RoleProtectedRoute exact path="/transfer" component={TransferView} allowedRoles={['owner', 'manager']} userRole={userRole} isAuthenticated={isAuthenticated} />
+      <RoleProtectedRoute exact path="/operations/add-transfer" component={AddEditTransferView} allowedRoles={['owner', 'manager']} userRole={userRole} isAuthenticated={isAuthenticated} />
+      <RoleProtectedRoute exact path="/operations/edit/:id" component={EditTaskView} allowedRoles={['owner', 'manager', 'hand']} userRole={userRole} isAuthenticated={isAuthenticated} />
+
 
       {/* Inventory & Supply Chain */}
       <RoleProtectedRoute exact path="/inventory" component={Inventory} allowedRoles={['owner', 'manager', 'hand']} userRole={userRole} isAuthenticated={isAuthenticated} />
       <RoleProtectedRoute exact path="/inventory/add" component={AddInventoryItem} allowedRoles={['owner', 'manager']} userRole={userRole} isAuthenticated={isAuthenticated} />
       <RoleProtectedRoute exact path="/inventory/history" component={StockHistory} allowedRoles={['owner', 'manager', 'hand']} userRole={userRole} isAuthenticated={isAuthenticated} />
-      <RoleProtectedRoute exact path="/sales-expenses" component={FinancePage} allowedRoles={['owner']} userRole={userRole} isAuthenticated={isAuthenticated} />
-      <RoleProtectedRoute exact path="/sales-new-entry" component={NewEntryPage} allowedRoles={['owner']} userRole={userRole} isAuthenticated={isAuthenticated} />
-      <RoleProtectedRoute exact path="/procurement" component={Procurement} allowedRoles={['owner', 'manager']} userRole={userRole} isAuthenticated={isAuthenticated} />
-      <RoleProtectedRoute exact path="/suppliers" component={Suppliers} allowedRoles={['owner', 'manager']} userRole={userRole} isAuthenticated={isAuthenticated} />
+      <RoleProtectedRoute exact path="/sales-expenses" component={FinanceView} allowedRoles={['owner']} userRole={userRole} isAuthenticated={isAuthenticated} />
+      <RoleProtectedRoute exact path="/sales-new-entry" component={AddSaleView} allowedRoles={['owner']} userRole={userRole} isAuthenticated={isAuthenticated} />
+      <RoleProtectedRoute exact path="/procurement" component={ProcurementView} allowedRoles={['owner', 'manager']} userRole={userRole} isAuthenticated={isAuthenticated} />
+      <RoleProtectedRoute exact path="/suppliers" component={SuppliersView} allowedRoles={['owner', 'manager']} userRole={userRole} isAuthenticated={isAuthenticated} />
 
       {/* Administration & Staff Control */}
       <RoleProtectedRoute exact path="/staff" component={StaffPage} allowedRoles={['owner']} userRole={userRole} isAuthenticated={isAuthenticated} />

@@ -10,7 +10,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../redux/store';
 import { fetchTransfers } from '../../redux/store/slices/operationsSlice';
 import { operationsService } from '../../services/operationsService';
-import TransferTable from '../../components/TransferTable';
+import TransferTable from '../../views/transfer/components/TransferTable';
 
 const Transfer: React.FC = () => {
   const history = useHistory();

@@ -9,7 +9,7 @@ import { useSelector } from 'react-redux';
 import { arrowBackOutline } from 'ionicons/icons';
 import { RootState } from '../../redux/store';
 import api from '../../services/api';
-import TransferForm from '../../components/TransferForm';
+import TransferForm from '../../views/transfer/components/TransferForm';
 
 interface Animal {
   id: number;
