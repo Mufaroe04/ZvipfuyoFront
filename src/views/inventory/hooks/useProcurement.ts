@@ -65,6 +65,7 @@ export const useProcurement = () => {
   return {
     orders: orders?.results || [], // Directly returns the domain collection array
     loading,
+    rowCount:orders.count,
     stats,
     paginationModel,
     setPaginationModel,

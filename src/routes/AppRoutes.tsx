@@ -8,7 +8,7 @@ import { LoadingSpinner } from '../components/feedback/LoadingSpinner';
 // Pages
 import Login from '../pages/authentication/Login';
 import Profile from '../pages/Profile';
-import Notifications from '../pages/Notifications';
+import NotificationsView from '../views/notifications/NotificationsView';
 import Chat from '../views/chat/Chat';
 import InsightsPage from '../views/insights/InsightsPage';
 import HerdCreatePage from '../views/herd/HerdCreatePage';
@@ -35,7 +35,7 @@ import FinanceView from '../views/finance/FinanceView';
 import AddSaleView from '../views/finance/AddSaleView';
 import ProcurementView from '../views/inventory/ProcurementView';
 import SuppliersView from '../views/inventory/SuppliersView';
-import StaffPage from '../pages/StaffPage';
+import StaffView from '../views/staff/StaffView';
 import DashboardView from '../views/dashboards/DashboardView';
 import HerdEditPage from '../views/herd/HerdEditPage';
 import { RoleProtectedRoute } from './ProtectedRoute';
@@ -81,8 +81,8 @@ export const AppRoutes: React.FC<AppRoutesProps> = ({
 
       {/* General Application Core */}
       <RoleProtectedRoute exact path="/dashboard" component={DashboardView} allowedRoles={['owner', 'manager', 'hand', 'vet']} userRole={userRole} isAuthenticated={isAuthenticated} />
-      <RoleProtectedRoute exact path="/profile" component={Profile} allowedRoles={['owner', 'manager', 'hand', 'vet']} userRole={userRole} isAuthenticated={isAuthenticated} />
-      <RoleProtectedRoute exact path="/notifications" component={Notifications} allowedRoles={['owner', 'manager', 'hand', 'vet']} userRole={userRole} isAuthenticated={isAuthenticated} />
+      {/* <RoleProtectedRoute exact path="/profile" component={Profile} allowedRoles={['owner', 'manager', 'hand', 'vet']} userRole={userRole} isAuthenticated={isAuthenticated} /> */}
+      <RoleProtectedRoute exact path="/notifications" component={NotificationsView} allowedRoles={['owner', 'manager', 'hand', 'vet']} userRole={userRole} isAuthenticated={isAuthenticated} />
       <RoleProtectedRoute exact path="/chat" component={Chat} allowedRoles={['owner', 'manager', 'hand', 'vet']} userRole={userRole} isAuthenticated={isAuthenticated} />
 
       {/* Herd Management */}
@@ -137,7 +137,7 @@ export const AppRoutes: React.FC<AppRoutesProps> = ({
       <RoleProtectedRoute exact path="/suppliers" component={SuppliersView} allowedRoles={['owner', 'manager']} userRole={userRole} isAuthenticated={isAuthenticated} />
 
       {/* Administration & Staff Control */}
-      <RoleProtectedRoute exact path="/staff" component={StaffPage} allowedRoles={['owner']} userRole={userRole} isAuthenticated={isAuthenticated} />
+      <RoleProtectedRoute exact path="/staff" component={StaffView} allowedRoles={['owner']} userRole={userRole} isAuthenticated={isAuthenticated} />
 
       <Route render={() => <Redirect to="/login" />} />
     </IonRouterOutlet>

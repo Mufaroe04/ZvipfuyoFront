@@ -5,11 +5,14 @@ import { CustomDataGrid } from '../../../components/datagrid/CustomDataGrid';
 interface ProcurementGridListProps {
   orders: any[];
   loading: boolean;
+  rowCount: number;
+  paginationModel: { page: number; pageSize: number };
+  onPaginationModelChange: (model: any) => void;
   onConfirm: (id: number) => void;
   onReceive: (id: number) => void;
 }
 
-const ProcurementGridList: React.FC<ProcurementGridListProps> = ({ orders, loading, onConfirm, onReceive }) => {
+const ProcurementGridList: React.FC<ProcurementGridListProps> = ({ orders, loading,rowCount ,paginationModel,onPaginationModelChange,onConfirm, onReceive }) => {
   const columns = getProcurementColumns(onConfirm, onReceive);
   
   return (
@@ -17,8 +20,10 @@ const ProcurementGridList: React.FC<ProcurementGridListProps> = ({ orders, loadi
       rows={orders} 
       columns={columns} 
       loading={loading}
-      height="60vh"
-      paginationMode="client"
+      rowCount={rowCount}
+      paginationMode="server"
+      paginationModel={paginationModel}
+      onPaginationModelChange={onPaginationModelChange}
       getRowId={(row) => row.id}
     />
   );

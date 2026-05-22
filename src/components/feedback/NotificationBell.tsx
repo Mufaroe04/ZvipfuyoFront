@@ -3,7 +3,7 @@ import { IonButtons, IonButton, IonIcon, IonBadge } from '@ionic/react';
 import { notificationsOutline } from 'ionicons/icons';
 import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { RootState } from '../redux/store';
+import { RootState } from '../../redux/store';
 import { Box } from '@mui/material';
 
 const NotificationBell: React.FC = () => {

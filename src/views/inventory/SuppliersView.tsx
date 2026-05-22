@@ -131,16 +131,16 @@ const SuppliersView: React.FC = () => {
       </IonHeader>
       <IonContent className="ion-padding">
         <Container maxWidth="lg">
-          <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ mb: 4, mt: 2 }}>
+          <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ mb: 1, mt: 1 }}>
             <Box>
-              <Typography variant="h5" fontWeight="bold">Partners & Suppliers</Typography>
+              <Typography variant="body1" fontWeight="bold">Partners & Suppliers</Typography>
               <Typography variant="body2" color="text.secondary">Maintain your supply chain network.</Typography>
             </Box>
             <Button 
               variant="contained" 
               startIcon={<IonIcon icon={addOutline} />}
               onClick={() => setOpenModal(true)}
-              sx={{ borderRadius: '8px', bgcolor: '#18774c', textTransform: 'none', fontWeight: 'bold' }}
+              sx={{ borderRadius: '4px', bgcolor: '#18774c', textTransform: 'none', fontWeight: 'bold' }}
             >
               Add Supplier
             </Button>
@@ -169,7 +169,7 @@ const SuppliersView: React.FC = () => {
                 <TextField label="Phone Number" fullWidth required value={formData.phone} onChange={e => setFormData({...formData, phone: e.target.value})} />
                 <TextField label="Location" fullWidth value={formData.location} onChange={e => setFormData({...formData, location: e.target.value})} />
                 <TextField label="Email Address" type="email" fullWidth value={formData.email} onChange={e => setFormData({...formData, email: e.target.value})} />
-                <Button type="submit" variant="contained" fullWidth sx={{ mt: 2, bgcolor: '#18774c', py: 1.5, borderRadius: '8px' }}>
+                <Button type="submit" variant="contained" fullWidth sx={{ mt: 2, bgcolor: '#18774c', py: 1.5, borderRadius: '4px' }}>
                   Register Supplier
                 </Button>
               </Stack>

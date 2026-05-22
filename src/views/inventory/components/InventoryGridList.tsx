@@ -31,7 +31,7 @@ const InventoryGridList: React.FC<InventoryTableProps> = ({ items, loading, onAd
             paginationModel={paginationModel}
             onPaginationModelChange={onPaginationModelChange}
             height="60vh"
-            paginationMode="client"
+            paginationMode="server"
             getRowId={(row) => row.id}
           />
   );

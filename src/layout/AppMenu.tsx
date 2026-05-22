@@ -90,12 +90,12 @@ export const AppMenu: React.FC<AppMenuProps> = ({ userRole }) => {
           )}
 
           {/* Secondary Options */}
-          <IonMenuToggle autoHide={false}>
+          {/* <IonMenuToggle autoHide={false}>
             <IonItem button routerLink="/profile" lines="none">
               <IonIcon icon={personOutline} slot="start" />
               <IonLabel>Profile</IonLabel>
             </IonItem>
-          </IonMenuToggle>
+          </IonMenuToggle> */}
 
           <IonMenuToggle autoHide={false}>
             <IonItem button lines="none" detail={false} onClick={handleLogout}>

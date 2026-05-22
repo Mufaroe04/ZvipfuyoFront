@@ -537,4 +537,5 @@ export interface PaginatedResponse<T> {
     totalSpent: number;
     pendingValue: number;
   };
+  unread_count?:number;
 }

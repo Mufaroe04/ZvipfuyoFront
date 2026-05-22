@@ -38,7 +38,7 @@ export const fetchAllHerds = createAsyncThunk(
   }
 );
 
-export const fetchAllAnimals = createAsyncThunk(
+export const fetchAllAnimals = createAsyncThunk( 
   'livestock/fetchAnimals',
   async ({ page, url }: { page?: number, url?: string } = {}, { rejectWithValue }) => {
     try {
