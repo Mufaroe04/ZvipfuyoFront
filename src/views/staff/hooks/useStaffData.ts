@@ -53,20 +53,37 @@ export const useStaffData = () => {
     setIsDialogOpen(true);
   };
 
-  const handleOpenEditMode = (member: User) => {
-    setIsEditMode(true);
-    setSelectedId(member.id);
-    setFormData({
-      username: member.username,
-      email: member.email,
-      first_name: member.first_name,
-      last_name: member.last_name,
-      role: member.profile.role,
-      phone_number: member.profile.phone_number || '',
-      assigned_herds: member.profile.assigned_herds || [],
-    });
-    setIsDialogOpen(true);
-  };
+//   const handleOpenEditMode = (member: User) => {
+//     setIsEditMode(true);
+//     setSelectedId(member.id);
+//     setFormData({
+//       username: member.username,
+//       email: member.email,
+//       first_name: member.first_name,
+//       last_name: member.last_name,
+//       role: member.profile.role,
+//       phone_number: member.profile.phone_number || '',
+//       assigned_herds: member.profile.assigned_herds || [],
+//     });
+//     setIsDialogOpen(true);
+//   };
+
+// useStaffData.ts
+const handleOpenEditMode = (member: User) => {
+  setIsEditMode(true);
+  setSelectedId(member.id);
+  
+  setFormData({
+    username: member.username || '',
+    email: member.email || '',
+    first_name: member.first_name || '',
+    last_name: member.last_name || '',
+    role: member.profile?.role || 'hand',
+    phone_number: member.profile?.phone_number || '',
+    assigned_herds: member.profile?.assigned_herds || [], 
+  });
+  setIsDialogOpen(true);
+};
 
   const handleCloseDialog = () => {
     setIsDialogOpen(false);

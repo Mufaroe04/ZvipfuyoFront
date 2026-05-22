@@ -28,6 +28,7 @@ export interface User {
     role: UserRole;
     phone_number: string;
     profile_image: string | null;
+    assigned_herds: number[];
   };
 }
 // The data sent from the Login Form
