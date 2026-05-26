@@ -32,22 +32,7 @@ const RegisterAnimalView: React.FC = () => {
 
       <IonContent className="ion-padding">
         <Box sx={{ maxWidth: 500, mx: 'auto', mt: 2, mb: 4 }}>
-          <Paper elevation={0} sx={{ p: 3, borderRadius: '16px', border: '1px solid #e0e0e0' }}>
-            {/* <AnimalForm 
-              formData={formData}
-              herds={herds}
-              potentialMothers={potentialMothers}
-              potentialFathers={potentialFathers}
-              herdId={herdId}
-              onChange={handleChange}
-              onMotherChange={handleMotherChange}
-              onFatherChange={handleFatherChange}
-              onSubmit={handleSubmit}
-              isEditMode={isEditMode}
-              isSubmitting={isSubmitting}
-              isFormValid={isFormValid}
-              goBack={goBack}
-            /> */}
+          <Paper elevation={0} sx={{ p: 3, borderRadius: '4px', border: '1px solid #e0e0e0' }}>
             <AnimalForm
               formData={formData}
               herds={herds.results}

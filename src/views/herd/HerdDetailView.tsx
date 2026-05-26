@@ -18,7 +18,7 @@ const HerdDetailView: React.FC = () => {
   const { selectedHerd, loading } = useAppSelector((state) => state.livestock);
   const isPrivileged = useAppSelector((state) => state.auth.user?.profile?.role === 'owner');
   const animalHookData = useAnimalList(selectedHerd?.animals || [], undefined, 'client');
-  useEffect(() => { if (id) dispatch(fetchHerdById(Number(id))); }, [id, dispatch]);
+  useEffect(() => { if (id) dispatch(fetchHerdById(id)); }, [id, dispatch]);
 
   if (loading || !selectedHerd) return <LoadingSpinner />;
 
@@ -34,7 +34,7 @@ const HerdDetailView: React.FC = () => {
             <Typography variant="body2" color="text.secondary">{selectedHerd.location}</Typography>
           </Box>
           {isPrivileged && (
-            <Button variant="contained" onClick={() => history.push(`/herds/${id}/add-animal`)} startIcon={<IonIcon icon={addOutline} />} sx={{ bgcolor: "#18774c" }}>Register Animal</Button>
+            <Button variant="contained" onClick={() => history.push(`/herds/${id}/add-animal`)} startIcon={<IonIcon icon={addOutline} />} sx={{ bgcolor: "#18774c",fontWeight: 'bold', }}>Register Animal</Button>
           )}
         </Box>
         

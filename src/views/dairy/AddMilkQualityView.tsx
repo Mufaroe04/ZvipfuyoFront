@@ -8,7 +8,7 @@ import { useMilkQuality } from './hooks/useMilkQuality';
 import { MilkQualityForm } from './components/MilkQualityForm';
 
 const AddMilkQualityView: React.FC = () => {
-  const { formData, setFormData, animals, loading, submitForm ,history } = useMilkQuality();
+  const { formData, setFormData, animals, loading, handleSubmit ,history } = useMilkQuality();
 
   return (
     <IonPage>
@@ -22,8 +22,7 @@ const AddMilkQualityView: React.FC = () => {
       </IonHeader>
       <IonContent fullscreen className="ion-padding">
         <Container maxWidth="sm">
-          <Box sx={{ mb: 4, mt: 4 }}><Typography variant="h5" fontWeight="bold">Quality Audit</Typography></Box>
-          <MilkQualityForm data={formData}  loading={loading} onChange={setFormData} onSubmit={(e) => { e.preventDefault(); submitForm(); }} />
+          <MilkQualityForm data={formData}  loading={loading} onChange={setFormData} onSubmit={(e) => { e.preventDefault(); handleSubmit(e); }} />
         </Container>
       </IonContent>
     </IonPage>

@@ -218,7 +218,6 @@ const HerdList: React.FC<Props> = ({
               fontWeight: 'bold', 
               px: 3, 
               backgroundColor: "#18774c",
-              fontFamily: '"Plus Jakarta Sans", sans-serif',
               '&:hover': { backgroundColor: "#145c3b" }
             }}
           >

@@ -38,7 +38,7 @@ export const logisticsService = {
     api.post<Transfer>('transfers/', data),
 
   // Update specific transfer payload via HTTP PATCH
-  updateTransfer: (id: number, data: Partial<Transfer>) => 
+  updateTransfer: (id: string, data: Partial<Transfer>) => 
     api.patch<Transfer>(`transfers/${id}/`, data),
 
   // Custom Dispatch Action: triggers intransit workflow and quarantine updates

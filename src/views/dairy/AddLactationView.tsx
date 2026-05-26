@@ -53,7 +53,7 @@ import { useLactation } from './hooks/useLactation';
 import { LactationForm } from './components/LactationForm';
 
 const AddLactationView: React.FC = () => {
-  const { formData, setFormData, loading, submitForm,history } = useLactation();
+  const { formData, setFormData, loading, handleSubmit,history } = useLactation();
 
   return (
     <IonPage>
@@ -74,7 +74,7 @@ const AddLactationView: React.FC = () => {
             data={formData} 
             loading={loading} 
             onChange={setFormData}
-            onSubmit={(e) => { e.preventDefault(); submitForm(); }}
+            onSubmit={(e) => { e.preventDefault(); handleSubmit(e); }}
           />
         </Container>
       </IonContent>

@@ -118,9 +118,9 @@ export const useHerdList = () => {
 
   // Wrap actions into stable configuration blocks
   const handlers = useMemo(() => ({
-    onView: (id: any) => history.push(`/herds/${id}`),
-    onEdit: (id: any) => history.push(`/herds/edit/${id}`),
-    onDelete: (id: any) => setDeleteTargetId(Number(id)),
+    onView: (uuid: any) => history.push(`/herds/${uuid}`),
+    onEdit: (uuid: any) => history.push(`/herds/edit/${uuid}`),
+    onDelete: (uuid: any) => setDeleteTargetId(uuid),
     confirmDelete: async () => {
       if (deleteTargetId) {
         try {

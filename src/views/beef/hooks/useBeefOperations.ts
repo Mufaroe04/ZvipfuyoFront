@@ -225,9 +225,9 @@ export const useBeefOperations = () => {
 
   const columns = useMemo(() => 
     getBeefTableColumns(userRole, {
-      onView: (id) => history.push(`/weight/${id}`),
-      onEdit: (id) => history.push(`/weight/edit/${id}`),
-      onDelete: (id) => setDeleteTargetId(Number(id))
+      onView: (uuid) => history.push(`/weight/${uuid}`),
+      onEdit: (uuid) => history.push(`/weight/edit/${uuid}`),
+      onDelete: (uuid) => setDeleteTargetId(Number(uuid))
     }), 
     [history, userRole]
   );

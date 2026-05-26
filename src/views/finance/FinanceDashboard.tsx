@@ -242,27 +242,68 @@ const FinanceDashboard: React.FC = () => {
     handleCloseRateModal, handleSaveRate
   } = useFinanceList('server');
 
-  const chartSeries = [{
-    name: view === 'expenses' ? 'Expenses' : 'Revenue',
-    data: filteredRows.map(item => (item.transaction_details ? item.transaction_details.amount : item.amount) || 0)
-  }];
+  // const chartSeries = [{
+  //   name: view === 'expenses' ? 'Expenses' : 'Revenue',
+  //   data: filteredRows.map(item => (item.transaction_details ? item.transaction_details.amount : item.amount) || 0)
+  // }];
 
-  const chartOptions: ApexCharts.ApexOptions = {
-    chart: { id: 'finance-trend', toolbar: { show: false }, fontFamily: 'Inter, sans-serif' },
-    colors: [view === 'expenses' ? '#d32f2f' : '#2e7d32'],
-    xaxis: { 
-      categories: filteredRows.map(item => item.transaction_details?.date || item.date),
-      type: 'datetime' 
-    },
-    stroke: { curve: 'smooth', width: 3 }
-  };
+  // const chartOptions: ApexCharts.ApexOptions = {
+  //   chart: { id: 'finance-trend', toolbar: { show: false }, fontFamily: 'Inter, sans-serif' },
+  //   colors: [view === 'expenses' ? '#d32f2f' : '#2e7d32'],
+  //   xaxis: { 
+  //     categories: filteredRows.map(item => item.transaction_details?.date || item.date),
+  //     type: 'datetime' 
+  //   },
+  //   stroke: { curve: 'smooth', width: 3 }
+  // };
+// 1. Map the structural amounts safely using an inline type guard
+// 1. Map the standardized USD amounts safely using your backend base conversion properties
+const chartSeries = [{
+  name: view === 'expenses' ? 'Expenses' : 'Revenue',
+  data: filteredRows.map(item => {
+    // If transaction_details exists, extract from the nested Transaction object
+    if ('transaction_details' in item && item.transaction_details) {
+      return Number(item.transaction_details.amount_in_usd) || 0;
+    }
+    // Otherwise, pull directly from the root Transaction record
+    return 'amount_in_usd' in item ? Number(item.amount_in_usd) || 0 : 0;
+  })
+}];
 
+// 2. Map the structural dates and improve the tooltip context
+const chartOptions: ApexCharts.ApexOptions = {
+  chart: { 
+    id: 'finance-trend', 
+    toolbar: { show: false }, 
+    fontFamily: 'Inter, sans-serif' 
+  },
+  colors: [view === 'expenses' ? '#d32f2f' : '#2e7d32'],
+  xaxis: { 
+    categories: filteredRows.map(item => {
+      if ('transaction_details' in item && item.transaction_details) {
+        return item.transaction_details.date;
+      }
+      return item.date;
+    }),
+    type: 'datetime',
+    labels: { style: { fontSize: '10px', fontWeight: 600 } }
+  },
+  yaxis: { 
+    title: { text: 'Normalized Amount (USD)', style: { fontWeight: 600 } },
+    labels: { formatter: (val) => `$${val.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}` }
+  },
+  tooltip: { 
+    x: { format: 'dd MMM yyyy' },
+    y: { formatter: (val) => `$${val.toLocaleString(undefined, { minimumFractionDigits: 2 })} USD` }
+  },
+  stroke: { curve: 'smooth', width: 3 }
+};
   return (
     <Box sx={{ flexGrow: 1, p: { xs: 0, md: 1 } }}>
-      <Paper elevation={0} sx={{ p: 1, borderRadius: 2, mb: 1,  background: '#fafafa', width: '100%' }}>
+      <Paper elevation={0} sx={{ p: 1, borderRadius: 1, mb: 1,  background: '#fafafa', width: '100%' }}>
         <Stack direction={{ xs: 'column', md: 'row' }} justifyContent="space-between" alignItems="center" spacing={2}>
           <Stack direction="row" spacing={2} alignItems="center">
-            <Box sx={{ p: 1.5, bgcolor: '#e8f5e9', borderRadius: '12px' }}><TrendingUp color="success" /></Box>
+            <Box sx={{ p: 1.5, bgcolor: '#e8f5e9', borderRadius: '4px' }}><TrendingUp color="success" /></Box>
             <Box>
               <Typography color="text.secondary" variant="caption" fontWeight="bold">TOTAL INCOME</Typography>
               <Typography variant="body1" fontWeight="800" color="success.main">${summary.total_income_usd?.toLocaleString()}</Typography>
@@ -279,7 +320,7 @@ const FinanceDashboard: React.FC = () => {
             variant="contained" 
             size="large" 
             startIcon={<AddCircleOutline />}
-            sx={{ borderRadius: 2, textTransform: 'none', px: 4 }}
+            sx={{ borderRadius: 1, textTransform: 'none', px: 4 ,fontWeight:'bold' }}
             onClick={() => history.push("/sales-new-entry")}
           >
             New Entry
@@ -287,13 +328,13 @@ const FinanceDashboard: React.FC = () => {
         </Stack>
       </Paper>
 
-      <Card variant="outlined" sx={{ borderRadius: 4, mb: 3, border: '1px solid #e0e0e0' }}>
+      <Card variant="outlined" sx={{ borderRadius: 1, mb: 3, border: '1px solid #e0e0e0' }}>
         <CardContent>
           <Stack direction="row" justifyContent="space-between" alignItems="center" sx={{ mb: 2 }}>
             <Typography variant="body1" fontWeight="bold">Financial Performance</Typography>
             <Box 
               sx={{ 
-                px: 2, py: 0.8, bgcolor: 'primary.main', borderRadius: 2, cursor: 'pointer',
+                px: 2, py: 0.8, bgcolor: 'primary.main', borderRadius: 1, cursor: 'pointer',
                 display: 'flex', alignItems: 'center', gap: 1, '&:hover': { bgcolor: 'primary.dark' } 
               }}
               onClick={handleOpenRateModal}

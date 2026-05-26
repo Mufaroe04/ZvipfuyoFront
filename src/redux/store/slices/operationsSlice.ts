@@ -974,7 +974,7 @@ export const fetchActiveTasks = createAsyncThunk(
 
 export const fetchWeights = createAsyncThunk(
   'ops/fetchWeights', 
-  async ({ animalId, page, url }: { animalId?: number, page?: number, url?: string } = {}) => {
+  async ({ animalId, page, url }: { animalId?: string, page?: number, url?: string } = {}) => {
     const response = url 
       ? await operationsService.getByUrl<WeightEntry>(url) 
       : await operationsService.getWeightEntries({ animal_id: animalId, page });
@@ -1013,7 +1013,7 @@ export const addMilkQuality=createAsyncThunk<MilkQuality,MilkQualityPayload, { r
     }
 })
 
-export const updateMilkQuality=createAsyncThunk<MilkQuality,{id:number,data:Partial<MilkQualityPayload>},{ rejectValue: string }>(
+export const updateMilkQuality=createAsyncThunk<MilkQuality,{id:string,data:Partial<MilkQualityPayload>},{ rejectValue: string }>(
   'ops/updateMilkQuality',
   async({ id, data }, { rejectWithValue })=>{
     try {
@@ -1043,7 +1043,7 @@ export const addLactationPeriod=createAsyncThunk<LactationPeriod,LactationPeriod
       return rejectWithValue(err.response?.data?.message || 'failed to create lactation period ');
     }
 })
-export const updateLactationPeriod=createAsyncThunk<LactationPeriod,{id:number,data:Partial<LactationPeriodPayload>},{ rejectValue: string }>(
+export const updateLactationPeriod=createAsyncThunk<LactationPeriod,{id:string,data:Partial<LactationPeriodPayload>},{ rejectValue: string }>(
   'ops/updateLactationPeriod',
   async({ id, data }, { rejectWithValue })=>{
     try {
@@ -1057,7 +1057,7 @@ export const updateLactationPeriod=createAsyncThunk<LactationPeriod,{id:number,d
 
 export const fetchHealthRecords = createAsyncThunk(
   'ops/fetchHealth', 
-  async ({ animalId, page }: { animalId?: number, page?: number } = {}) => {
+  async ({ animalId, page }: { animalId?: string, page?: number } = {}) => {
     const response = await operationsService.getHealthRecords({ animal_id: animalId, page });
     return response.data;
   }
@@ -1073,11 +1073,28 @@ export const fetchTransfers = createAsyncThunk(
 
 // --- Mutation Thunks ---
 
-export const toggleTaskOptimistic = createAsyncThunk<Task, { id: number; currentStatus: boolean }, { rejectValue: string }>(
+// export const toggleTaskOptimistic = createAsyncThunk<Task, { id: string; currentStatus: boolean }, { rejectValue: string }>(
+//   'ops/toggleTask',
+//   async ({ id, currentStatus }, { rejectWithValue }) => {
+//     try {
+//       const response = await operationsService.toggleTask(id, !currentStatus);
+//       return response.data;
+//     } catch (err: any) {
+//       return rejectWithValue('Server sync failed. Rolling back...');
+//     }
+//   }
+// );
+
+export const toggleTaskOptimistic = createAsyncThunk<
+  Task, 
+  { id: number; uuid: string; currentStatus: boolean }, // Pass both identifiers
+  { rejectValue: string }
+>(
   'ops/toggleTask',
-  async ({ id, currentStatus }, { rejectWithValue }) => {
+  async ({ uuid, currentStatus }, { rejectWithValue }) => {
     try {
-      const response = await operationsService.toggleTask(id, !currentStatus);
+      // Execute the network request using the safe UUID string string
+      const response = await operationsService.toggleTask(uuid, !currentStatus);
       return response.data;
     } catch (err: any) {
       return rejectWithValue('Server sync failed. Rolling back...');
@@ -1092,7 +1109,7 @@ export const addWeight = createAsyncThunk('ops/addWeight', async (data: { animal
 
 
 
-export const deleteHealthRecord = createAsyncThunk<number, number, { rejectValue: string }>(
+export const deleteHealthRecord = createAsyncThunk<string, string, { rejectValue: string }>(
   'ops/deleteHealthRecord',
   async (id, { rejectWithValue }) => {
     try {
@@ -1103,7 +1120,7 @@ export const deleteHealthRecord = createAsyncThunk<number, number, { rejectValue
     }
   } 
 );
-export const updateWeight = createAsyncThunk<WeightEntry, { id: number, data: Partial<WeightEntry> }, { rejectValue: string }>(
+export const updateWeight = createAsyncThunk<WeightEntry, { id: string, data: Partial<WeightEntry> }, { rejectValue: string }>(
   'ops/editWeight',
   async ({ id, data }, { rejectWithValue }) => {
     try {
@@ -1132,7 +1149,7 @@ export const addMarketPrice = createAsyncThunk(
   }
 );
 
-export const updateMarketPrice = createAsyncThunk('ops/updateMarketPrice', async ({ id, price }: { id: number; price: number }) => {
+export const updateMarketPrice = createAsyncThunk('ops/updateMarketPrice', async ({ id, price }: { id: string; price: number }) => {
   const response = await operationsService.updateMarketPrice(id, price);
   return response.data;
 });
@@ -1142,7 +1159,7 @@ export const addHealthRecord = createAsyncThunk('ops/addHealth', async (data: Pa
   return response.data;
 });
 
-export const updateHealthRecord = createAsyncThunk<HealthRecord, { id: number, data: Partial<HealthRecord> }, { rejectValue: string }>(
+export const updateHealthRecord = createAsyncThunk<HealthRecord, { id: string, data: Partial<HealthRecord> }, { rejectValue: string }>(
   'ops/updateHealth',
   async ({ id, data }, { rejectWithValue }) => {
     try {
@@ -1166,7 +1183,7 @@ export const addMilkYields = createAsyncThunk<MilkYield, MilkYieldPayload, { rej
   }
 );
 
-export const updateLactationPeriodDryOff = createAsyncThunk<LactationPeriod, { id: number }, { rejectValue: string }>(
+export const updateLactationPeriodDryOff = createAsyncThunk<LactationPeriod, { id: string }, { rejectValue: string }>(
   'ops/dryOffLactation',
   async ({ id }, { rejectWithValue }) => {
     try {
@@ -1248,7 +1265,7 @@ const operationsSlice = createSlice({
         if (index !== -1) state.healthRecords.results[index] = action.payload;
       }).addCase(deleteHealthRecord.fulfilled, (state, action) => {
               // FIXED: Filter the results array, not the state object
-              state.healthRecords.results = state.healthRecords.results.filter(h => h.id !== action.payload);
+              state.healthRecords.results = state.healthRecords.results.filter(h => h.uuid !== action.payload);
               state.healthRecords.count -= 1;
             })
       .addCase(fetchMilkYields.fulfilled, (state, action) => { state.milkYields = action.payload; })

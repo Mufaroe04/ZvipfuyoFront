@@ -28,9 +28,9 @@ const HerdForm: React.FC<HerdFormProps> = ({ title }) => {
         elevation={0} 
         sx={{ 
           p: 4, 
-          borderRadius: '24px', 
-          border: '1px solid #e0e0e0',
-          boxShadow: '0 4px 20px rgba(0,0,0,0.03)' 
+          borderRadius: '4px', 
+          // border: '1px solid #e0e0e0',
+          // boxShadow: '0 4px 20px rgba(0,0,0,0.03)' 
         }}
       >
         <Box component="form" onSubmit={handleSubmit} noValidate>
@@ -110,7 +110,7 @@ const HerdForm: React.FC<HerdFormProps> = ({ title }) => {
                 disabled={!isFormValid || isSubmitting}
                 sx={{ 
                   py: 1.8, 
-                  borderRadius: '12px', 
+                  borderRadius: '4px', 
                   fontWeight: 'bold', 
                   fontSize: '1rem',
                   bgcolor: "#18774c",
@@ -121,7 +121,7 @@ const HerdForm: React.FC<HerdFormProps> = ({ title }) => {
                 {isSubmitting ? (
                   <CircularProgress size={26} color="inherit" />
                 ) : (
-                  isEditMode ? 'Update Herd Registry' : 'Complete Herd Registration'
+                  isEditMode ? 'Update ' : 'Add'
                 )}
               </Button>
 
@@ -135,7 +135,7 @@ const HerdForm: React.FC<HerdFormProps> = ({ title }) => {
                   color: "text.secondary" 
                 }}
               >
-                Cancel and Go Back
+                Cancel
               </Button>
             </Box>
           </Stack>

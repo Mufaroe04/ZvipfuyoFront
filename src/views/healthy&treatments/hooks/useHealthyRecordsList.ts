@@ -149,9 +149,9 @@ export const useHealthyRecordsList = (
 
   const columns = useMemo(() => 
     getHealthColumns(userRole, {
-      onView: (id) => history.push(`/health/view/${id}`),
-      onEdit: (id) => history.push(`/health/edit/${id}`),
-      onDelete: (id) => setDeleteTargetId(Number(id))
+      onView: (uuid) => history.push(`/health/view/${uuid}`),
+      onEdit: (uuid) => history.push(`/health/edit/${uuid}`),
+      onDelete: (uuid) => setDeleteTargetId(Number(uuid))
     }), 
     [history, userRole]
   );

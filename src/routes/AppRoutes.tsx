@@ -50,6 +50,8 @@ import AddWeightView from '../views/weight/AddWeightView';
 import EditWeightView from '../views/weight/EditWeightView';
 import EditTaskView from '../views/tasks/EditTaskView';
 import AddEditTransferView from '../views/transfer/AddEditTransferView';
+import AddTransferView from '../views/transfer/AddTransferView';
+import EditTransferView from '../views/transfer/EditTransferView';
 
 interface AppRoutesProps {
   userRole: UserRole | null; // Correctly typed to allow null values during initialization
@@ -123,8 +125,8 @@ export const AppRoutes: React.FC<AppRoutesProps> = ({
       <RoleProtectedRoute exact path="/tasks/add" component={AddTaskView} allowedRoles={['owner', 'manager']} userRole={userRole} isAuthenticated={isAuthenticated} />
       <RoleProtectedRoute exact path="/tasks/edit/:id" component={EditTaskView} allowedRoles={['owner', 'manager', 'hand']} userRole={userRole} isAuthenticated={isAuthenticated} />
       <RoleProtectedRoute exact path="/transfer" component={TransferView} allowedRoles={['owner', 'manager']} userRole={userRole} isAuthenticated={isAuthenticated} />
-      <RoleProtectedRoute exact path="/operations/add-transfer" component={AddEditTransferView} allowedRoles={['owner', 'manager']} userRole={userRole} isAuthenticated={isAuthenticated} />
-      <RoleProtectedRoute exact path="/operations/edit/:id" component={EditTaskView} allowedRoles={['owner', 'manager', 'hand']} userRole={userRole} isAuthenticated={isAuthenticated} />
+      <RoleProtectedRoute exact path="/operations/add-transfer" component={AddTransferView} allowedRoles={['owner', 'manager']} userRole={userRole} isAuthenticated={isAuthenticated} />
+      <RoleProtectedRoute exact path="/operations/edit/:id" component={EditTransferView} allowedRoles={['owner', 'manager', 'hand']} userRole={userRole} isAuthenticated={isAuthenticated} />
 
 
       {/* Inventory & Supply Chain */}

@@ -54,7 +54,7 @@ export const fetchAllAnimals = createAsyncThunk(
 
 export const fetchFullAnimalProfile = createAsyncThunk(
   'livestock/fetchFullProfile',
-  async ( id:number, { rejectWithValue }) => {
+  async ( id:string, { rejectWithValue }) => {
     try {
       const [profileRes, healthRes] = await Promise.all([
         livestockService.getAnimalDetail(id),
@@ -95,7 +95,7 @@ export const createHerd = createAsyncThunk<
 });
 export const fetchHerdById = createAsyncThunk(
   'livestock/fetchHerdById',
-  async ( herdId:number ,{ rejectWithValue }) => {
+  async ( herdId:string ,{ rejectWithValue }) => {
     try {
       const response = await livestockService.getHerdDetail( herdId);
     return response.data;
@@ -104,7 +104,7 @@ export const fetchHerdById = createAsyncThunk(
     }
   }
 );
-export const updateHerd = createAsyncThunk<Herd, { id: number; data: HerdPayload }, { rejectValue: string }>(
+export const updateHerd = createAsyncThunk<Herd, { id: string; data: HerdPayload }, { rejectValue: string }>(
   'livestock/updateHerd',
   async ({ id, data }, { rejectWithValue }) => {
     try {
@@ -116,7 +116,7 @@ export const updateHerd = createAsyncThunk<Herd, { id: number; data: HerdPayload
   }
 );
 
-export const deleteHerd = createAsyncThunk<number, number, { rejectValue: string }>(
+export const deleteHerd = createAsyncThunk<string, string, { rejectValue: string }>(
   'livestock/deleteHerd',
   async (id, { rejectWithValue }) => {
     try {
@@ -139,7 +139,7 @@ export const createAnimal = createAsyncThunk< Animal,AnimalPayload, { rejectValu
     }
   }
 );
-export const updateAnimal = createAsyncThunk<Animal, { id: number; data: Partial<AnimalPayload> }, { rejectValue: string }>(
+export const updateAnimal = createAsyncThunk<Animal, { id: string; data: Partial<AnimalPayload> }, { rejectValue: string }>(
   'livestock/updateAnimal',
   async ({ id, data }, { rejectWithValue }) => {
     try {
@@ -151,7 +151,7 @@ export const updateAnimal = createAsyncThunk<Animal, { id: number; data: Partial
   }
 );
 
-export const deleteAnimal = createAsyncThunk<number, number, { rejectValue: string }>(
+export const deleteAnimal = createAsyncThunk<string, string, { rejectValue: string }>(
   'livestock/deleteAnimal',
   async (id, { rejectWithValue }) => {
     try {
@@ -186,7 +186,7 @@ const livestockSlice = createSlice({
       })
       .addCase(deleteHerd.fulfilled, (state, action) => {
         // FIXED: Filter the results array, not the state object
-        state.herds.results = state.herds.results.filter(h => h.id !== action.payload);
+        state.herds.results = state.herds.results.filter(h => h.uuid !== action.payload);
         state.herds.count -= 1;
       })
       .addCase(updateHerd.fulfilled, (state, action) => {
@@ -199,7 +199,7 @@ const livestockSlice = createSlice({
       })
       .addCase(deleteAnimal.fulfilled, (state, action) => {
         // FIXED: Filter the results array
-        state.animals.results = state.animals.results.filter(a => a.id !== action.payload);
+        state.animals.results = state.animals.results.filter(a => a.uuid !== action.payload);
         state.animals.count -= 1;
       })
       .addCase(updateAnimal.fulfilled, (state, action) => {

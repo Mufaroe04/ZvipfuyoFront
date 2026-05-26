@@ -45,6 +45,7 @@ export interface AuthResponse {
 }
 export interface Herd {
   id: number;
+  uuid:string;
   name: string;
   location: string;
   herd_type: string;
@@ -67,8 +68,9 @@ export interface HerdPayload{
   primary_breed: string;
 }
 export interface WeightEntry {
-  id: number;          // Unique ID for DataGrid
-  animal_tag: string;  // We will pull this from the serializer
+  id: number; 
+  uuid:string;       
+  animal_tag: string; 
   animal_id: number;
   date: string; 
   weight_kg: number;
@@ -78,6 +80,7 @@ export interface WeightEntry {
 }
 export interface MarketPrice {
   id: number;
+  uuid:string;
   breed: string; 
   breed_display?: string; 
   price_per_kg: number;
@@ -92,6 +95,7 @@ export interface MarketPricePayload {
 }
 export interface CountingSession {
   id: number;
+  uuid:string;
   herd: number;          // ID of the herd being counted
   herd_name: string;     // ReadOnlyField from Serializer
   session_date: string;  // ISO DateTime string
@@ -167,6 +171,7 @@ export interface ConsoleDataProps {
 }
 export interface HealthRecord {
   id: number;
+  uuid:string;
   animal: number; // Animal ID
   animal_tag:string;
   treatment_date: string;
@@ -178,6 +183,7 @@ export interface HealthRecord {
 
 export interface BreedingEvent {
   id: number;
+  uuid:string;
   dam: number;
   dam_tag:string;
   sire_tag: string;
@@ -191,6 +197,7 @@ export interface BreedingEvent {
 
 export interface Animal {
   id: number;
+  uuid:string;
   tag_number: string;
   herd: number;
   herd_name:string;
@@ -236,6 +243,7 @@ export interface AnimalPayload {
 
 export interface Transfer {
   id: number;
+  uuid:string;
   status: TransferStatus;
   animals: number[];
   animal_tags: string[];
@@ -262,6 +270,7 @@ export interface Transfer {
 }
 export interface InventoryItem {
   id: number;
+  uuid:string;
   name: string;
   category:Category;
   quantity_on_hand: number;
@@ -275,6 +284,7 @@ export interface InventoryItem {
 
 export interface Task {
   id: number;
+  uuid:string;
   title: string;
   description: string;
   due_date: string;
@@ -286,6 +296,7 @@ export interface Task {
 
 export interface Supplier {
   id: number;
+  uuid:string;
   name: string;
   contact_person?: string;
   phone: string;
@@ -294,6 +305,7 @@ export interface Supplier {
 } 
 export interface Procurement{
     id:number;
+    uuid:string;
     supplier:Supplier;
     item :InventoryItem;
     order_quantity :number;
@@ -305,6 +317,7 @@ export interface Procurement{
 }
 export interface Notification {
   id: number;
+  uuid:string;
   title: string;
   message: string;
   level: NotificationLevel;
@@ -394,6 +407,7 @@ export interface WeatherData {
 
 export interface MilkYield {
     id:number;
+    uuid:string;
     animal : Animal;
     breed: string; 
     date :string;
@@ -405,6 +419,7 @@ export interface MilkYield {
 
 export interface MilkQuality{
     id :number;
+    uuid:string;
     animal : Animal;
     breed: string; 
     date :string;
@@ -415,6 +430,7 @@ export interface MilkQuality{
 
 export interface LactationPeriod{
     id :number;
+    uuid:string;
     animal : Animal;
     breed: string; 
     start_date :string;
@@ -455,6 +471,7 @@ export interface FinanceSummary {
 
 export interface Transaction {
   id: number;
+  uuid:string;
   category_name:string;
   is_income:boolean;
   date: string;
@@ -468,19 +485,23 @@ export interface Transaction {
 
 export interface CattleSale {
   id: number;
+  uuid:string;
   transaction_details: Transaction;
   animals: number[];
   buyer_name: string;
   total_weight_kg: string;
   price_per_kg: string;
+  date:string
 }
 
 export interface MilkSale {
   id: number;
+  uuid:string;
   transaction_details: Transaction;
   liters_sold: string;
   price_per_liter: string;
   buyer: string;
+  date:string
 }
 
 // PAYLOADS for POST requests

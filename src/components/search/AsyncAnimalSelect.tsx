@@ -135,6 +135,169 @@
 //   );
 // };
 
+// import React, { useState, useEffect, useMemo } from 'react';
+// import { Autocomplete, TextField, CircularProgress } from '@mui/material';
+// import { livestockService } from '../../services/livestockService';
+// import { Animal, Gender } from '../../types/types';
+
+// interface BaseAsyncProps {
+//   label?: string;
+//   required?: boolean;
+//   gender?: Gender | 'male' | 'female';
+//   excludeId?: string | number;
+//   valueType?: 'id' | 'tag_number';
+// }
+
+// // Employs discriminated structural definitions for safe type emission
+// interface SingleSelectProps extends BaseAsyncProps {
+//   multiple?: false;
+//   value: string | number | null;
+//   onChange: (value: string) => void;
+// }
+
+// interface MultipleSelectProps extends BaseAsyncProps {
+//   multiple: true;
+//   value: (string | number)[];
+//   onChange: (value: string[]) => void;
+// }
+
+// type AsyncAnimalSelectProps = SingleSelectProps | MultipleSelectProps;
+
+// export const AsyncAnimalSelect: React.FC<AsyncAnimalSelectProps> = ({
+//   multiple = false,
+//   value,
+//   onChange,
+//   label = "Search Animal Tag",
+//   required = false,
+//   gender,
+//   excludeId,
+//   valueType = 'id'
+// }) => {
+//   const [open, setOpen] = useState(false);
+//   const [options, setOptions] = useState<Animal[]>([]);
+//   const [inputValue, setInputValue] = useState('');
+//   const [loading, setLoading] = useState(false);
+
+//   // Unified API Hydration Loop
+//   useEffect(() => {
+//     let active = true;
+
+//     const fetchDropdownData = async () => {
+//       setLoading(true);
+//       try {
+//         let responseData;
+//         const hasValue = multiple ? Array.isArray(value) && value.length > 0 : Boolean(value);
+
+//         if (hasValue && inputValue === '') {
+//           // Hydrate specific active selected items on initial load
+//           const lookupVal = multiple ? (value as (string | number)[])[0] : value;
+//           const searchParams: any = valueType === 'id' 
+//             ? { animal_id: Number(lookupVal) } 
+//             : { search: String(lookupVal) };
+//           const res = await livestockService.getAnimals(searchParams);
+//           responseData = res.data;
+//         } else {
+//           const queryParams: any = { search: inputValue, page: 1 };
+//           if (gender) queryParams.gender = gender.toLowerCase();
+//           const res = await livestockService.getAnimals(queryParams);
+//           responseData = res.data;
+//         }
+
+//         if (active) {
+//           const results = responseData.results || responseData;
+//           let collection: Animal[] = Array.isArray(results) ? results : [];
+//           if (excludeId) {
+//             collection = collection.filter(a => a.id.toString() !== excludeId.toString());
+//           }
+//           setOptions(collection);
+//         }
+//       } catch (err) {
+//         console.error("AsyncAnimalSelect engine failure:", err);
+//       } finally {
+//         setLoading(false);
+//       }
+//     };
+
+//     const delayTimer = setTimeout(() => {
+//       fetchDropdownData();
+//     }, 350);
+
+//     return () => {
+//       active = false;
+//       clearTimeout(delayTimer);
+//     };
+//   }, [inputValue, value, open, gender, excludeId, valueType, multiple]);
+
+//   // Resolves backend entity option records matching the component value
+//   const selectedValue = useMemo(() => {
+//     const findMatch = (val: string | number) => {
+//       const match = options.find((opt) => 
+//         valueType === 'id' 
+//           ? opt.id.toString() === val.toString()
+//           : opt.tag_number.toLowerCase() === val.toString().toLowerCase()
+//       );
+//       if (!match) {
+//         return valueType === 'id'
+//           ? ({ id: Number(val), tag_number: `ID: ${val}` } as Animal)
+//           : ({ id: 0, tag_number: String(val) } as Animal);
+//       }
+//       return match;
+//     };
+
+//     if (multiple) {
+//       return Array.isArray(value) ? value.map(findMatch) : [];
+//     }
+//     return value ? findMatch(value as string | number) : null;
+//   }, [options, value, valueType, multiple]);
+
+//   return (
+//     <Autocomplete
+//       multiple={multiple}
+//       open={open}
+//       onOpen={() => setOpen(true)}
+//       onClose={() => setOpen(false)}
+//       options={options}
+//       loading={loading}
+//       value={selectedValue}
+//       inputValue={inputValue}
+//       onInputChange={(_, newInputValue) => setInputValue(newInputValue)}
+//       onChange={(_, selectedItem) => {
+//         if (multiple) {
+//           const list = (selectedItem as Animal[]) || [];
+//           const output = list.map(item => valueType === 'id' ? item.id.toString() : item.tag_number);
+//           (onChange as (value: string[]) => void)(output);
+//         } else {
+//           const single = selectedItem as Animal | null;
+//           if (!single) {
+//             (onChange as (value: string) => void)('');
+//             return;
+//           }
+//           const output = valueType === 'id' ? single.id.toString() : single.tag_number;
+//           (onChange as (value: string) => void)(output);
+//         }
+//       }}
+//       isOptionEqualToValue={(option, val) => option.id === val.id}
+//       getOptionLabel={(option) => option.tag_number || ""}
+//       filterOptions={(x) => x}
+//       renderInput={(params) => (
+//         <TextField
+//           {...params}
+//           label={label}
+//           required={required}
+//           InputProps={{
+//             ...params.InputProps,
+//             endAdornment: (
+//               <>
+//                 {loading ? <CircularProgress color="inherit" size={20} /> : null}
+//                 {params.InputProps.endAdornment}
+//               </>
+//             ),
+//           }}
+//         />
+//       )}
+//     />
+//   );
+// };
 import React, { useState, useEffect, useMemo } from 'react';
 import { Autocomplete, TextField, CircularProgress } from '@mui/material';
 import { livestockService } from '../../services/livestockService';
@@ -145,20 +308,18 @@ interface BaseAsyncProps {
   required?: boolean;
   gender?: Gender | 'male' | 'female';
   excludeId?: string | number;
-  valueType?: 'id' | 'tag_number';
 }
 
-// Employs discriminated structural definitions for safe type emission
 interface SingleSelectProps extends BaseAsyncProps {
   multiple?: false;
-  value: string | number | null;
-  onChange: (value: string) => void;
+  value: Animal | null; 
+  onChange: (value: Animal | null) => void;
 }
 
 interface MultipleSelectProps extends BaseAsyncProps {
   multiple: true;
-  value: (string | number)[];
-  onChange: (value: string[]) => void;
+  value: Animal[];
+  onChange: (value: Animal[]) => void;
 }
 
 type AsyncAnimalSelectProps = SingleSelectProps | MultipleSelectProps;
@@ -171,14 +332,12 @@ export const AsyncAnimalSelect: React.FC<AsyncAnimalSelectProps> = ({
   required = false,
   gender,
   excludeId,
-  valueType = 'id'
 }) => {
   const [open, setOpen] = useState(false);
   const [options, setOptions] = useState<Animal[]>([]);
   const [inputValue, setInputValue] = useState('');
   const [loading, setLoading] = useState(false);
 
-  // Unified API Hydration Loop
   useEffect(() => {
     let active = true;
 
@@ -186,24 +345,34 @@ export const AsyncAnimalSelect: React.FC<AsyncAnimalSelectProps> = ({
       setLoading(true);
       try {
         let responseData;
-        const hasValue = multiple ? Array.isArray(value) && value.length > 0 : Boolean(value);
+        const hasValue = multiple 
+          ? Array.isArray(value) && value.length > 0 
+          : Boolean(value);
 
+        // If hydrating initial data and user hasn't typed anything yet
         if (hasValue && inputValue === '') {
-          // Hydrate specific active selected items on initial load
-          const lookupVal = multiple ? (value as (string | number)[])[0] : value;
-          const searchParams: any = valueType === 'id' 
-            ? { animal_id: Number(lookupVal) } 
-            : { search: String(lookupVal) };
-          const res = await livestockService.getAnimals(searchParams);
-          responseData = res.data;
+          let searchTerms: string[] = [];
+          
+          if (multiple) {
+            searchTerms = (value as Animal[]).map(a => a.tag_number);
+          } else {
+            searchTerms = [(value as Animal).tag_number];
+          }
+
+          // Fetch using tag numbers to remain fully compatible with standard search filters
+          if (searchTerms[0]) {
+            const res = await livestockService.getAnimals({ search: searchTerms[0], page: 1 });
+            responseData = res.data;
+          }
         } else {
+          // Normal paginated query lookup
           const queryParams: any = { search: inputValue, page: 1 };
           if (gender) queryParams.gender = gender.toLowerCase();
           const res = await livestockService.getAnimals(queryParams);
           responseData = res.data;
         }
 
-        if (active) {
+        if (active && responseData) {
           const results = responseData.results || responseData;
           let collection: Animal[] = Array.isArray(results) ? results : [];
           if (excludeId) {
@@ -226,29 +395,22 @@ export const AsyncAnimalSelect: React.FC<AsyncAnimalSelectProps> = ({
       active = false;
       clearTimeout(delayTimer);
     };
-  }, [inputValue, value, open, gender, excludeId, valueType, multiple]);
+  }, [inputValue, value, open, gender, excludeId, multiple]);
 
-  // Resolves backend entity option records matching the component value
-  const selectedValue = useMemo(() => {
-    const findMatch = (val: string | number) => {
-      const match = options.find((opt) => 
-        valueType === 'id' 
-          ? opt.id.toString() === val.toString()
-          : opt.tag_number.toLowerCase() === val.toString().toLowerCase()
-      );
-      if (!match) {
-        return valueType === 'id'
-          ? ({ id: Number(val), tag_number: `ID: ${val}` } as Animal)
-          : ({ id: 0, tag_number: String(val) } as Animal);
+  // Fixed Error: Cast currentValues explicitly to avoid union reference issues inside loops
+  const memoizedOptions = useMemo(() => {
+    const currentValues = multiple 
+      ? (value as Animal[] || []) 
+      : (value ? [value as Animal] : []);
+    
+    const combined = [...options];
+    currentValues.forEach(val => {
+      if (val && !combined.some(o => o.id === val.id)) {
+        combined.push(val);
       }
-      return match;
-    };
-
-    if (multiple) {
-      return Array.isArray(value) ? value.map(findMatch) : [];
-    }
-    return value ? findMatch(value as string | number) : null;
-  }, [options, value, valueType, multiple]);
+    });
+    return combined;
+  }, [options, value, multiple]);
 
   return (
     <Autocomplete
@@ -256,24 +418,18 @@ export const AsyncAnimalSelect: React.FC<AsyncAnimalSelectProps> = ({
       open={open}
       onOpen={() => setOpen(true)}
       onClose={() => setOpen(false)}
-      options={options}
+      options={memoizedOptions}
       loading={loading}
-      value={selectedValue}
+      // Fixed type safety assignment for component value state mapping
+      value={multiple ? (value as Animal[] || []) : (value as Animal | null)}
       inputValue={inputValue}
       onInputChange={(_, newInputValue) => setInputValue(newInputValue)}
       onChange={(_, selectedItem) => {
         if (multiple) {
-          const list = (selectedItem as Animal[]) || [];
-          const output = list.map(item => valueType === 'id' ? item.id.toString() : item.tag_number);
-          (onChange as (value: string[]) => void)(output);
+          // Explicitly narrow callback context to match structural configuration signatures
+          (onChange as (val: Animal[]) => void)((selectedItem as Animal[]) || []);
         } else {
-          const single = selectedItem as Animal | null;
-          if (!single) {
-            (onChange as (value: string) => void)('');
-            return;
-          }
-          const output = valueType === 'id' ? single.id.toString() : single.tag_number;
-          (onChange as (value: string) => void)(output);
+          (onChange as (val: Animal | null) => void)(selectedItem as Animal | null);
         }
       }}
       isOptionEqualToValue={(option, val) => option.id === val.id}
@@ -298,3 +454,164 @@ export const AsyncAnimalSelect: React.FC<AsyncAnimalSelectProps> = ({
     />
   );
 };
+
+
+// // src/components/search/AsyncAnimalSelect.tsx
+// import React, { useState, useEffect, useMemo } from 'react';
+// import { Autocomplete, TextField, CircularProgress } from '@mui/material';
+// import { livestockService } from '../../services/livestockService';
+// import { Animal, Gender } from '../../types/types';
+
+// interface BaseAsyncProps {
+//   label?: string;
+//   required?: boolean;
+//   gender?: Gender | 'male' | 'female';
+//   excludeId?: string | number;
+// }
+
+// interface SingleSelectProps extends BaseAsyncProps {
+//   multiple?: false;
+//   value: Animal | null; 
+//   onChange: (value: Animal | null) => void;
+// }
+
+// interface MultipleSelectProps extends BaseAsyncProps {
+//   multiple: true;
+//   value: Animal[];
+//   onChange: (value: Animal[]) => void;
+// }
+
+// type AsyncAnimalSelectProps = SingleSelectProps | MultipleSelectProps;
+
+// export const AsyncAnimalSelect: React.FC<AsyncAnimalSelectProps> = ({
+//   multiple = false,
+//   value,
+//   onChange,
+//   label = "Search Animal Tag",
+//   required = false,
+//   gender,
+//   excludeId,
+// }) => {
+//   const [open, setOpen] = useState(false);
+//   const [options, setOptions] = useState<Animal[]>([]);
+//   const [inputValue, setInputValue] = useState('');
+//   const [loading, setLoading] = useState(false);
+
+//   useEffect(() => {
+//     // CRITICAL: Only trigger network fetches when the dropdown is open
+//     if (!open) return;
+
+//     let active = true;
+
+//     const fetchDropdownData = async () => {
+//       setLoading(true);
+//       try {
+//         let responseData;
+//         const hasValue = multiple 
+//           ? Array.isArray(value) && value.length > 0 
+//           : Boolean(value);
+
+//         // Hydration data bypass logic
+//         if (hasValue && inputValue === '') {
+//           let searchTerms: string[] = [];
+          
+//           if (multiple) {
+//             searchTerms = (value as Animal[]).map(a => a.tag_number);
+//           } else {
+//             searchTerms = [(value as Animal).tag_number];
+//           }
+
+//           if (searchTerms[0]) {
+//             const res = await livestockService.getAnimals({ search: searchTerms[0], page: 1 });
+//             responseData = res.data;
+//           }
+//         } else {
+//           // Standard input-driven lookup
+//           const queryParams: any = { search: inputValue, page: 1 };
+//           if (gender) queryParams.gender = gender.toLowerCase();
+//           const res = await livestockService.getAnimals(queryParams);
+//           responseData = res.data;
+//         }
+
+//         if (active && responseData) {
+//           const results = responseData.results || responseData;
+//           let collection: Animal[] = Array.isArray(results) ? results : [];
+//           if (excludeId) {
+//             collection = collection.filter(a => a.id.toString() !== excludeId.toString());
+//           }
+//           setOptions(collection);
+//         }
+//       } catch (err) {
+//         console.error("AsyncAnimalSelect engine failure:", err);
+//       } finally {
+//         setLoading(false);
+//       }
+//     };
+
+//     const delayTimer = setTimeout(() => {
+//       fetchDropdownData();
+//     }, 350);
+
+//     return () => {
+//       active = false;
+//       clearTimeout(delayTimer);
+//     };
+    
+//     // FIXED DEPENDENCIES: Removed 'value' to isolate search loops from form-wide state mutations
+//   }, [inputValue, open, gender, excludeId, multiple]);
+
+//   // Merge selected choices into option collection to avoid Material UI missing reference warnings
+//   const memoizedOptions = useMemo(() => {
+//     const currentValues = multiple 
+//       ? (value as Animal[] || []) 
+//       : (value ? [value as Animal] : []);
+    
+//     const combined = [...options];
+//     currentValues.forEach(val => {
+//       if (val && !combined.some(o => o.id === val.id)) {
+//         combined.push(val);
+//       }
+//     });
+//     return combined;
+//   }, [options, value, multiple]);
+
+//   return (
+//     <Autocomplete
+//       multiple={multiple}
+//       open={open}
+//       onOpen={() => setOpen(true)}
+//       onClose={() => setOpen(false)}
+//       options={memoizedOptions}
+//       loading={loading}
+//       value={multiple ? (value as Animal[] || []) : (value as Animal | null)}
+//       inputValue={inputValue}
+//       onInputChange={(_, newInputValue) => setInputValue(newInputValue)}
+//       onChange={(_, selectedItem) => {
+//         if (multiple) {
+//           (onChange as (val: Animal[]) => void)((selectedItem as Animal[]) || []);
+//         } else {
+//           (onChange as (val: Animal | null) => void)(selectedItem as Animal | null);
+//         }
+//       }}
+//       isOptionEqualToValue={(option, val) => option.id === val.id}
+//       getOptionLabel={(option) => option.tag_number || ""}
+//       filterOptions={(x) => x}
+//       renderInput={(params) => (
+//         <TextField
+//           {...params}
+//           label={label}
+//           required={required && (multiple ? (value as Animal[] || []).length === 0 : !value)}
+//           InputProps={{
+//             ...params.InputProps,
+//             endAdornment: (
+//               <>
+//                 {loading ? <CircularProgress color="inherit" size={20} /> : null}
+//                 {params.InputProps.endAdornment}
+//               </>
+//             ),
+//           }}
+//         />
+//       )}
+//     />
+//   );
+// };

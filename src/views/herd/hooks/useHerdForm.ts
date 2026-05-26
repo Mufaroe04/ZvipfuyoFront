@@ -28,7 +28,7 @@ export const useHerdForm = () => {
   // Load existing data if in Edit Mode
   useEffect(() => {
     if (id) {
-      const existing = herds?.find((h) => String(h.id) === id);
+      const existing = herds?.results.find((h) => String(h.uuid) === id);
       if (existing) {
         setFormState({
           name: existing.name || '',
@@ -60,7 +60,7 @@ export const useHerdForm = () => {
       setIsSubmitting(true);
       if (id) {
         // Update Logic
-        await dispatch(updateHerd({ id: Number(id), data: formState })).unwrap();
+        await dispatch(updateHerd({ id: id, data: formState })).unwrap();
       } else {
         // Create Logic
         await dispatch(createHerd(formState)).unwrap();

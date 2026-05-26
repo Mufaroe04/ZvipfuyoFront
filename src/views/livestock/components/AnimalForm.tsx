@@ -4,7 +4,7 @@ import {
   Box, TextField, MenuItem, Button, Typography, Stack, Alert, Divider, 
   CircularProgress
 } from '@mui/material';
-import { ANIMALSTATUS, BREED_CHOICES } from '../../../constants/livestock';
+import { ANIMALSTATUS, BREED_CHOICES, REPRO_STATUS_OPTIONS } from '../../../constants/livestock';
 import { AsyncAnimalSelect } from '../../../components/search/AsyncAnimalSelect';
 
 interface FormProps {
@@ -41,13 +41,43 @@ export const AnimalForm: React.FC<FormProps> = ({
       )}
 
       <TextField
-        select fullWidth label="Assigned Herd" name="herd"
-        value={formData.herd} onChange={onChange} required disabled={!!herdId}
+        select
+        fullWidth
+        label="Assigned Herd"
+        name="herd"
+        value={formData.herd || ''} // Handle initial state safely
+        onChange={onChange}
+        required
+        disabled={!!herdId} // Keeps it locked if created from a specific herd view
+        sx={{
+          '& .Mui-disabled': {
+            WebkitTextFillColor: '#374151', // Keeps text readable when disabled
+          }
+        }}
       >
         {herdId ? (
-          <MenuItem value={Number(herdId)}>Current Herd (ID: {formData.herd})</MenuItem>
+          (() => {
+            // Find the matched herd by checking both possible parameter bounds safely
+            const matchedHerd = herds.find(
+              (h) => Number(h.id) === Number(formData.herd) || String(h.uuid) === herdId
+            );
+            return (
+              <MenuItem value={formData.herd}>
+                {matchedHerd ? matchedHerd.name : `Current Herd (ID: ${formData.herd})`}
+              </MenuItem>
+            );
+          })()
+        ) : herds && herds.length > 0 ? (
+          herds.map((h) => (
+            <MenuItem key={h.id} value={Number(h.id)}>
+              {h.name}
+            </MenuItem>
+          ))
         ) : (
-          herds.map((h) => <MenuItem key={h.id} value={h.id}>{h.name}</MenuItem>)
+          // Fallback item if herds array has not finished resolving from store
+          <MenuItem value={formData.herd} disabled>
+            Loading Associated Herds...
+          </MenuItem>
         )}
       </TextField>
 
@@ -86,7 +116,11 @@ export const AnimalForm: React.FC<FormProps> = ({
           <MenuItem key={opt.value} value={opt.value}>{opt.label}</MenuItem>
         ))}
       </TextField>
-
+      <TextField select fullWidth label="Reproduction Status" name="reproductive_status" value={formData.reproductive_status} onChange={onChange}>
+        {REPRO_STATUS_OPTIONS.map((opt) => (
+          <MenuItem key={opt.value} value={opt.value}>{opt.label}</MenuItem>
+        ))}
+      </TextField>
       <Divider sx={{ my: 1 }} />
 
       <Box>
@@ -110,11 +144,6 @@ export const AnimalForm: React.FC<FormProps> = ({
         label="Father (Sire) Tag"
         valueType="tag_number"
       />
-
-{/* <Typography variant="caption" color="error">
-  Debug: Valid: {isFormValid ? "YES" : "NO"} | Submitting: {isSubmitting ? "YES" : "NO"}
-</Typography> */}
-
      <Button 
         variant="contained" 
         type="submit"

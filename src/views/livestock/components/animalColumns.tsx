@@ -56,7 +56,7 @@ return[
               <Button 
                 variant="outlined" 
                 size="small" 
-                onClick={() => handlers.onView(params.id)}
+                onClick={() => handlers.onView(params.row.uuid)}
                 sx={{ 
                   textTransform: 'none', 
                   borderRadius: '6px', 
@@ -79,7 +79,7 @@ return[
                 <>
                   <Tooltip title="Edit Herd">
                     <IconButton 
-                      onClick={() => handlers.onEdit(params.id)} 
+                      onClick={() => handlers.onEdit(params.row.uuid)} 
                       size="small"
                       sx={{ color: "#18774c", p: '6px' }}
                     >
@@ -89,7 +89,7 @@ return[
     
                   <Tooltip title="Delete Herd">
                     <IconButton 
-                      onClick={() => handlers.onDelete(params.id)} 
+                      onClick={() => handlers.onDelete(params.row.uuid)} 
                       size="small"
                       sx={{ color: '#d32f2f', p: '6px' }}
                     >

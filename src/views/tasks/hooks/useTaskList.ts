@@ -51,6 +51,7 @@ import { useEffect, useState, useCallback } from 'react';
 import { useIonToast } from '@ionic/react';
 import { useAppDispatch, useAppSelector } from '../../../redux/hooks';
 import { fetchActiveTasks, toggleTaskOptimistic } from '../../../redux/store/slices/operationsSlice';
+import { Task } from '../../../types/types';
 
 export const useTaskList = () => {
   const dispatch = useAppDispatch();
@@ -76,17 +77,24 @@ export const useTaskList = () => {
     loadTasks(0);
   }, [loadTasks]);
 
-  const handleToggle = async (taskId: number, currentStatus: boolean) => {
-    try {
-      await dispatch(toggleTaskOptimistic({ id: taskId, currentStatus })).unwrap();
-    } catch (error) {
-      present({
-        message: 'Sync failed. Check your connection.',
-        duration: 2000,
-        color: 'danger'
-      });
-    }
-  };
+  // const handleToggle = async (taskId: number, currentStatus: boolean) => {
+  //   try {
+  //     await dispatch(toggleTaskOptimistic({ id: taskId, currentStatus })).unwrap();
+  //   } catch (error) {
+  //     present({
+  //       message: 'Sync failed. Check your connection.',
+  //       duration: 2000,
+  //       color: 'danger'
+  //     });
+  //   }
+  // };
+  const handleToggle = (task: Task) => {
+  dispatch(toggleTaskOptimistic({
+    id: task.id,                  // Passed directly for local slice matching
+    uuid: task.uuid,              // Passed directly for API routing context
+    currentStatus: task.is_completed
+  }));
+};
 
   // Triggers complete reset sequence back to index 0
   const refreshTasks = async () => {

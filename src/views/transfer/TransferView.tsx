@@ -106,7 +106,7 @@ const TransferView: React.FC = () => {
 
   const columns = getTransferColumns(userRole, {
     onDispatch: hook.handleDispatch,
-    onEdit: (id) => history.push(`/operations/edit-transfer/${id}`),
+    onEdit: (uuid) => history.push(`/operations/edit/${uuid}`),
     onDelete: (id) => hook.setDeleteTargetId(id),
   });
 

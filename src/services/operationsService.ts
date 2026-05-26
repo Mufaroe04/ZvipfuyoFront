@@ -140,19 +140,19 @@ export const operationsService = {
   getByUrl: <T>(url: string) => api.get<PaginatedResponse<T>>(url),
 
   // --- Health Records ---
-  getHealthRecords: (params: { animal_id?: number; page?: number } = {}) => 
+  getHealthRecords: (params: { animal_id?: string; page?: number } = {}) => 
     api.get<PaginatedResponse<HealthRecord>>('health/', { params }),
   addHealthRecord: (data: Partial<HealthRecord>) => api.post<HealthRecord>('health/', data),
-  updateHealthRecord: (id: number, data: Partial<HealthRecord>) => api.patch<HealthRecord>(`health/${id}/`, data),
-  deleteHealthRecord: (id: number) => api.delete(`health/${id}/`),
-  getAnimalHealthHistory: (animalId: number) => 
+  updateHealthRecord: (id: string, data: Partial<HealthRecord>) => api.patch<HealthRecord>(`health/${id}/`, data),
+  deleteHealthRecord: (id: string) => api.delete(`health/${id}/`),
+  getAnimalHealthHistory: (animalId: string) => 
     api.get<HealthRecord[]>(`health/`, { params: { animal_id: animalId } }),
 
   // --- Tasks ---
   getTasks: (params: { completed?: boolean; page?: number } = {}) => 
     api.get<PaginatedResponse<Task>>('tasks/', { params }),
-  toggleTask: (id: number, status: boolean) => api.patch<Task>(`tasks/${id}/`, { is_completed: status }),
-  deleteTask: (id: number) => api.delete(`tasks/${id}/`),
+  toggleTask: (id: string, status: boolean) => api.patch<Task>(`tasks/${id}/`, { is_completed: status }),
+  deleteTask: (id: string) => api.delete(`tasks/${id}/`),
 
   // --- Counting ---
   getCountingSessions: (params: { page?: number } = {}) => 
@@ -166,38 +166,38 @@ export const operationsService = {
   dispatchTransfer: (id: number) => api.post<{ status: string }>(`transfers/${id}/dispatch_transfer/`),
 
   // --- Weight Tracking ---
-  getWeightEntries: (params: { animal_id?: number; page?: number } = {}) => 
+  getWeightEntries: (params: { animal_id?: string; page?: number } = {}) => 
     api.get<PaginatedResponse<WeightEntry>>('weights/', { params }),
   addWeightEntry: (data: { animal: number; weight_kg: number; date: string; condition_score?: number }) => 
     api.post<WeightEntry>('weights/', data),
-  updateWeight: (id: number, data: Partial<WeightEntry>) => api.patch<WeightEntry>(`weights/${id}/`, data),
+  updateWeight: (id: string, data: Partial<WeightEntry>) => api.patch<WeightEntry>(`weights/${id}/`, data),
 
   // --- MilkYield Tracking ---
   getMilkYield: (params: { page?: number } = {}) => 
     api.get<PaginatedResponse<MilkYield>>('milk-yields/', { params }),
   addMilkYield: (data: MilkYieldPayload) => api.post<MilkYield>('milk-yields/', data),
-  updateMilkYield: (id: number, data: Partial<MilkYield>) => api.patch<MilkYield>(`milk-yields/${id}/`, data),
-  deleteMilkYield: (id: number) => api.delete(`milk-yields/${id}/`),
+  updateMilkYield: (id: string, data: Partial<MilkYield>) => api.patch<MilkYield>(`milk-yields/${id}/`, data),
+  deleteMilkYield: (id: string) => api.delete(`milk-yields/${id}/`),
 
   // --- MilkQuality Tracking ---
   getMilkQuality: (params: { page?: number } = {}) => 
     api.get<PaginatedResponse<MilkQuality>>('milk-quality/', { params }),
   addMilkQuality: (data: Partial<MilkQuality>) => api.post<MilkQuality>('milk-quality/', data),
-  updateMilkQuality: (id: number, data: Partial<MilkQuality>) => api.patch<MilkQuality>(`milk-quality/${id}/`, data),
-  deleteMilkQuality: (id: number) => api.delete(`milk-quality/${id}/`),
+  updateMilkQuality: (id: string, data: Partial<MilkQuality>) => api.patch<MilkQuality>(`milk-quality/${id}/`, data),
+  deleteMilkQuality: (id: string) => api.delete(`milk-quality/${id}/`),
 
   // --- LactationPeriod Tracking ---
   getLactationPeriod: (params: { page?: number } = {}) => 
     api.get<PaginatedResponse<LactationPeriod>>('lactations/', { params }),
   addLactationPeriod: (data: Partial<LactationPeriod>) => api.post<LactationPeriod>('lactations/', data),
-  updateLactationPeriod: (id: number, data: Partial<LactationPeriod>) => api.patch<LactationPeriod>(`lactations/${id}/`, data),
-  updateLactationPeriodDryOff: (id: number) => api.post<LactationPeriod>(`lactations/${id}/dry_off/`),
-  deleteLactationPeriod: (id: number) => api.delete(`lactations/${id}/`),
+  updateLactationPeriod: (id: string, data: Partial<LactationPeriod>) => api.patch<LactationPeriod>(`lactations/${id}/`, data),
+  updateLactationPeriodDryOff: (id: string) => api.post<LactationPeriod>(`lactations/${id}/dry_off/`),
+  deleteLactationPeriod: (id: string) => api.delete(`lactations/${id}/`),
 
   // --- Market Prices ---
   getMarketPrices: (params: { page?: number } = {}) => 
     api.get<PaginatedResponse<MarketPrice>>('market-prices/', { params }),
-  updateMarketPrice: (id: number, price: number) => 
+  updateMarketPrice: (id: string, price: number) => 
     api.patch<MarketPrice>(`market-prices/${id}/`, { price_per_kg: price }),
   addMarketPrice: (data: Partial<MarketPrice>) => api.post<MarketPrice>('market-prices/', data),
 };

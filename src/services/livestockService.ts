@@ -44,25 +44,25 @@ export const livestockService = {
   getDashboardStats: () => api.get<DashboardData>('dashboard-stats/'),
   getHerds: (params: { page?: number ,pageSize?:number } = {}) => api.get<PaginatedResponse<Herd>>('herds/',{params}),
   // ADD THIS LINE: Fetch a specific herd with its nested animals
-  getHerdDetail: (id: number) => 
-    api.get<HerdDetail>(`herds/${id}/`),
+  getHerdDetail: (uuid: string) => 
+    api.get<HerdDetail>(`herds/${uuid}/`),
   createHerd :async( heardData :HerdPayload) :Promise<Herd>=>api.post('herds/',heardData),
-  updateHerd: (id: number, data: HerdPayload) => api.patch<Herd>(`herds/${id}/`, data),
-  deleteHerd: (id: number) => api.delete(`herds/${id}/`),
+  updateHerd: (id: string, data: HerdPayload) => api.patch<Herd>(`herds/${id}/`, data),
+  deleteHerd: (id: string) => api.delete(`herds/${id}/`),
   getAnimals: (params: { page?: number, animal_id?: number, search?: string } = {}) => 
       api.get<PaginatedResponse<Animal>>('animals/', { params }),
  // Inside your livestockService implementation file
-getAnimalById: async (id: number): Promise<Animal> => {
-  const response = await api.get<Animal>(`animals/${id}/`);
+getAnimalById: async (uuid: string): Promise<Animal> => {
+  const response = await api.get<Animal>(`animals/${uuid}/`);
   return response.data; // Directly extract and return the inner data payload
 },
 
-  getAnimalDetail: (id: number) => api.get<Animal>(`animals/${id}/`),
+  getAnimalDetail: (id: string) => api.get<Animal>(`animals/${id}/`),
   // Animal CRUD
   // createAnimal: async (data: AnimalPayload):Promise<Animal> => api.post('animals/', data),
   createAnimal: (data: AnimalPayload) => api.post<Animal>('animals/', data),
-  updateAnimal: (id: number, data: any) => api.patch<Animal>(`animals/${id}/`, data),
-  deleteAnimal: (id: number) => api.delete(`animals/${id}/`),
+  updateAnimal: (id: string, data: any) => api.patch<Animal>(`animals/${id}/`, data),
+  deleteAnimal: (id: string) => api.delete(`animals/${id}/`),
   getReproductiveReport: () => api.get('animals/reproductive_report/'),
   getUpcomingCalvings: () => api.get<PaginatedResponse<BreedingEvent[]>>('reproduction/upcoming_calvings/'),
   

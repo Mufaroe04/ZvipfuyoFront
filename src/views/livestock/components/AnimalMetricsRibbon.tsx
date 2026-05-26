@@ -10,7 +10,7 @@ export const AnimalMetricsRibbon = ({ animal }: { animal: any }) => {
     { label: 'WEIGHT', value: `${animal.latest_weight} kg`, icon: scaleOutline, color: '#3880ff' },
     { label: 'AGE', value: animal.age, icon: calendarOutline, color: '#7044ff' },
     { label: 'BREEDING', value: animal.status === 'deceased' ? 'N/A' : (animal.reproductive_status || 'N/A'), icon: heartOutline, color: '#ff4961' },
-    { label: 'HERD', value: animal.herd, icon: leafOutline, color: '#2dd36f' },
+    { label: 'HERD', value: animal.herd_name, icon: leafOutline, color: '#2dd36f' },
   ];
 
   return (

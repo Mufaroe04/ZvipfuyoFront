@@ -42,9 +42,9 @@ export const getHealthColumns = ( role: UserRole | null | undefined,
 
           {isPrivileged && (
             <>
-              <Tooltip title="Edit Herd">
+              <Tooltip title="Edit Record">
                 <IconButton 
-                  onClick={() => handlers.onEdit(params.id)} 
+                  onClick={() => handlers.onEdit(params.row.uuid)} 
                   size="small"
                   sx={{ color: "#18774c", p: '6px' }}
                 >
@@ -52,9 +52,9 @@ export const getHealthColumns = ( role: UserRole | null | undefined,
                 </IconButton>
               </Tooltip>
 
-              <Tooltip title="Delete Herd">
+              <Tooltip title="Delete Record">
                 <IconButton 
-                  onClick={() => handlers.onDelete(params.id)} 
+                  onClick={() => handlers.onDelete(params.row.uuid)} 
                   size="small"
                   sx={{ color: '#d32f2f', p: '6px' }}
                 >

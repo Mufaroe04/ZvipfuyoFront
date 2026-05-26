@@ -100,7 +100,7 @@ export const getTransferColumns = (
           {isPrivileged && (
             <>
               <Tooltip title="Edit Manifest">
-                <IconButton onClick={() => handlers.onEdit(params.row.id)} size="small" sx={{ color: '#18774c' }}>
+                <IconButton onClick={() => handlers.onEdit(params.row.uuid)} size="small" sx={{ color: '#18774c' }}>
                   <IonIcon icon={pencilOutline} style={{ fontSize: '18px' }} />
                 </IconButton>
               </Tooltip>

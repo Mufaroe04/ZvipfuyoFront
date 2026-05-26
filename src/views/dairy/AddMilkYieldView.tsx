@@ -52,7 +52,7 @@ import { useMilkYield } from './hooks/useMilkYield';
 import { MilkYieldForm } from './components/MilkYieldForm';
 
 const AddMilkYieldView: React.FC = () => {
-  const { formData, setFormData, loading, submitForm,history } = useMilkYield();
+  const { formData, setFormData, loading, handleSubmit,history } = useMilkYield();
 
   return (
     <IonPage>
@@ -66,7 +66,7 @@ const AddMilkYieldView: React.FC = () => {
       </IonHeader>
       <IonContent fullscreen className="ion-padding">
         <Container maxWidth="sm">
-          <MilkYieldForm data={formData}  loading={loading} onChange={setFormData} onSubmit={(e) => { e.preventDefault(); submitForm(); }} />
+          <MilkYieldForm data={formData}  loading={loading} onChange={setFormData} onSubmit={(e) => { e.preventDefault(); handleSubmit(e); }} />
         </Container>
       </IonContent>
     </IonPage>

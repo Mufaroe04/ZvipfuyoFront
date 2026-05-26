@@ -126,7 +126,7 @@ const AnimalContainer: React.FC = () => {
           </Stack>
           <Typography color="text.secondary" variant="body1">{selectedAnimal.breed} • {selectedAnimal.gender}</Typography>
         </Box>
-        <Button variant="contained" onClick={() => history.push(`/animal/edit/${id}`)} sx={{ borderRadius: '8px', textTransform: 'none', fontWeight: 'bold' }}>
+        <Button variant="contained" onClick={() => history.push(`/animal/edit/${id}`)} sx={{ borderRadius: '4px', textTransform: 'none', fontWeight: 'bold' }}>
           Edit Profile
         </Button>
       </Box>

@@ -11,7 +11,7 @@ export const useAnimalView=()=>{
       const { selectedAnimal, loading } = useAppSelector((state) => state.livestock);
     
       useEffect(() => {
-        if (id) dispatch(fetchFullAnimalProfile(Number(id)));
+        if (id) dispatch(fetchFullAnimalProfile(id));
       }, [id, dispatch]);
 
     return{

@@ -10,10 +10,10 @@ import { AnimalForm } from './components/AnimalForm';
 
 const EditAnimalView: React.FC = () => {
   const {
-    formData, herds, potentialMothers, loading,
-     fetching, isEditMode,potentialFathers,isSubmitting,
+    formData, herds, loading,handleCustomTagChange,
+     fetching, isEditMode,isSubmitting,
     toastMsg, setToastMsg, herdId, handleChange,goBack,isFormValid,
-     handleMotherChange, handleSubmit,handleFatherChange,
+      handleSubmit,
 
   } = useAnimalForm();
 
@@ -33,27 +33,24 @@ const EditAnimalView: React.FC = () => {
           {fetching ? (
             <Box display="flex" justifyContent="center" py={10}><CircularProgress /></Box>
           ) : (
-            <Paper elevation={0} sx={{ p: 3, borderRadius: '16px', border: '1px solid #e0e0e0' }}>
-            <AnimalForm 
+            <Paper elevation={0} sx={{ p: 3, borderRadius: '4px', border: '1px solid #e0e0e0' }}>
+            <AnimalForm
               formData={formData}
-              herds={herds}
-              potentialMothers={potentialMothers}
-              potentialFathers={potentialFathers}
+              herds={herds.results}
               herdId={herdId}
-              onChange={handleChange}
-              onMotherChange={handleMotherChange}
-              onFatherChange={handleFatherChange}
-              onSubmit={handleSubmit}
               isEditMode={isEditMode}
-              isFormValid={isFormValid}
               isSubmitting={isSubmitting}
+              isFormValid={isFormValid}
+              onChange={handleChange}
+              onTagChange={handleCustomTagChange} // Ensure this maps to handleCustomTagChange from useAnimalForm
+              onSubmit={handleSubmit}
               goBack={goBack}
             />
             </Paper>
           )}
         </Box>
 
-        <IonLoading isOpen={loading} message="Updating record..." />
+        {/* <IonLoading isOpen={loading} message="Updating record..." /> */}
         <IonToast 
           isOpen={!!toastMsg} 
           message={toastMsg} 
