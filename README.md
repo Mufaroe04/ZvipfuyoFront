@@ -4,7 +4,17 @@
 
 I designed and built the whole system myself — frontend, backend, data model and AI integration — without AI coding tools.
 
-> **Screenshots / demo:** _add 3–4 screenshots here (dashboard, animal detail, dairy chart, insights) and a link to the live demo._
+## Screenshots
+
+![Dashboard with AI briefing, live weather, dairy and financial summary](docs/screenshots/dashboard.png)
+
+| | |
+|---|---|
+| ![AI-generated farm insights](docs/screenshots/ai-insights.png) **AI insights** — Gemini turns herd, dairy, inventory and weather data into a daily briefing | ![Animal profile with growth chart](docs/screenshots/animal-profile.png) **Animal profile** — lineage, weight, breeding status and growth history |
+| ![Dairy yield trends](docs/screenshots/dairy.png) **Dairy** — yield trends by breed, plus quality and lactation tracking | ![Beef growth trend](docs/screenshots/beef.png) **Beef** — herd growth trends and market price configuration |
+| ![Sales and finance](docs/screenshots/finance.png) **Finance** — income, expenses and multi-currency (USD / ZiG) reporting | ![Herd list](docs/screenshots/herds.png) **Herds** — herd composition across farms at a glance |
+
+_Screens shown with simulated demo data._
 
 **Repositories**
 - Frontend (this repo): React + Ionic + TypeScript
