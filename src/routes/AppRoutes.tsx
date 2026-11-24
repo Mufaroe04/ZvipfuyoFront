@@ -1,13 +1,13 @@
 import React from 'react';
-import { Route, Redirect } from 'react-router-dom';
+import { Route, Redirect, Switch } from 'react-router-dom';
 import { IonRouterOutlet } from '@ionic/react';
 import { Box } from '@mui/material';
 import { UserRole } from '../types/types';
 import { LoadingSpinner } from '../components/feedback/LoadingSpinner';
 
 // Pages
-import Login from '../pages/authentication/Login';
-import Profile from '../pages/Profile';
+import Login from '../views/authentication/Login';
+// import Profile from '../pages/Profile';
 import NotificationsView from '../views/notifications/NotificationsView';
 import Chat from '../views/chat/Chat';
 import InsightsPage from '../views/insights/InsightsPage';
@@ -49,7 +49,6 @@ import EditBreedingEventView from '../views/reproduction/EditBreedingEventView';
 import AddWeightView from '../views/weight/AddWeightView';
 import EditWeightView from '../views/weight/EditWeightView';
 import EditTaskView from '../views/tasks/EditTaskView';
-import AddEditTransferView from '../views/transfer/AddEditTransferView';
 import AddTransferView from '../views/transfer/AddTransferView';
 import EditTransferView from '../views/transfer/EditTransferView';
 
@@ -76,6 +75,8 @@ export const AppRoutes: React.FC<AppRoutesProps> = ({
   return (
     <IonRouterOutlet id="main-content">
       {/* Fundamental Public Base Handling */}
+      <Switch>
+
       <Route exact path="/">
         <Redirect to="/dashboard" />
       </Route>
@@ -142,6 +143,8 @@ export const AppRoutes: React.FC<AppRoutesProps> = ({
       <RoleProtectedRoute exact path="/staff" component={StaffView} allowedRoles={['owner']} userRole={userRole} isAuthenticated={isAuthenticated} />
 
       <Route render={() => <Redirect to="/login" />} />
+      </Switch>
+
     </IonRouterOutlet>
   );
 };

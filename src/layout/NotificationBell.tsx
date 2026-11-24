@@ -7,7 +7,7 @@ import { RootState } from '../redux/store';
 import { Box } from '@mui/material';
 
 const NotificationBell: React.FC = () => {
-  const unreadCount = useSelector((state: RootState) => state.notifications.unreadCount);
+  const unreadCount = useSelector((state: RootState) =>  state.notifications?.items?.unread_count ?? 0);
   const history = useHistory();
 
   return (

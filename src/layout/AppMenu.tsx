@@ -24,7 +24,7 @@ interface AppMenuProps {
 export const AppMenu: React.FC<AppMenuProps> = ({ userRole }) => {
   const dispatch = useDispatch<AppDispatch>();
   const history = useHistory();
-  const unreadCount = useSelector((state: RootState) => state.notifications.unreadCount);
+  const unreadCount = useSelector((state: RootState) =>  state.notifications?.items?.unread_count ?? 0);
 
   const handleLogout = () => {
     dispatch(logout());

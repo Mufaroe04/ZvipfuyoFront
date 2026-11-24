@@ -5,7 +5,7 @@ import {
   Container
 } from '@mui/material';
 import { Person, Lock, Visibility, VisibilityOff, Grass } from '@mui/icons-material';
-import { LoginCredentials } from '../types/types';
+import { LoginCredentials } from '../../types/types';
 
 interface LoginComponentProps {
   onLogin: (credentials: LoginCredentials) => void;
@@ -66,7 +66,7 @@ const LoginComponent: React.FC<LoginComponentProps> = ({ onLogin, loading, error
           }}
         >
           <form onSubmit={handleSubmit}>
-            <Typography variant="h6" sx={{ mb: 3, fontWeight: 700, color: '#333' }}>
+            <Typography variant="body1" sx={{ mb: 3, fontWeight: 700, color: '#333' }}>
               Sign In
             </Typography>
 
@@ -141,7 +141,7 @@ const LoginComponent: React.FC<LoginComponentProps> = ({ onLogin, loading, error
         </Paper>
 
         <Typography variant="body2" sx={{ mt: 4, color: '#adb5bd' }}>
-          &copy; 2026 Zvipfuyo Innovations. All rights reserved.
+          &copy; 2026 Zvipfuyo By SaMaware Systems. All rights reserved.
         </Typography>
       </Box>
     </Container>

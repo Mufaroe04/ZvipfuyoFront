@@ -117,7 +117,7 @@ import { useHistory } from 'react-router-dom';
 import { AppDispatch, RootState } from '../../redux/store';
 import { loginUser } from '../../redux/store/slices/authSlice';
 import { LoginCredentials } from '../../types/types';
-import LoginComponent from '../../components/LoginComponent';
+import LoginComponent from './LoginComponent';
 import { Box } from '@mui/material';
 
 const LoginPage: React.FC = () => {

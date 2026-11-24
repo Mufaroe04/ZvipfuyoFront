@@ -7,7 +7,7 @@ interface InsightsState {
   insights_data: ConsoleDataProps | null;
   loading_insights: boolean;
   error: string | null;
-  lastFetched: number | null; // Timestamp for caching logic
+  lastFetched: number | null; 
 }
 
 const initialState: InsightsState = {

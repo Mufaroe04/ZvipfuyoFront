@@ -175,26 +175,6 @@ export const useBeefOperations = () => {
   fetchAnalytics();
 }, [selectedBreed]);
 
-  // // Tab 0: Growth Velocity Data
-  // const growthSeries = useMemo(() => {
-  //   const dailyStats = weights.results.reduce((acc: any, curr) => {
-  //     if (selectedBreed !== 'All' && curr.breed !== selectedBreed) return acc;
-  //     const date = curr.date;
-  //     if (!acc[date]) acc[date] = { total: 0, count: 0 };
-  //     acc[date].total += curr.adg || 0;
-  //     acc[date].count += 1;
-  //     return acc;
-  //   }, {});
-
-  //   const sortedDates = Object.keys(dailyStats).sort((a, b) => new Date(a).getTime() - new Date(b).getTime());
-  //   return [{
-  //     name: `${selectedBreed === 'All' ? 'Herd' : getBreedLabel(selectedBreed)} ADG`,
-  //     data: sortedDates.map(d => ({ 
-  //       x: new Date(d).getTime(), 
-  //       y: Number((dailyStats[d].total / dailyStats[d].count).toFixed(2)) 
-  //     }))
-  //   }];
-  // }, [weights.results, selectedBreed]);
   const growthSeries = useMemo(() => {
     if (!analyticsData || analyticsData.length === 0) return [{ name: 'ADG', data: [] }];
 

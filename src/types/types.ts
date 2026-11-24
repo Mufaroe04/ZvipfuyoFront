@@ -561,3 +561,13 @@ export interface PaginatedResponse<T> {
   };
   unread_count?:number;
 }
+
+export interface ChartDataPoint {
+  x: string;
+  y: number;
+}
+
+ export interface FinanceChartData {
+  revenue_timeline: ChartDataPoint[];
+  expenses_timeline: ChartDataPoint[];
+}

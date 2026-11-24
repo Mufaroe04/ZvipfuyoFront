@@ -20,17 +20,6 @@ const initialState: SupplierState = {
   error: null,
 };
 
-// export const fetchSuppliers = createAsyncThunk(
-//   'suppliers/fetchAll',
-//   async (_, { rejectWithValue }) => {
-//     try {
-//       const response = await supplierService.getSuppliers();
-//       return response.data;
-//     } catch (err: any) {
-//       return rejectWithValue('Failed to load suppliers');
-//     }
-//   }
-// );
 
 export const fetchSuppliers = createAsyncThunk(
   'suppliers/fetchAll',

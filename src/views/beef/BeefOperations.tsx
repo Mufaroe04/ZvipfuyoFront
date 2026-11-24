@@ -1,30 +1,3 @@
-// import React from 'react';
-// import { 
-//   IonContent, IonHeader, IonPage, IonTitle, IonToolbar, 
-//   IonButtons, IonMenuButton 
-// } from '@ionic/react';
-// import BeefTabContent from './components/BeefTabContent';
-
-// const BeefOperations: React.FC = () => {
-
-//   return (
-//     <IonPage>
-//       <IonHeader className="ion-no-border">
-//         <IonToolbar style={{ '--background': '#ffffff' }}>
-//           <IonButtons slot="start"><IonMenuButton /></IonButtons>
-//           <IonTitle style={{ fontWeight: 900 }}>Beef Operations</IonTitle>
-//         </IonToolbar>
-//       </IonHeader>
-
-//       <IonContent fullscreen style={{ '--background': '#f8faf9' }}>
-//       <BeefTabContent/>
-//       </IonContent>
-//     </IonPage>
-//   );
-// };
-
-// export default BeefOperations;
-
 import React from 'react';
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonButtons, IonMenuButton } from '@ionic/react';
 import { Container, Stack, Paper, Tab, Tabs,} from '@mui/material';
